@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/sea.js"></script>
+    <script type="text/javascript">
+        seajs.use("controls/umeditor", function(editor){
+            editor.getEditor("editor1");
+            editor.getEditor("editor2").setContent("黄牙");
+        });
+    </script>
+    <style type="text/css">
+        .editor {
+            height: 200px;
+            width: 600px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="editor" id="editor1"></div>
+    <div class="editor" id="editor2"></div>
+</body>
+</html>
