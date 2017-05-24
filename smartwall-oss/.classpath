@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/com/aliyun/oss/aliyun-sdk-oss/2.5.0/aliyun-sdk-oss-2.5.0.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/nutz/nutz/1.0.61/nutz-1.0.61.jar"/>
+	<classpathentry kind="lib" path="E:/Workspace1/jorlib/servlet-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
