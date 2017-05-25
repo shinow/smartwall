@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <groupId>link.smartwall</groupId>
+    <artifactId>sfa</artifactId>
+    <version>1.0.0</version>
+	<packaging>war</packaging>
+	<name>sfa</name>
+	<url>http://www.smartwall.link</url>
+	
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+	<dependencies>
+		<dependency>
+    		<groupId>link.smartwall</groupId>
+    		<artifactId>smartwall-oss</artifactId>
+    		<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+    <pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>      
+      				<enabled> false</enabled>      
+    			</snapshots>
+		</pluginRepository>
+    </pluginRepositories>
+    <repositories>
+        <repository>
+            <id>jcca repo</id>
+            <name>jcca repo</name>
+            <url>http://115.29.167.216:8081/nexus/content/groups/jcca/</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>Releases</id>
+            <name>Internal Releases</name>
+            <url>http://115.29.167.216:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>Snapshots</id>
+            <name>Internal Snapshots</name>
+            <url>http://115.29.167.216:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+	<build>
+		<finalName>sfa</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.4.3.v20110701</version>
+				<configuration>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8787</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+					<webAppConfig>
+						<contextPath>/sfa</contextPath>
+						<defaultsDescriptor>src/main/resources/jetty/webdefault.xml
+						</defaultsDescriptor>
+					</webAppConfig>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>sfa.home</name>
+                            <value>d:\xsb</value>
+                        </systemProperty>
+                    </systemProperties>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
