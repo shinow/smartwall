@@ -2,12 +2,17 @@ package link.smartwall.web.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.nutz.mvc.View;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
+import link.smartwall.oss.OssUploader;
 import link.smartwall.oss.mvc.OssView;
 
 /**
@@ -137,6 +142,26 @@ public class OssController {
         view.setAttachFileName(this.getExtractFileName(key));
 
         return view;
+    }
+
+    /**
+     * 资源上传
+     *
+     * @param request request
+     * @param response response
+     * @throws Exception e
+     */
+    @At("/oss/image/common")
+    @Ok("json")
+    public String attachmentUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        String key = UUID.randomUUID().toString().replace("-", "") + ".jpg";
+
+        OssUploader.uploadImage(0, key, request.getInputStream());
+
+        return key;
     }
 
     // /**
