@@ -9,7 +9,7 @@
 		<filter-class>org.nutz.mvc.NutFilter</filter-class>
 		<init-param>
 			<param-name>modules</param-name>
-			<param-value>com.itfsm.controller.CmsModule</param-value>
+			<param-value>link.smartwall.web.controller.CmsModule</param-value>
 		</init-param>
 		<init-param>
 			<param-name>ignore</param-name>
