@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,6 +24,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
+
+import link.smartwall.oss.OssUploader;
 
 /**
  * UEditor文件上传辅助类
@@ -96,14 +99,19 @@ public class Uploader {
                     }
                     this.fileName = this.getName(this.originalName);
                     this.type = this.getFileExt(this.fileName);
-                    this.url = savePath + "/" + this.fileName;
+
                     BufferedInputStream in = new BufferedInputStream(fis.openStream());
-                    File file = new File(this.getPhysicalPath(this.url));
-                    FileOutputStream out = new FileOutputStream(file);
-                    BufferedOutputStream output = new BufferedOutputStream(out);
-                    Streams.copy(in, output, true);
+                    this.size = in.available();
+
+                    OssUploader.uploadImage(0, "ue/" + this.fileName, in);
+
+                    this.url = "oss/res.mvc?key=0/ue/" + this.fileName;
+                    // BufferedInputStream in = new BufferedInputStream(fis.openStream());
+                    // File file = new File(this.getPhysicalPath(this.url));
+                    // FileOutputStream out = new FileOutputStream(file);
+                    // BufferedOutputStream output = new BufferedOutputStream(out);
+                    // Streams.copy(in, output, true);
                     this.state = this.errorInfo.get("SUCCESS");
-                    this.size = file.length();
                     // UE中只会处理单张上传，完成后即退出
                     break;
                 } else {
@@ -129,6 +137,7 @@ public class Uploader {
         } catch (FileUploadException e) {
             this.state = this.errorInfo.get("REQUEST");
         } catch (Exception e) {
+            e.printStackTrace();
             this.state = this.errorInfo.get("UNKNOWN");
         }
     }
@@ -165,8 +174,9 @@ public class Uploader {
      * @return
      */
     private String getName(String fileName) {
-        Random random = new Random();
-        return this.fileName = "" + random.nextInt(10000) + System.currentTimeMillis() + this.getFileExt(fileName);
+        String key = UUID.randomUUID().toString().replace("-", "");
+
+        return this.fileName = key + this.getFileExt(fileName);
     }
 
     /**
