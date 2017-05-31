@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="../js/sea.js"></script>
     <script type="text/javascript">
-        seajs.use("controls/umeditor", function(editor){
+        seajs.use([ "controls/umeditor", "controls/image_uploader"], function(editor){
             editor.getEditor("editor1");
-            editor.getEditor("editor2").setContent("黄牙");
+
+            iu = new ImageUploader();
+            iu.init({
+                container: "pic"
+            });
         });
     </script>
     <style type="text/css">
@@ -19,6 +23,6 @@
 </head>
 <body>
     <div class="editor" id="editor1"></div>
-    <div class="editor" id="editor2"></div>
+    <div id="pic" style="width:100px;height:100px"></div>
 </body>
 </html>

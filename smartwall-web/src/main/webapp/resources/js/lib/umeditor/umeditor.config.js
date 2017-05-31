@@ -23,6 +23,7 @@ etpl.config({
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UMEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
+    window.UMEDITOR_HOME_URL = CONTEXT + 'resources/js/lib/umeditor/';
     var URL = window.UMEDITOR_HOME_URL || (function(){
 
         function PathStack() {
@@ -129,6 +130,7 @@ etpl.config({
 
 
     })();
+    alert(URL);
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
