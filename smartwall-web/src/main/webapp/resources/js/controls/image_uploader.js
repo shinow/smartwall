@@ -1,6 +1,7 @@
 define(function(require, exports) {
     require("lib/webuploader/webuploader");
     require("lib/webuploader/webuploader.css");
+    require("controls/css/image_uploader.css");
     var utils = require("utils/utils");
     // // 优化retina, 在retina下这个值是2
     // var ratio = window.devicePixelRatio || 1;
@@ -25,7 +26,7 @@ define(function(require, exports) {
         var handerDom = $('<div class="itek-img-uploader"></div>');
 
         var imgPicker = $('<div class="itek-img-picker"/>').appendTo(handerDom);
-        var imgShower = $('<div class="itek-img-shower"><img class="itek-img-ctl" style="width:100%;height:100%"/><a class="itek-img-toolbar"><span class="itek-img-del l-icon l-icon-delete" title="删除图片"/></a>').appendTo(handerDom);
+        var imgShower = $('<div class="itek-img-shower"><img class="itek-img-ctl" style="width:100%;height:100%"/><a class="itek-img-toolbar"><span class="itek-img-del" title="删除图片"/></a>').appendTo(handerDom);
         imgShower.find(".itek-img-del").click(function() {
             var shower = handerDom.find(".itek-img-shower");
             var id = shower.attr("file-id");
