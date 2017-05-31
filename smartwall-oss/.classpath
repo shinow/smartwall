@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="E:/Code/javalib/com/aliyun/oss/aliyun-sdk-oss/2.5.0/aliyun-sdk-oss-2.5.0.jar"/>
 	<classpathentry kind="lib" path="E:/Code/javalib/org/nutz/nutz/1.0.61/nutz-1.0.61.jar"/>
 	<classpathentry kind="lib" path="E:/Workspace1/jorlib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
