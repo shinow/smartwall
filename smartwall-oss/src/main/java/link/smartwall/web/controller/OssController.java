@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.View;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
@@ -27,6 +28,7 @@ import link.smartwall.oss.mvc.OssView;
  *      建立: 2017-01-08 lexloo
  *        </pre>
  */
+@IocBean
 public class OssController {
     /**
      * ContentType Map

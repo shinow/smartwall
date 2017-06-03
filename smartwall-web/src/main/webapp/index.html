@@ -43,7 +43,7 @@
             <ul class="layui-nav larry-header-item">
             		<li class="layui-nav-item first">
 						<a href="javascript:;">
-							<img src="images/userimg.jpg" class="userimg">			
+							<img src="resources/images/userimg.jpg" class="userimg">			
 							<cite>默认站点</cite>
 							<span class="layui-nav-more"></span>
 						</a>
@@ -75,7 +75,7 @@
         <div class="layui-side-scroll" id="larry-nav-side" lay-filter="side">
 		<div class="user-photo">
 			<a class="img" title="我的头像" >
-				<img src="images/user.jpg" class="userimg1"></a>
+				<img src="resources/images/user.jpg" class="userimg1"></a>
 			<p>你好！admin, 欢迎登录</p>
 		</div>
 		<!-- 左侧菜单 -->
@@ -326,7 +326,7 @@
 			</ul>
 			<div class="layui-tab-content" style="min-height: 150px; ">
 				<div class="layui-tab-item layui-show">
-					<iframe class="larry-iframe" data-id='0' src="main.html"></iframe>
+					<!-- <iframe class="larry-iframe" data-id='0' src="main.html"></iframe> -->
 				</div>
 			</div>
 		</div>
@@ -338,7 +338,7 @@
 		<div class="layui-mian">
 		    <div class="larry-footer-left">
 		    	LarryCMS QQ群：
-		    	<a href="https://jq.qq.com/?_wv=1027&k=42fC4vT"><img border="0" src="images/group.png" title="LarryCMS官方交流群"></a>
+		    	<a href="https://jq.qq.com/?_wv=1027&k=42fC4vT"><img border="0" src="resources/images/group.png" title="LarryCMS官方交流群"></a>
 		    	 查看:<a href="http://www.qinshouwei.com" title="">作者信息</a>
 		    </div>
 		    <p class="p-admin">
@@ -350,6 +350,7 @@
 	</div>
 </div>
 <!-- 加载js文件-->
+<script type="text/javascript" src="resources/js/lib/layui/lay/lib/jquery.js"></script> 
 <script type="text/javascript" src="resources/js/lib/layui/layui.js"></script> 
 <script type="text/javascript" src="resources/js/kyapp/larry.js"></script>
 <script type="text/javascript" src="resources/js/kyapp/index.js"></script>
@@ -358,7 +359,7 @@
 	<div id="locker" class="lock-wrapper">
 		<div id="time"></div>
 		<div class="lock-box center">
-			<img src="images/userimg.jpg" alt="">
+			<img src="resources/images/userimg.jpg" alt="">
 			<h1>admin</h1>
 			<duv class="form-group col-lg-12">
 				<input type="password" placeholder='锁屏状态，请输入密码解锁' id="lock_password" class="form-control lock-input" autofocus name="lock_password">

@@ -1,0 +1,28 @@
+var ioc = {  
+    /* 
+     * database pool
+     */  
+    dataSource : {  
+        type : "com.alibaba.druid.pool.DruidDataSource",  
+        fields : {  
+            jdbcUrl 		: "jdbc:oracle:thin:@121.199.44.59:1521:orcl",  
+            username 		: "itfsm5_sfa2",  
+            password 		: "itfsm5_sfa2",
+            driverClassName	: "oracle.jdbc.driver.OracleDriver",
+			initialSize 	: 2,
+			maxActive 		: 2
+        }	
+    },
+	fileSqlManager : {
+		type : "org.nutz.dao.impl.FileSqlManager",
+		args : []
+	},
+    dao : {  
+        type : "org.nutz.dao.impl.NutDao",  
+        args : [ {  
+            refer : "dataSource"  
+        },{
+			refer : "fileSqlManager"
+		} ]  
+    }
+};  

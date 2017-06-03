@@ -8,6 +8,7 @@ import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 
 import com.alibaba.fastjson.JSONObject;
@@ -27,6 +28,7 @@ import link.smartwall.oss.OssUploader;
  *      建立: 2014年9月23日 lexloo
  *        </pre>
  */
+@IocBean
 public class ImageUploaderController {
     /**
      * 公告附件上传

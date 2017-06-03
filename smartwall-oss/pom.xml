@@ -34,6 +34,11 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.31</version>
 		</dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.20</version>
+        </dependency>
 		<dependency>
   			<groupId>commons-fileupload</groupId>
   			<artifactId>commons-fileupload</artifactId>
