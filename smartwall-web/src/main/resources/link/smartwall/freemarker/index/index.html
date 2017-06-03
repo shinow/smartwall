@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+  	<meta http-equiv="pragma" content="no-cache" />
+  	<title>SFA</title>
+    <link rel="stylesheet" type="text/css" href="${context}/resources/js/lib/leaflet/css/font-awesome.css">
+    <script type="text/javascript" src="${context}/resources/js/sea.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        seajs.use("kyapp/main");
+    </script>
+</head>
+<body>
+<nav class="nav-highest"></nav>
+<div class="itekui-layout-right">
+	<div class="itekui-layout-header">
+		<div class="itekui-logo"></div>
+		<div class="itekui-btn">
+			<a href="javascript:;" class="itekui-icon icon-notice notice"></a>
+			<a href="javascript:;" class="itekui-icon icon-email email"></a>
+			<span id = "user"></span>
+			<a href="/sfa/security/logout.mvc" class="itekui-icon icon-quit"></a>
+		</div>
+	</div>
+	<div class="content">
+		<div id="layout" style="width:100%; margin:0 auto;">
+			<div position="left" title="功能菜单" id="accordion"></div>
+			<div position="center" id="framecenter"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

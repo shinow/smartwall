@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="Mobile" version="2.5">
-	<display-name>Mobile</display-name>
+	<display-name>Web</display-name>
 	<filter>
 		<filter-name>nutz</filter-name>
 		<filter-class>org.nutz.mvc.NutFilter</filter-class>
@@ -18,12 +18,12 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>nutz</filter-name>
-		<url-pattern>*.mvc</url-pattern>
+		<url-pattern>*.v</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.v</welcome-file>
 	</welcome-file-list>
 	<!--error-page>
 		<error-code>404</error-code>

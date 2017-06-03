@@ -17,7 +17,7 @@ import org.nutz.mvc.annotation.Ok;
  *        </pre>
  */
 @IocBean
-public class SFAController {
+public class IndexController {
     /**
      * sfa登录页面
      * 
@@ -25,13 +25,6 @@ public class SFAController {
      * @return 页面参数
      */
     @At("/index")
-    @Ok("fm:/sfa/index.html")
-    public void sfaIndex() {}
-  
-  
-    
-    @At("/workflow/draw")
-    @Ok("fm:/sfa/workflow/index.html")
-    public void drawWorkFlow() {}
-    
+    @Ok("fm:/index/index.html")
+    public void sfaIndex() {} 
 }
