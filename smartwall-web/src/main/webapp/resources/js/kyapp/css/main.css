@@ -1,0 +1,165 @@
+body, ul{
+    padding: 0;
+    margin: 0;
+}
+body, html{
+    width: 100%;
+    height: 100%;
+}
+
+.itekui-icon{
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    background-image: url("images/icons.png");
+}
+.nav-highest li{
+    cursor: pointer;
+    padding: 14px 0 5px 0;
+    list-style: none;
+}
+.nav-highest li:hover{
+    color: #01A9DC;
+}
+.nav-highest p{
+    font-size: 14px;
+    line-height: 14px;
+    margin: 10px 0;
+    text-align: center;
+}
+.nav-highest .active{
+    color: #01A9DC;
+    background-color: #131313;
+}
+.icon-daily{
+    background-position: -5px -5px;
+}
+.icon-report{
+    background-position: -30px -5px;
+}
+.icon-mm{
+    background-position: -55px -5px;
+}
+.icon-sfa{
+    background-position: -80px -5px;
+}
+.icon-assist{
+    background-position: -105px -5px;
+}
+.icon-base{
+    background-position: -130px -5px;
+}
+ 
+.itekui-layout-header {
+    position: relative;
+    height: 50px; 
+    padding: 0 15px;
+    border-bottom: 1px solid #DDDDDD;
+}
+.icon-notice{
+    background-position: -155px -5px;
+}
+.icon-email{
+    background-position: -180px -5px;
+}
+.icon-quit{
+    background-position: -205px -5px;
+}
+.itekui-layout-header .itekui-btn{
+    position: absolute;
+    top:0;
+    right:0;
+    padding: 15px;
+}
+.itekui-layout-header .itekui-icon, .header span{
+    margin: 0 10px;
+}
+.itekui-layout-header span{
+    font-size: 16px;
+    color: #656578;
+}
+.itekui-layout-header .itekui-icon{
+    vertical-align: top;
+    display: inline-block;
+}
+.notice, .email{
+    position: relative;
+}
+.notice:after{
+    content: "";
+    right: -2px;
+    top: -2px;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    background-color: #FF2420;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+.email:after{
+    content: "";
+    right: -5px;
+    top: -2px;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    background-color: #056FBD;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+.itekui-logo{
+    width: 160px;
+    height: 50px;
+    background: url("images/logo-iTek-SFA-160px.png") no-repeat;
+}
+.content{
+    flex:1; 
+    overflow: hidden;
+}
+.itekui-layout-right{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#accordion li{
+    border-bottom: none;
+    margin: 5px 15px;
+    color:#5e5e5e;
+}
+#accordion li:hover{
+    border-right: none;
+    background-color: #5fb5ec !important;
+    border-radius: 15px;
+    margin: 5px 15px;
+    color: #fff;
+
+}
+.l-layout-header{
+    display: none;
+}
+.l-accordion-header{
+    border: none;
+    font-size: 14px;
+    padding-left: 25px;
+    height: 39px;
+    line-height: 39px;
+}
+.l-accordion-toggle{
+    width: 15px;
+    height: 15px;
+    top: 12px;
+    right: 12px;
+    background: url("images/icons.png") no-repeat;
+}
+.l-accordion-toggle-close{
+    background-position: -157px -34px;
+}
+.l-accordion-toggle-open{
+    background-position: -187px -34px;
+}
+.l-accordion-header-inner{
+    border: none;
+}
+.l-accordion-header-over{
+    background: #fff;
+}

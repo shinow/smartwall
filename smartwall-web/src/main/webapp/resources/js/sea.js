@@ -3811,34 +3811,31 @@ seajs.config({
 		"css": MODULES_DIR.substring(0, MODULES_DIR.length - 3) + "css"
 	},
 	alias: {
-		// "ligerui": "lib/ligerui/ligerui.all.js",
-		// "itekui-css": "lib/ligerui/skins/Aqua/css/itekui.css",
-		// "ligerui-css": "lib/ligerui/skins/Aqua/css/ligerui-all.css",
-		// "ligerui-css-icons": "lib/ligerui/skins/ligerui-icons.css",
-		// "jquery_cookie": "lib/jquery_cookie/jquery.cookie.1.3.1.js",
-		// "zTreeStyle_css": "lib/ztree/css/zTreeStyle/zTreeStyle.css",
-		// "ztree_all": "lib/ztree/js/jquery.ztree.all-3.5.merge.min.js",
-		// "jquery_validate_all": "lib/jquery_validate/jquery.validate.all.js",
-		// "leaflet": "lib/leaflet/leaflet.all.js",
-		// "leaflet-css": "lib/leaflet/leaflet.css",
-		// "leaflet_markercluster-css": "lib/leaflet/MarkerCluster.Default.css",
-		// "leaflet_fontawesome-css": "lib/leaflet/leaflet.awesome-markers.css",
-		// "fontawesome-css": "lib/leaflet/css/font-awesome.css",
-		// "amazeui-css": "lib/amazeui/css/amazeui.css",
-		// "layui": "lib/layui/lay/dest/layui.all.js",
-		// "layui-css": "lib/layui/css/layui.css",
-		// "notyf": "lib/notyf/notyf.js",
-		// "notyf-css": "lib/notyf/notyf.min.css",
-		// "viewer": "lib/viewer/viewer.min.js",
-		// "viewer-css": "lib/viewer/viewer.min.css"
+		"ligerui": "lib/ligerui/ligerui.all.js",
+		"itekui-css": "lib/ligerui/skins/Aqua/css/itekui.css",
+		"ligerui-css": "lib/ligerui/skins/Aqua/css/ligerui-all.css",
+		"ligerui-css-icons": "lib/ligerui/skins/ligerui-icons.css",
+		"jquery_cookie": "lib/jquery_cookie/jquery.cookie.1.3.1.js",
+		"zTreeStyle_css": "lib/ztree/css/zTreeStyle/zTreeStyle.css",
+		"ztree_all": "lib/ztree/js/jquery.ztree.all-3.5.merge.min.js",
+		"jquery_validate_all": "lib/jquery_validate/jquery.validate.all.js",
+		"leaflet": "lib/leaflet/leaflet.all.js",
+		"leaflet-css": "lib/leaflet/leaflet.css",
+		"leaflet_markercluster-css": "lib/leaflet/MarkerCluster.Default.css",
+		"leaflet_fontawesome-css": "lib/leaflet/leaflet.awesome-markers.css",
+		"fontawesome-css": "lib/leaflet/css/font-awesome.css",
+		"amazeui-css": "lib/amazeui/css/amazeui.css",
+		"layui": "lib/layui/lay/dest/layui.all.js",
+		"layui-css": "lib/layui/css/layui.css",
+		"notyf": "lib/notyf/notyf.js",
+		"notyf-css": "lib/notyf/notyf.min.css",
+		"viewer": "lib/viewer/viewer.min.js",
+		"viewer-css": "lib/viewer/viewer.min.css"
 	},
 	map: [
-		['.css', '.css?v=20170319'],
-		['.js', '.js?v=20170320']
+		['.css', '.css?v=20170619'],
+		['.js', '.js?v=20170620']
 	],
 	charset: 'utf-8',
 	base: MODULES_DIR
 });
-
-/*一些全局对象*/
-Grid = {};
