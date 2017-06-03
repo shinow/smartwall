@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KYGJ</string>
+    <string name="navigation_home">首页</string>
+    <string name="navigation_university">院校</string>
+    <string name="navigation_forum">论坛</string>
+    <string name="navigation_question_bank">题库</string>
+    <string name="navigation_my_option">我的</string>
+</resources>
