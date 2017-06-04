@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import link.smartwall.controls.webview.NvWebViewFragment;
+
 public class DemoFragment extends Fragment {
-    public static DemoFragment newInstance(String info) {
+    public static NvWebViewFragment newInstance(String info) {
         Bundle args = new Bundle();
-        DemoFragment fragment = new DemoFragment();
-        args.putString("info", info);
+        NvWebViewFragment fragment = new NvWebViewFragment();
+        args.putString("url", "http://www.baidu.com");
         fragment.setArguments(args);
 
         return fragment;
