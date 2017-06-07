@@ -15,7 +15,7 @@ public class DemoFragment extends Fragment {
     public static NvWebViewFragment newInstance(String info) {
         Bundle args = new Bundle();
         NvWebViewFragment fragment = new NvWebViewFragment();
-        args.putString("url", "http://www.baidu.com");
+        args.putString("url", "file:///android_asset/exam/test.html");
         fragment.setArguments(args);
 
         return fragment;

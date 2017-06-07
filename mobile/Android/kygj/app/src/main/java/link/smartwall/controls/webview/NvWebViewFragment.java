@@ -12,12 +12,13 @@ import android.view.ViewGroup;
 import link.smartwall.kygj.R;
 
 public class NvWebViewFragment extends Fragment {
-
     private NativeWebView m_webView;
     private String url;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         Bundle bundle = getArguments();
         url = bundle.getString("url");
 //        js = bundle.getString("js");
@@ -31,11 +32,11 @@ public class NvWebViewFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         m_webView = (NativeWebView) view.findViewById(R.id.nativewebview);
+
         init();
     }
 
     private void init() {
-        System.out.println(url);
         m_webView.loadUrl(url);
     }
 
@@ -47,9 +48,11 @@ public class NvWebViewFragment extends Fragment {
 //        }
 //        super.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
     public void onDestroy() {
-//        m_webView.onDestroy();
+        m_webView.onDestroy();
+
         super.onDestroy();
     }
 }

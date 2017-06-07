@@ -8,8 +8,9 @@ import link.smartwall.kygj.R;
 
 public class NvWebViewActivity extends FragmentActivity {
     private NativeWebView m_webView;
-//    private String url;
+    private String url;
 //    private boolean isNative;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
