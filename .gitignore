@@ -2,3 +2,4 @@
 /smartwall-web/.project
 /smartwall-web/.gitignore
 /smartwall-web/.classpath
+/smartwall-web/src/main/resources/ioc/ioc.json
