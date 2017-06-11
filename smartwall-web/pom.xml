@@ -18,6 +18,21 @@
     		<artifactId>smartwall-oss</artifactId>
     		<version>1.0.0</version>
 		</dependency>
+		<dependency>
+    		<groupId>link.smartwall</groupId>
+    		<artifactId>smartwall-grid</artifactId>
+    		<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>common.jdbc</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>14</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.29</version>
+		</dependency>
 	</dependencies>
     <pluginRepositories>
 		<pluginRepository>

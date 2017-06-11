@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/redis/clients/jedis/2.7.2/jedis-2.7.2.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/commons/commons-pool2/2.3/commons-pool2-2.3.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/slf4j/slf4j-api/1.7.11/slf4j-api-1.7.11.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/nutz/nutz/1.0.61/nutz-1.0.61.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/com/itfsm5/itfsm5-base/5.0.0/itfsm5-base-5.0.0.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/com/alibaba/fastjson/1.2.31/fastjson-1.2.31.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/tomcat/servlet-api/6.0.45/servlet-api-6.0.45.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/poi/poi/3.9/poi-3.9.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/smartwall-redis"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

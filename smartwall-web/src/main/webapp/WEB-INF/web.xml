@@ -18,12 +18,12 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>nutz</filter-name>
-		<url-pattern>*.v</url-pattern>
+		<url-pattern>*.mvc</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<welcome-file-list>
-		<welcome-file>index.v</welcome-file>
+		<welcome-file>index.mvc</welcome-file>
 	</welcome-file-list>
 	<!--error-page>
 		<error-code>404</error-code>

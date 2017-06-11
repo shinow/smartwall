@@ -1,0 +1,533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+        <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>
+        <meta http-equiv="pragma" content="no-cache"/>
+        <meta http-equiv="expires" content="0"/>
+        <title>Excel导入</title>
+        <link rel="stylesheet" type="text/css" href="${resourcesServerPath}/css/public/itfsm.css?v=${version}"/>
+		 <link rel="stylesheet" type="text/css" href="${resourcesServerPath}/js/lib/webuploader/webuploader.css?v=${version}"/>
+		 <link rel="stylesheet" type="text/css" href="${resourcesServerPath}/js/lib/jquery_datetimepicker/jquery.datetimepicker.css" />
+        <script type="text/javascript" src="${resourcesServerPath}/js/lib/jquery/jquery-1.8.0.min.js?v=${version}"></script>
+        <script type="text/javascript" src="${resourcesServerPath}/js/plugins/jquery.extend.js"></script>
+        <!-- <script type="text/javascript" src="${resourcesServerPath}/js/lib/jquery_html5uploader/jquery.publicuploader.js?v=${version}"></script>-->
+		
+        <script type="text/javascript" src="${resourcesServerPath}/js/lib/webuploader/webuploader.min.js?v=${version}"></script>
+		<script type="text/javascript" src="${resourcesServerPath}/js/lib/webuploader/imp.excel.standard.js?v=${version}"></script>
+        <script type="text/javascript" src="${resourcesServerPath}/js/lib/jquery_nicescroll/jquery.nicescroll.min.js?v=${version}"></script>
+	    <script type="text/javascript" src="${resourcesServerPath}/js/lib/jquery_datetimepicker/jquery.datetimepicker.js"></script>
+        <script type="text/javascript" src="${resourcesServerPath}/js/public/ui.js?v=${version}"></script>
+        <style type="text/css">
+            *{
+                padding:0;
+                margin:0;
+                font-family: "Microsoft YaHei";
+            }
+            .nv-btn{
+                display: inline-block;
+                padding: 6px 16px;
+                vertical-align: middle;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 1.2;
+                text-align: center;
+                border-radius: 4px;
+                white-space: nowrap;
+                background-image: none;
+                border: 1px solid transparent;
+                cursor: pointer;
+                outline: 0;
+                text-decoration: none;
+                -webkit-transition: background-color 300ms ease-out, border-color 300ms ease-out;
+                transition: background-color 300ms ease-out, border-color 300ms ease-out;
+            }
+            .nv-btn-primary {
+                color: #fff;
+                background-color: #0e90d2;
+                border-color: #0C80BA;
+            }
+            .nv-btn-warning {
+                color: #fff;
+                background-color: #f37b1d;
+                border-color: #e36d11;
+                width: 100px;
+            }
+            .nv-btn-warning[disabled]{
+                pointer-events: none;
+                border-color: transparent;
+                cursor: not-allowed;
+                opacity: .45;
+            }
+            .nv-btn-warning:hover, .nv-btn-warning:focus, .nv-btn-warning:active, .nv-btn-warning.nv-active, .nv-active .nv-btn-warning.nv-dropdown-toggle {
+              color: #fff;
+              background-color: #c85e0b;
+              border-color: #b05004;
+            }
+            .nv-btn-primary:hover, .nv-btn-primary:focus, .nv-btn-primary:active, .nv-btn-primary.nv-active, .nv-active .nv-btn-primary.nv-dropdown-toggle {
+                color: #fff;
+                background-color: #0a6999;
+                border-color: #055b86;
+            }
+            .nv-btn-gray{
+                color: #444;
+                background-color: #e6e6e6;
+                border-color: #dcdcdc;
+                margin-top: 10px;
+                position: absolute;
+                right: 0;
+                top: -5px;
+            }
+            .nv-btn-gray:hover, .nv-btn-gray:focus, .nv-btn-gray:active, .nv-btn-gray.nv-active, .nv-active .nv-btn-gray.nv-dropdown-toggle {
+                color: #444;
+                background-color: #c7c7c7;
+                border-color: #bcbcbc;
+            }
+            select {
+              background-color: #ffffff;
+              height: 28px;
+              line-height: 28px;
+              color: #555555;
+              border: 1px solid #cccccc;
+              -webkit-border-radius: 3px;
+              -moz-border-radius: 3px;
+              border-radius: 3px;
+              padding: 4px;
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+              -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+              -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+              -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+              transition: border linear 0.2s, box-shadow linear 0.2s;
+            }
+            .nv-btn-wrap{
+               text-align: center;
+            }
+            .nv-btn-wrap a{
+                width: 98px;
+                cursor: pointer;
+                margin: 0 6px;
+            }
+            .onepage-cont{
+                 height: 280px;
+            }
+            .import-onepage,.import-twopage{
+                height: 352px;
+            }
+            .import-onepage,.import-twopage,.import-threepage{
+                display: none;
+            }
+            /*.import-threepage{
+               
+                background-color: rgba(0,0,0,0.2);
+                position: relative;
+            }*/
+            .current-page{
+                display: block;
+            }
+            table{
+                width: 100%;
+                border: 1px solid #d2d2d2;
+                border-collapse: collapse;
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+            table th{
+                height: 32px;
+                background-color: #ededed;
+                border-right: 1px solid #d2d2d2;
+                padding-left: 2px;
+                padding-right: 2px;
+                text-align: left;
+            }
+            table td{
+                border: 1px solid #e4e4e4;
+                height: 26px;
+                padding: 0 2px;
+            }
+            #frm-imp label{
+                font-size: 12px;
+                color: #252525;
+                margin-bottom: 8px;
+                height: 28px;
+                line-height: 28px;
+                display: block;
+            }
+            .delfilebtn:hover{
+                color: #c60000;
+            }
+            .filename{
+                border: 1px solid #9D9D9D;
+                padding: 10px;
+                margin-left: 0;
+                margin-top:6px;
+            }
+            #frm-tb{
+                width: 554px;
+                height: 304px;
+                font-size: 12px;
+                margin: 0 auto;
+                box-shadow: 0 0 3px #ccc;
+            }
+            .import-threepage{
+                height: 40px;
+                line-height: 40px;
+                position: absolute;
+                margin: auto;
+                top: 50%;
+                left: 50%;
+                vertical-align: middle;
+                margin-left: -80px;
+                margin-top: -20px;
+            }
+            .import-threepage img{
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+			
+			#container {
+    color: #838383;
+    font-size: 12px;
+}
+
+#uploader .queueList {
+    margin: 20px;
+    border: 3px dashed #e6e6e6;
+}
+#uploader .queueList.filled {
+    padding: 17px;
+    margin: 0;
+    border: 3px dashed transparent;
+}
+#uploader .queueList.webuploader-dnd-over {
+    border: 3px dashed #999999;
+}
+
+#uploader p {margin: 0;}
+
+.element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+
+#uploader .placeholder {
+    min-height: 350px;
+    padding-top: 178px;
+    text-align: center;
+    background: url(../images/image.png) center 93px no-repeat;
+    color: #cccccc;
+    font-size: 18px;
+    position: relative;
+}
+
+#uploader .placeholder .webuploader-pick {
+    font-size: 18px;
+    background: #00b7ee;
+    border-radius: 3px;
+    line-height: 44px;
+    padding: 0 30px;
+    *width: 120px;
+    color: #fff;
+    display: inline-block;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+#uploader .placeholder .webuploader-pick-hover {
+    background: #00a2d4;
+}
+
+#uploader .placeholder .flashTip {
+    color: #666666;
+    font-size: 12px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 20px;
+}
+#uploader .placeholder .flashTip a {
+    color: #0785d1;
+    text-decoration: none;
+}
+#uploader .placeholder .flashTip a:hover {
+    text-decoration: underline;
+}
+
+#uploader .filelist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#uploader .filelist:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+#uploader .filelist li {
+    width: 110px;
+    height: 110px;
+    background: url(../images/bg.png) no-repeat;
+    text-align: center;
+    margin: 0 8px 20px 0;
+    position: relative;
+    display: inline;
+    float: left;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+#uploader .filelist li p.log {
+    position: relative;
+    top: -45px;
+}
+
+#uploader .filelist li p.title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow : ellipsis;
+    top: 5px;
+    text-indent: 5px;
+    text-align: left;
+}
+
+#uploader .filelist li p.progress {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 8px;
+    overflow: hidden;
+    z-index: 50;
+    margin: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-box-shadow: 0 0 0;
+}
+#uploader .filelist li p.progress span {
+    display: none;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    background: #1483d8 url(../images/progress.png) repeat-x;
+
+    -webit-transition: width 200ms linear;
+    -moz-transition: width 200ms linear;
+    -o-transition: width 200ms linear;
+    -ms-transition: width 200ms linear;
+    transition: width 200ms linear;
+
+    -webkit-animation: progressmove 2s linear infinite;
+    -moz-animation: progressmove 2s linear infinite;
+    -o-animation: progressmove 2s linear infinite;
+    -ms-animation: progressmove 2s linear infinite;
+    animation: progressmove 2s linear infinite;
+
+    -webkit-transform: translateZ(0);
+}
+
+@-webkit-keyframes progressmove {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 17px 0;
+    }
+}
+@-moz-keyframes progressmove {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 17px 0;
+    }
+}
+@keyframes progressmove {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 17px 0;
+    }
+}
+
+#uploader .filelist li p.imgWrap {
+    position: relative;
+    z-index: 2;
+    line-height: 110px;
+    vertical-align: middle;
+    overflow: hidden;
+    width: 110px;
+    height: 110px;
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    -webit-transition: 200ms ease-out;
+    -moz-transition: 200ms ease-out;
+    -o-transition: 200ms ease-out;
+    -ms-transition: 200ms ease-out;
+    transition: 200ms ease-out;
+}
+
+.filelist li {
+    width: 100%;
+}
+
+        </style>
+        <script type="text/javascript">
+           $(function(){
+				var uploader = WebUploader.create({
+					auto: true,
+					swf: '${resourcesServerPath}/js/lib/webuploader/Uploader.swf',
+					pick: {
+						id: '#excel_file_selector',
+						label: '选择文件'
+					},
+					sendAsBinary:true,
+					server: $.contextPath() + '/public/fileUpload/webuploader.mvc',
+					fileNumLimit: 1,
+					fileSingleSizeLimit: 10* 1024 * 1024,
+					accept: {
+						title: 'Excel',
+						extensions: 'xlsx',
+						mimeTypes: '*'
+					}
+				});
+				
+				uploadExecute(uploader);
+
+                $("#btn-next").click(function(){
+					if(("bj_hxfx_target_imp"==$("#code").val()||"bj_pplock_imp"==$("#code").val())&&($("#actDate").val()==null||$("#actDate").val()=='')){
+						alert('请指定生效日期！');
+						return;
+					}
+					var currDay = '${.now?string("yyyy-MM-dd")}';
+					if($("#actDate").val()<=currDay){
+						alert('生效日期必须大于当前日期！');
+						return;
+					}
+                    if(!confirm("请确认数据导入？")){
+                        return;            
+                    }
+                    $("#page1").removeClass("current-page");
+                    $("#page3").addClass("current-page");
+
+                    importData();
+                });
+
+                UI.parseScroll();
+            });
+			
+			
+
+
+
+
+            /**
+             * 数据导入
+             */
+            function importData(){
+                var params = {};
+                params["code"] = $("#code").val();
+                params["fileName"] = $("#fileName").val();
+				params["param"] = $("#actDate").val();
+                
+                $.post("${context}/file/imp2db.mvc",params,function(req){
+             
+                        if(req["code"] == 1){
+                            $.alert(req["results"]);
+                        }
+
+                        var callback = $.getTop$()("#_global_imp_div").data("callback");
+                        if(callback){
+                            callback();
+                        }
+                },"json");
+            }
+        </script>
+    </head>
+    <body>
+        <!-- 第一个页面 -->
+        <div id="page1" class="import-onepage current-page">
+		<!--指定生效日期 S-->
+				<#if value.code == "bj_hxfx_target_imp"|| value.code == "bj_pplock_imp">
+				<div style="padding-top:10px;">
+	   			指定生效日期　<input id="actDate" type="text" readonly=""></input>
+				<script>
+				Date.prototype.format = function(format){ 
+					var o = { 
+						"M+" : this.getMonth()+1, //month 
+						"d+" : this.getDate(), //day 
+						"h+" : this.getHours(), //hour 
+						"m+" : this.getMinutes(), //minute 
+						"s+" : this.getSeconds(), //second 
+						"q+" : Math.floor((this.getMonth()+3)/3), //quarter 
+						"S" : this.getMilliseconds() //millisecond 
+					} 
+					
+					if(/(y+)/.test(format)) { 
+						format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+					} 
+					
+					for(var k in o) { 
+						if(new RegExp("("+ k +")").test(format)) { 
+							format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
+						} 
+					} 
+					return format; 
+				} 
+				var curDate = new Date();
+				var newDate=new Date(curDate.setDate(curDate.getDate()+1));
+				$('#actDate').datetimepicker({
+					timepicker: false,
+					format: 'Y-m-d',
+					minDate: newDate.format("yyyy-MM-dd")
+				});
+				</script>
+			 </div>
+			 </#if>
+			 <!--指定生效日期 E-->
+            <div class="onepage-cont">
+                <input type="hidden" id="code" value="${value.code}"></input>
+                <input type="hidden" id="fileName"></input>
+                <div id="frm-imp">
+                    <label class="">选择导入文件</label><div id="excel_file_selector">
+				</div>
+				
+				<a class="nv-btn nv-btn-gray" id="btn-download" href="${context}/file/template.mvc?code=${value.code}" target="_blank">下载模板</a>   
+
+                </div>
+				
+            </div>
+			 
+             <div class="nv-btn-wrap">
+                <a id="btn-next" class="nv-btn nv-btn-round nv-btn-warning" disabled="disabled">导入</a>
+            </div>
+        </div>
+
+        <!-- 第三个页面 -->
+        <div id="page3" class="import-threepage">
+            <img src="${resourcesServerPath}/css/public/images/global/loading03.gif" alt="" width="40" height="40"/>
+            导入中，请稍候...
+        </div>
+        <iframe style="display:none" id="fra-download">
+        </iframe>
+    </body>
+</html>

@@ -235,7 +235,7 @@ define(function(require) {
             name: '题库管理',
             children: [{
                 name: '题库分类',
-                func: ''
+                func: 'grid/show/e8df2d9ad0554a6e9d5d694cd8a558a8.mvc'
             }, {
                 name: '试卷管理',
                 func: ''
