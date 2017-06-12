@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../../sea.js"></script>
+    <script type="text/javascript">
+        seajs.use([ "exam/editor"], function(editor) {
+            editor.init({
+                container: "editor"
+            });
+        });
+    </script>
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .btn-item-creator {
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 14px;
+            height: 32px;
+            cursor: pointer;
+            background-color: #ff6b33;
+            border: 0;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        #editor {
+            position: absolute;
+            height: auto;
+            width: 100%;
+            bottom: 0;
+            top: 32px;
+            overflow: auto;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        #editor #qe-title {
+            padding: 20px 40px;
+        }
+
+        #editor .qe-item:hover {
+            background-color: #eee;
+        }
+
+        #editor #qe-title #qe-title-main {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .edui-container {
+            margin-left:60px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <span>插入题型:</span>
+        <button class="btn-item-creator" type="single-choice">单选</button>
+        <button class="btn-item-creator" type="multiple-choice">多选</button>
+        <button class="btn-item-creator" type="question-answer">问答题</button>
+        <button class="btn-item-creator" type="paragraph">段落说明</button>
+        <button class="btn-item-creator" type="photo-take">拍照题</button>
+
+        <button>保存</button>
+        <button>返回</button>
+    </div>
+    <div class="editor" id="editor">
+    </div>
+
+    <div id="editor-title" style="display:none">
+        <div style="margin-bottom:6px"><label style="float:left">问卷标题:</label><input style="margin-left:10px;width: 85%"></input></div>
+        <div><label style="float:left">问卷说明:</label><script id="editor-title-um" style="width:500px;height:300px;" type="text/plain" ></script></div>
+    </div>
+</body>
+</html>
