@@ -149,6 +149,13 @@ define(function(require, exports) {
         this._init_(conf);
     }
     extend(SCQuestion, Question);
+    SCQuestion.prototype.renderPropUI = function() {
+        this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
+
+        this.workarea$.append(this.prop$);
+        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>')
+    };
+
 });
 
 //     var questionArr = [];
