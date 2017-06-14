@@ -145,6 +145,22 @@ define(function(require, exports) {
 
     Question.prototype.renderPropUI = function() {};
 
+    Question.prototype.createOprAdd = function() {
+        return $('<span class="eq-item-e-btn eq-item-e-add"></span>');
+    };
+
+    Question.prototype.createOprDel = function() {
+        return $('<span class="eq-item-e-btn eq-item-e-del"></span>');
+    };
+
+    Question.prototype.createOprUp = function() {
+        return $('<span class="eq-item-e-btn eq-item-e-up"></span>');
+    };
+
+    Question.prototype.createOprDown = function() {
+        return $('<span class="eq-item-e-btn eq-item-e-down"></span>');
+    };
+
     SCQuestion = function(conf) {
         this._init_(conf);
     }
@@ -153,9 +169,23 @@ define(function(require, exports) {
         this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
 
         this.workarea$.append(this.prop$);
-        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>')
+        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
+
+        this.addOption();
+        this.addOption();
+        this.addOption();
     };
 
+    SCQuestion.prototype.addOption = function(option) {
+        var tr = $('<tr/>');
+        var td1 = $("<td><input/></td>").appendTo(tr);
+        td1.find("input")
+
+        var td2 = $("<td/>").appendTo(tr);
+        var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
+
+        this.prop$.find("tbody").append(tr);
+    };
 });
 
 //     var questionArr = [];
