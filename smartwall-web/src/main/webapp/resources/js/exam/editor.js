@@ -60,7 +60,9 @@ define(function(require, exports) {
         };
 
         new SCQuestion(conf);
-        new SCQuestion(conf);
+        new MTQuestion(conf);
+        new ASQuestion(conf);
+        new PGQuestion(conf);
     };
 
     Question = function(conf) {
@@ -71,6 +73,7 @@ define(function(require, exports) {
         this.editor = conf.editor;
         this.container = $('<div class="qe-item"></div>').appendTo(this.editor.container);
         this.guid = utils.guid();
+        this.model = {};
         this.renderUI();
     };
 
@@ -119,12 +122,30 @@ define(function(require, exports) {
             }
         }).appendTo(toolbar$);
         $('<a>删除</a>').click(function() {
-
+            $(this).parent().parent().remove();
         }).appendTo(toolbar$);
-        $('<a>上移</a>').click(function() {}).appendTo(toolbar$);
-        $('<a>下移</a>').click(function() {}).appendTo(toolbar$);
-        $('<a>最前</a>').click(function() {}).appendTo(toolbar$);
-        $('<a>最后</a>').click(function() {}).appendTo(toolbar$);
+        $('<a>上移</a>').click(function() {
+            var pp = $(this).parent().parent();
+            var prev = pp.prev();
+            if (prev.length > 0) {
+                pp.after(prev);
+            }
+        }).appendTo(toolbar$);
+        $('<a>下移</a>').click(function() {
+            var pp = $(this).parent().parent();
+            var next = pp.next();
+            if (next.length > 0) {
+                pp.before(next);
+            }
+        }).appendTo(toolbar$);
+        $('<a>最前</a>').click(function() {
+            var pp = $(this).parent().parent();
+            pp.parent().prepend(pp);
+        }).appendTo(toolbar$);
+        $('<a>最后</a>').click(function() {
+            var pp = $(this).parent().parent();
+            pp.parent().append(pp);
+        }).appendTo(toolbar$);
 
         this.container.append(toolbar$);
     };
@@ -144,23 +165,43 @@ define(function(require, exports) {
     };
 
     Question.prototype.renderPropUI = function() {};
-
+    Question.prototype.addOption = function() {}
     Question.prototype.createOprAdd = function() {
-        return $('<span class="eq-item-e-btn eq-item-e-add"></span>');
+        var that = this;
+        return $('<span class="eq-item-e-btn eq-item-e-add"></span>').click(function() {
+            that.addOption();
+        });
     };
 
     Question.prototype.createOprDel = function() {
-        return $('<span class="eq-item-e-btn eq-item-e-del"></span>');
+        return $('<span class="eq-item-e-btn eq-item-e-del"></span>').click(function() {
+            $(this).parent().parent().remove();
+        });
     };
 
     Question.prototype.createOprUp = function() {
-        return $('<span class="eq-item-e-btn eq-item-e-up"></span>');
+        return $('<span class="eq-item-e-btn eq-item-e-up"></span>').click(function() {
+            /*tbody>tr>td>span*/
+            var pp = $(this).parent().parent();
+            var prev = pp.prev();
+            if (prev.length > 0) {
+                pp.after(prev);
+            }
+        });
     };
 
     Question.prototype.createOprDown = function() {
-        return $('<span class="eq-item-e-btn eq-item-e-down"></span>');
+        return $('<span class="eq-item-e-btn eq-item-e-down"></span>').click(function() {
+            /*tbody>tr>td>span*/
+            var pp = $(this).parent().parent();
+            var next = pp.next();
+            if (next.length > 0) {
+                pp.before(next);
+            }
+        });
     };
 
+    /*单选*/
     SCQuestion = function(conf) {
         this._init_(conf);
     }
@@ -176,16 +217,71 @@ define(function(require, exports) {
         this.addOption();
     };
 
-    SCQuestion.prototype.addOption = function(option) {
+    SCQuestion.prototype.addOption = function() {
         var tr = $('<tr/>');
         var td1 = $("<td><input/></td>").appendTo(tr);
-        td1.find("input")
+        td1.find("input").blur(function() {
+            var this$ = $(this);
+            var data = this$.data("model") || {};
+            data.text = this$.val() || '';
+            this$.data("model", data);
+        });
 
         var td2 = $("<td/>").appendTo(tr);
         var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
 
         this.prop$.find("tbody").append(tr);
     };
+
+    /*多选*/
+    MTQuestion = function(conf) {
+        this._init_(conf);
+    }
+    extend(MTQuestion, Question);
+    MTQuestion.prototype.renderPropUI = function() {
+        this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
+
+        this.workarea$.append(this.prop$);
+        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
+
+        this.addOption();
+        this.addOption();
+        this.addOption();
+    };
+
+    MTQuestion.prototype.addOption = function() {
+        var tr = $('<tr/>');
+        var td1 = $("<td><input/></td>").appendTo(tr);
+        td1.find("input").blur(function() {
+            var this$ = $(this);
+            var data = this$.data("model") || {};
+            data.text = this$.val() || '';
+            this$.data("model", data);
+        });
+
+        var td2 = $("<td/>").appendTo(tr);
+        var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
+
+        this.prop$.find("tbody").append(tr);
+    };
+
+    /*问答题*/
+    ASQuestion = function(conf) {
+        this._init_(conf);
+    }
+    extend(ASQuestion, Question);
+    ASQuestion.prototype.renderPropUI = function() {};
+
+    MTQuestion.prototype.addOption = function() {};
+
+    /*段落说明*/
+    PGQuestion = function(conf) {
+        this._init_(conf);
+    }
+    extend(PGQuestion, Question);
+    PGQuestion.prototype.renderPropUI = function() {};
+
+    PGQuestion.prototype.addOption = function() {};
 });
 
 //     var questionArr = [];
