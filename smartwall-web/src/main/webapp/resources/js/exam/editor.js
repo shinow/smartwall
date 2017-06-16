@@ -281,10 +281,59 @@ define(function(require, exports) {
 
         this.addOption();
         this.addOption();
-        this.addOption();
     };
 
     MTQuestion.prototype.addOption = function() {
+        var that = this;
+        var tr = $('<tr/>');
+        var td1 = $("<td><input/></td>").appendTo(tr);
+        td1.find("input").blur(function() {
+            var this$ = $(this);
+            var data = this$.data("model") || {};
+            data.text = this$.val() || '';
+            this$.data("model", data);
+
+            that.updateOpt(tr.index(), data.text);
+        });
+
+        var td2 = $("<td/>").appendTo(tr);
+        var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
+
+        this.prop$.find("tbody").append(tr);
+    };
+
+    MTQuestion.prototype.updateOpt = function(index, text) {
+        this.content$.children().eq(index).find("label").text(text);
+    };
+    
+    MTQuestion.prototype.updateOptions = function() {
+        var content = this.content$;
+
+        content.empty();
+        var dv = this.prop$.find("tbody").children();
+        dv.each(function() {
+            var text = ($(this).data("model") || {}).text || '选项';
+            content.append('<span><input type="checkbox"></input><label>' + text + '</label></span>')
+        });
+    };
+
+    /*问答题*/
+    var ASQuestion = function(conf) {
+        this._init_(conf);
+    }
+    extend(ASQuestion, Question);
+    ASQuestion.prototype.renderPropUI = function() {
+        this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
+
+        this.workarea$.append(this.prop$);
+        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
+
+        this.addOption();
+        this.addOption();
+        this.addOption();
+    };
+
+    ASQuestion.prototype.addOption = function() {
         var tr = $('<tr/>');
         var td1 = $("<td><input/></td>").appendTo(tr);
         td1.find("input").blur(function() {
@@ -299,15 +348,6 @@ define(function(require, exports) {
 
         this.prop$.find("tbody").append(tr);
     };
-
-    /*问答题*/
-    var ASQuestion = function(conf) {
-        this._init_(conf);
-    }
-    extend(ASQuestion, Question);
-    ASQuestion.prototype.renderPropUI = function() {};
-
-    MTQuestion.prototype.addOption = function() {};
 
     /*段落说明*/
     var PGQuestion = function(conf) {
