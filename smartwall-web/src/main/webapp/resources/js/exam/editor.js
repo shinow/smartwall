@@ -1,4 +1,6 @@
 define(function(require, exports) {
+    "use strict";
+
     var utils = require("utils/utils");
     require("ligerui");
     require("ligerui-css");
@@ -17,7 +19,7 @@ define(function(require, exports) {
         subClass.superClass = superClass.prototype;
     }
 
-    QEditor = function(conf) {
+    var QEditor = function(conf) {
         this._init_(conf);
     };
 
@@ -65,7 +67,7 @@ define(function(require, exports) {
         new PGQuestion(conf);
     };
 
-    Question = function(conf) {
+    var Question = function(conf) {
         this._init_();
     };
 
@@ -75,6 +77,7 @@ define(function(require, exports) {
         this.guid = utils.guid();
         this.model = {};
         this.renderUI();
+        this.updateOptions();
     };
 
     /*界面绘制*/
@@ -102,7 +105,7 @@ define(function(require, exports) {
     };
 
     Question.prototype.renderContent = function() {
-        this.content$ = $('<div class="qe-item-content">content</div>');
+        this.content$ = $('<div class="qe-item-content"></div>');
 
         this.container.append(this.content$);
         this.container.append("<hr/>");
@@ -165,44 +168,58 @@ define(function(require, exports) {
     };
 
     Question.prototype.renderPropUI = function() {};
-    Question.prototype.addOption = function() {}
+    Question.prototype.addOption = function() {};
+    Question.prototype.updateOpt = function(index, text) {};
+    Question.prototype.updateOptions = function() {};
     Question.prototype.createOprAdd = function() {
         var that = this;
         return $('<span class="eq-item-e-btn eq-item-e-add"></span>').click(function() {
             that.addOption();
+
+            that.updateOptions();
         });
     };
 
     Question.prototype.createOprDel = function() {
+        var that = this;
         return $('<span class="eq-item-e-btn eq-item-e-del"></span>').click(function() {
             $(this).parent().parent().remove();
+
+            that.updateOptions();
         });
     };
 
     Question.prototype.createOprUp = function() {
+        var that = this;
+
         return $('<span class="eq-item-e-btn eq-item-e-up"></span>').click(function() {
             /*tbody>tr>td>span*/
             var pp = $(this).parent().parent();
             var prev = pp.prev();
             if (prev.length > 0) {
                 pp.after(prev);
+
+                that.updateOptions();
             }
         });
     };
 
     Question.prototype.createOprDown = function() {
+        var that = this;
         return $('<span class="eq-item-e-btn eq-item-e-down"></span>').click(function() {
             /*tbody>tr>td>span*/
             var pp = $(this).parent().parent();
             var next = pp.next();
             if (next.length > 0) {
                 pp.before(next);
+
+                that.updateOptions();
             }
         });
     };
 
     /*单选*/
-    SCQuestion = function(conf) {
+    var SCQuestion = function(conf) {
         this._init_(conf);
     }
     extend(SCQuestion, Question);
@@ -217,15 +234,19 @@ define(function(require, exports) {
         this.addOption();
     };
 
-    SCQuestion.prototype.addOption = function() {
+    SCQuestion.prototype.addOption = function(opt) {
+        var that = this;
+        var opt = opt || {};
         var tr = $('<tr/>');
         var td1 = $("<td><input/></td>").appendTo(tr);
         td1.find("input").blur(function() {
             var this$ = $(this);
-            var data = this$.data("model") || {};
+            var data = tr.data("model") || {};
             data.text = this$.val() || '';
-            this$.data("model", data);
-        });
+            tr.data("model", data);
+
+            that.updateOpt(tr.index(), data.text);
+        }).val(opt.text || '选项');
 
         var td2 = $("<td/>").appendTo(tr);
         var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
@@ -233,8 +254,22 @@ define(function(require, exports) {
         this.prop$.find("tbody").append(tr);
     };
 
+    SCQuestion.prototype.updateOpt = function(index, text) {
+        this.content$.children().eq(index).find("label").text(text);
+    };
+    SCQuestion.prototype.updateOptions = function() {
+        var content = this.content$;
+
+        content.empty();
+        var dv = this.prop$.find("tbody").children();
+        dv.each(function() {
+            var text = ($(this).data("model") || {}).text || '选项';
+            content.append('<span><input type="radio"></input><label>' + text + '</label></span>')
+        });
+    };
+
     /*多选*/
-    MTQuestion = function(conf) {
+    var MTQuestion = function(conf) {
         this._init_(conf);
     }
     extend(MTQuestion, Question);
@@ -266,7 +301,7 @@ define(function(require, exports) {
     };
 
     /*问答题*/
-    ASQuestion = function(conf) {
+    var ASQuestion = function(conf) {
         this._init_(conf);
     }
     extend(ASQuestion, Question);
@@ -275,7 +310,7 @@ define(function(require, exports) {
     MTQuestion.prototype.addOption = function() {};
 
     /*段落说明*/
-    PGQuestion = function(conf) {
+    var PGQuestion = function(conf) {
         this._init_(conf);
     }
     extend(PGQuestion, Question);
