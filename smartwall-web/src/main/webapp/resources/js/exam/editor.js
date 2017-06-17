@@ -41,7 +41,8 @@ define(function(require, exports) {
     QEditor.prototype._initTitle = function() {
         var dom = $('<div id="qe-title" class="qe-item"><div id="qe-title-main">问卷标题</div><div id="qe-title-sub">问卷说明</div></div>');
         dom.click(function() {
-            UM.getEditor("editor-title-um");
+            UM.getEditor("editor-title-um").setContent($("#qe-title-sub").html());
+            $('#editor-title').find("#editor-title-ti").val($("#qe-title-main").text());
             $.ligerDialog.open({
                 title: "修改",
                 width: 600,
@@ -50,12 +51,14 @@ define(function(require, exports) {
                 buttons: [{
                     text: '保存',
                     onclick: function(i, d) {
-                        //f_save();
+                        $("#qe-title-sub").html(UM.getEditor("editor-title-um").getContent());
+                        $("#qe-title-main").text($('#editor-title').find("#editor-title-ti").val());
+
+                        d.hide();
                     }
                 }, {
                     text: '关闭',
                     onclick: function(i, d) {
-                        //$("input").ligerHideTip();
                         d.hide();
                     }
                 }]
@@ -111,6 +114,8 @@ define(function(require, exports) {
 
     QEditor.prototype.getValue = function() {
         var v = {};
+        v["title"] = $("#qe-title-main").text();
+        v["comment"] = $("#qe-title-sub").html();
 
         $(".qe-item-question").each(function(index) {
             var question = $(this).data("question");
