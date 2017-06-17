@@ -40,7 +40,7 @@ define(function(require, exports) {
 
     QEditor.prototype._initTitle = function() {
         var dom = $('<div id="qe-title" class="qe-item"><div id="qe-title-main">问卷标题</div><div id="qe-title-sub">问卷说明</div></div>');
-        dom.click(function() {
+        dom.dblclick(function() {
             UM.getEditor("editor-title-um").setContent($("#qe-title-sub").html());
             $('#editor-title').find("#editor-title-ti").val($("#qe-title-main").text());
             $.ligerDialog.open({
