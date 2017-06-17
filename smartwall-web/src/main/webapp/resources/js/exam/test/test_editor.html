@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="../../sea.js"></script>
     <script type="text/javascript">
-        seajs.use([ "exam/editor"], function(editor) {
+        seajs.use(["exam/editor"], function(editor) {
             editor.init({
                 container: "editor"
             });
 
-            $("#save").click(function(){
+            $("#save").click(function() {
                 alert(editor.getValue());
+            });
+
+            $(".btn-item-creator").click(function() {
+                var type = $(this).attr("type");
+                editor.addQuestion(type);
             });
         });
     </script>
@@ -167,11 +172,11 @@
 <body>
     <div>
         <span>插入题型:</span>
-        <button class="btn-item-creator" type="single-choice">单选</button>
-        <button class="btn-item-creator" type="multiple-choice">多选</button>
-        <button class="btn-item-creator" type="question-answer">问答题</button>
-        <button class="btn-item-creator" type="paragraph">段落说明</button>
-        <button class="btn-item-creator" type="photo-take">拍照题</button>
+        <button class="btn-item-creator" type="SC">单选</button>
+        <button class="btn-item-creator" type="MT">多选</button>
+        <button class="btn-item-creator" type="AS">问答题</button>
+        <button class="btn-item-creator" type="PG">段落说明</button>
+        <!--button class="btn-item-creator" type="photo-take">拍照题</button-->
 
         <button id="save">保存</button>
         <button>返回</button>

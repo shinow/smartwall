@@ -10,19 +10,23 @@ define(function(require, exports) {
     var editor;
     exports.init = function(conf) {
         editor = new QEditor(conf);
-        editor.addQuestion();
-    }
+        //editor.addQuestion();
+    };
 
     exports.getValue = function() {
         return JSON.stringify(editor.getValue());
-    }
+    };
+
+    exports.addQuestion = function(type) {
+        editor.addQuestion(type);
+    };
 
     function extend(subClass, superClass) {
         var F = function() {};
         F.prototype = superClass.prototype;
         subClass.prototype = new F();
         subClass.superClass = superClass.prototype;
-    }
+    };
 
     var QEditor = function(conf) {
         this._init_(conf);
@@ -74,15 +78,35 @@ define(function(require, exports) {
         return nc;
     };
 
-    QEditor.prototype.addQuestion = function() {
+    QEditor.prototype.addQuestion = function(type) {
         var conf = {
             editor: this
         };
-
-        new SCQuestion(conf);
-        new MTQuestion(conf);
-        new ASQuestion(conf);
-        new PGQuestion(conf);
+        var question;
+        switch (type) {
+            case 'SC':
+                question = new SCQuestion(conf);
+                question.setTitle("标题");
+                question.addOption();
+                question.addOption();
+                question.updateOptions();
+                break;
+            case 'MT':
+                question = new MTQuestion(conf);
+                question.setTitle("标题");
+                question.addOption();
+                question.addOption();
+                question.updateOptions();
+                break;
+            case 'AS':
+                question = new ASQuestion(conf);
+                question.setTitle("标题");
+                break;
+            case 'PG':
+                question = new PGQuestion(conf);
+                question.setTitle("标题");
+                break;
+        }
     };
 
     QEditor.prototype.getValue = function() {
@@ -111,7 +135,6 @@ define(function(require, exports) {
         this.container.data("question", this);
         this.guid = utils.guid();
         this.renderUI();
-        this.updateOptions();
     };
 
     Question.prototype.updateNo = function() {
@@ -217,6 +240,9 @@ define(function(require, exports) {
     Question.prototype.addOption = function() {};
     Question.prototype.updateOpt = function(index, text) {};
     Question.prototype.updateOptions = function() {};
+    Question.prototype.setTitle = function(title) {
+        this.title$.html(title);
+    };
     Question.prototype.getValue = function() {
         var v = {
             no: this.no
@@ -281,10 +307,6 @@ define(function(require, exports) {
 
         this.workarea$.append(this.prop$);
         this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
-
-        this.addOption();
-        this.addOption();
-        this.addOption();
     };
 
     SCQuestion.prototype.addOption = function(opt) {
@@ -352,9 +374,6 @@ define(function(require, exports) {
 
         this.workarea$.append(this.prop$);
         this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
-
-        this.addOption();
-        this.addOption();
     };
 
     MTQuestion.prototype.addOption = function(opt) {
