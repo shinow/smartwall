@@ -8,6 +8,10 @@
             editor.init({
                 container: "editor"
             });
+
+            $("#save").click(function(){
+                alert(editor.getValue());
+            });
         });
     </script>
     <style type="text/css">
@@ -169,7 +173,7 @@
         <button class="btn-item-creator" type="paragraph">段落说明</button>
         <button class="btn-item-creator" type="photo-take">拍照题</button>
 
-        <button>保存</button>
+        <button id="save">保存</button>
         <button>返回</button>
     </div>
     <div class="editor" id="editor">

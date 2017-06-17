@@ -7,9 +7,14 @@ define(function(require, exports) {
     require("ligerui-css-icons");
     require("controls/umeditor");
 
+    var editor;
     exports.init = function(conf) {
-        var editor = new QEditor(conf);
+        editor = new QEditor(conf);
         editor.addQuestion();
+    }
+
+    exports.getValue = function() {
+        return JSON.stringify(editor.getValue());
     }
 
     function extend(subClass, superClass) {
@@ -56,6 +61,19 @@ define(function(require, exports) {
         this.container.append(dom);
     };
 
+    /*获取最大编号*/
+    QEditor.prototype.getMaxNo = function() {
+        var nc = 0;
+        $(".qe-item-question").each(function(index) {
+            var question = $(this).data("question");
+            if (!question.isMemo) {
+                nc++;
+            }
+        });
+
+        return nc;
+    };
+
     QEditor.prototype.addQuestion = function() {
         var conf = {
             editor: this
@@ -67,16 +85,37 @@ define(function(require, exports) {
         new PGQuestion(conf);
     };
 
+    QEditor.prototype.getValue = function() {
+        var v = {};
+
+        $(".qe-item-question").each(function(index) {
+            var question = $(this).data("question");
+            v["Q" + (index + 1)] = question.getValue();
+        });
+
+        return v;
+    };
+
     var Question = function(conf) {
         this._init_(conf);
     };
 
     Question.prototype._init_ = function(conf) {
         this.editor = conf.editor;
-        this.container = $('<div class="qe-item"></div>').appendTo(this.editor.container);
+        /*注释题型*/
+        this.isMemo = false;
+        /*题目编号,注释题型没有*/
+        this.no = this.updateNo();
+        this.container = $('<div class="qe-item qe-item-question"></div>').appendTo(this.editor.container);
+        /*添加到data.question中*/
+        this.container.data("question", this);
         this.guid = utils.guid();
         this.renderUI();
         this.updateOptions();
+    };
+
+    Question.prototype.updateNo = function() {
+        return this.editor.getMaxNo() + 1;
     };
 
     /*界面绘制*/
@@ -178,6 +217,13 @@ define(function(require, exports) {
     Question.prototype.addOption = function() {};
     Question.prototype.updateOpt = function(index, text) {};
     Question.prototype.updateOptions = function() {};
+    Question.prototype.getValue = function() {
+        var v = {
+            no: this.no
+        };
+
+        return v;
+    }
     Question.prototype.createOprAdd = function() {
         var that = this;
         return $('<span class="eq-item-e-btn eq-item-e-add"></span>').click(function() {
@@ -275,6 +321,27 @@ define(function(require, exports) {
         });
     };
 
+    SCQuestion.prototype.getValue = function() {
+        var v = {
+            no: this.no
+        };
+
+        v["title"] = this.title$.html();
+        var opts = {};
+        this.prop$.find("tbody").children().each(function(index) {
+            var model = $(this).data("model");
+            if (model) {
+                var opt = {};
+                opt["text"] = model.text;
+                opts["" + (index + 1)] = opt;
+            }
+        });
+
+        v["opts"] = opts;
+
+        return v;
+    }
+
     /*多选*/
     var MTQuestion = function(conf) {
         this._init_(conf);
@@ -297,11 +364,12 @@ define(function(require, exports) {
         var td1 = $("<td><input/></td>").appendTo(tr);
         td1.find("input").blur(function() {
             var this$ = $(this);
-            var data = this$.data("model") || {};
+            var data = tr.data("model") || {};
             data.text = this$.val() || '';
-            this$.data("model", data);
+            tr.data("model", data);
 
             that.updateOpt(tr.index(), data.text);
+
         }).val(opt.text || '选项');;
 
         var td2 = $("<td/>").appendTo(tr);
@@ -324,44 +392,59 @@ define(function(require, exports) {
             content.append('<span><input type="checkbox"></input><label>' + text + '</label></span>')
         });
     };
+    MTQuestion.prototype.getValue = function() {
+        var v = {
+            no: this.no
+        };
+
+        v["title"] = this.title$.html();
+        var opts = {};
+        this.prop$.find("tbody").children().each(function(index) {
+            var model = $(this).data("model");
+            if (model) {
+                var opt = {};
+                opt["text"] = model.text;
+                opts["" + (index + 1)] = opt;
+            }
+        });
+
+        v["opts"] = opts;
+
+        return v;
+    };
 
     /*问答题*/
     var ASQuestion = function(conf) {
         this._init_(conf);
     }
     extend(ASQuestion, Question);
-    ASQuestion.prototype.renderPropUI = function() {
-        this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
+    ASQuestion.prototype.getValue = function() {
+        var v = {
+            no: this.no
+        };
 
-        this.workarea$.append(this.prop$);
-        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
+        v["title"] = this.title$.html();
 
-        this.addOption();
-        this.addOption();
-        this.addOption();
-    };
-
-    ASQuestion.prototype.addOption = function() {
-        var tr = $('<tr/>');
-        var td1 = $("<td><input/></td>").appendTo(tr);
-        td1.find("input").blur(function() {
-            var this$ = $(this);
-            var data = this$.data("model") || {};
-            data.text = this$.val() || '';
-            this$.data("model", data);
-        });
-
-        var td2 = $("<td/>").appendTo(tr);
-        var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
-
-        this.prop$.find("tbody").append(tr);
+        return v;
     };
 
     /*段落说明*/
     var PGQuestion = function(conf) {
         this._init_(conf);
+        this.isMemo = true;
     }
+
     extend(PGQuestion, Question);
+    PGQuestion.prototype.getValue = function() {
+        var v = {};
+
+        v["title"] = this.title$.html();
+
+        return v;
+    };
+    PGQuestion.prototype.updateNo = function() {
+        return -1;
+    };
     PGQuestion.prototype.renderPropUI = function() {};
 
     PGQuestion.prototype.addOption = function() {};
