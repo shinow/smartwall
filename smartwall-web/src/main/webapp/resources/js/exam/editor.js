@@ -100,7 +100,7 @@ define(function(require, exports) {
         }
     }
     Question.prototype.renderTitle = function() {
-        this.title$ = $('<div class="qe-item-title">title</div>');
+        this.title$ = $('<div class="qe-item-title"></div>');
         this.container.append(this.title$);
     };
 
@@ -162,7 +162,11 @@ define(function(require, exports) {
         this.required$ = $('<label><input type="checkbox"></input>必答题</label>').appendTo(this.optEditor);
 
         this.workarea$.append(this.titleEditor).append(this.optEditor);
-        UM.getEditor(this.guid);
+
+        var that = this;
+        UM.getEditor(this.guid).addListener("blur", function(type, event) {
+            that.title$.html(UM.getEditor(that.guid).getContent()); 
+        });
 
         this.renderPropUI();
     };
@@ -283,8 +287,9 @@ define(function(require, exports) {
         this.addOption();
     };
 
-    MTQuestion.prototype.addOption = function() {
+    MTQuestion.prototype.addOption = function(opt) {
         var that = this;
+        var opt = opt || {};
         var tr = $('<tr/>');
         var td1 = $("<td><input/></td>").appendTo(tr);
         td1.find("input").blur(function() {
@@ -294,7 +299,7 @@ define(function(require, exports) {
             this$.data("model", data);
 
             that.updateOpt(tr.index(), data.text);
-        });
+        }).val(opt.text || '选项');;
 
         var td2 = $("<td/>").appendTo(tr);
         var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
@@ -305,7 +310,7 @@ define(function(require, exports) {
     MTQuestion.prototype.updateOpt = function(index, text) {
         this.content$.children().eq(index).find("label").text(text);
     };
-    
+
     MTQuestion.prototype.updateOptions = function() {
         var content = this.content$;
 
