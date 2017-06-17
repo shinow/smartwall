@@ -25,7 +25,7 @@ define(function(require, exports) {
 
     QEditor.prototype._init_ = function(conf) {
         this.container = $("#" + conf["container"]);
-
+        this.lastQ = null;
         this._initTitle(this.container);
     };
 
@@ -68,14 +68,13 @@ define(function(require, exports) {
     };
 
     var Question = function(conf) {
-        this._init_();
+        this._init_(conf);
     };
 
     Question.prototype._init_ = function(conf) {
         this.editor = conf.editor;
         this.container = $('<div class="qe-item"></div>').appendTo(this.editor.container);
         this.guid = utils.guid();
-        this.model = {};
         this.renderUI();
         this.updateOptions();
     };
@@ -94,8 +93,10 @@ define(function(require, exports) {
 
     Question.prototype.setEditing = function(editing) {
         if (editing) {
+            this.btnEditor$.text("完成");
             this.container.addClass("qe-item-editing");
         } else {
+            this.btnEditor$.text("编辑");
             this.container.removeClass("qe-item-editing");
         }
     }
@@ -115,14 +116,16 @@ define(function(require, exports) {
         /*编辑|删除|上移|下移|最前|最后*/
         var toolbar$ = $('<div class="qe-item-toolbar"></div>');
         var that = this;
-        $('<a>编辑</a>').click(function() {
-            if ($(this).text() == '编辑') {
-                $(this).text("完成");
-                that.setEditing(true);
-            } else {
-                $(this).text("编辑");
-                that.setEditing(false);
+
+        this.btnEditor$ = $('<a>编辑</a>').click(function() {
+            var doEding = ($(this).text() == '编辑');
+            if (doEding) {
+                if (that.editor.lastQ) {
+                    that.editor.lastQ.setEditing(false);
+                }
             }
+            that.editor.lastQ = that;
+            that.setEditing(doEding);
         }).appendTo(toolbar$);
         $('<a>删除</a>').click(function() {
             $(this).parent().parent().remove();
@@ -165,7 +168,7 @@ define(function(require, exports) {
 
         var that = this;
         UM.getEditor(this.guid).addListener("blur", function(type, event) {
-            that.title$.html(UM.getEditor(that.guid).getContent()); 
+            that.title$.html(UM.getEditor(that.guid).getContent());
         });
 
         this.renderPropUI();
