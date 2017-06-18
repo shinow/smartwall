@@ -60,7 +60,7 @@ public class ExamController {
 	/**
 	 * 获取试卷
 	 */
-	@At("/exam/save")
+	@At("/exam/get")
 	@Ok("json")
 	public Result get(@Param("type") String type, @Param("guid") String guid) {
 		return Result.successResult(examService.getExam(type, guid));

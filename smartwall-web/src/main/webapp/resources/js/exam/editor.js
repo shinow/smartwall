@@ -20,7 +20,7 @@ define(function(require, exports) {
             guid: editor.examGuid,
             value: JSON.stringify(editor.getValue())
         }, function(result) {
-            alert(JSON.stringify(result));
+            //alert(JSON.stringify(result));
         });
     };
 
@@ -46,6 +46,7 @@ define(function(require, exports) {
 
         this.lastQ = null;
         this._initTitle(this.container);
+        this._loadExam();
     };
 
     QEditor.prototype._initTitle = function() {
@@ -78,6 +79,38 @@ define(function(require, exports) {
         this.container.append(dom);
     };
 
+    QEditor.prototype._loadExam = function() {
+        var that = this;
+        utils.postJson("exam/get.mvc", {
+            type: this.examType,
+            guid: this.examGuid
+        }, function(result) {
+            if (result.code == 0) {
+                var m = result.message;
+                if (m) {
+                    that._parseExam(JSON.parse(m));
+                }
+            } else {
+                alert("error");
+            }
+        });
+    };
+
+    QEditor.prototype._parseExam = function(exam) {
+        $("#qe-title-sub").html(exam.comment);
+        $("#qe-title-main").text(exam.title);
+
+        for (var i = 1; i < 500; i++) {
+            var q = exam["Q" + i];
+
+            if (!q) {
+                break;
+            }
+
+            editor.addQuestion(q.type, q);
+        }
+    };
+
     /*获取最大编号*/
     QEditor.prototype.getMaxNo = function() {
         var nc = 0;
@@ -91,7 +124,7 @@ define(function(require, exports) {
         return nc;
     };
 
-    QEditor.prototype.addQuestion = function(type) {
+    QEditor.prototype.addQuestion = function(type, data) {
         var conf = {
             editor: this
         };
@@ -99,25 +132,51 @@ define(function(require, exports) {
         switch (type) {
             case 'SC':
                 question = new SCQuestion(conf);
-                question.setTitle("标题");
-                question.addOption();
-                question.addOption();
+                if (data) {
+                    question.setTitle(data["title"]);
+                    $.each(data.opts, function() {
+                        question.addOption(this);
+                    });
+                } else {
+                    question.setTitle("标题");
+                    question.addOption();
+                    question.addOption();
+                }
+
                 question.updateOptions();
                 break;
             case 'MT':
                 question = new MTQuestion(conf);
-                question.setTitle("标题");
-                question.addOption();
-                question.addOption();
+                if (data) {
+                    question.setTitle(data["title"]);
+                    $.each(data.opts, function() {
+                        question.addOption(this);
+                    });
+                } else {
+                    question.setTitle("标题");
+                    question.addOption();
+                    question.addOption();
+                }
+
                 question.updateOptions();
                 break;
             case 'AS':
                 question = new ASQuestion(conf);
-                question.setTitle("标题");
+                if (data) {
+                    question.setTitle(data["title"]);
+                } else {
+                    question.setTitle("标题");
+                }
+
                 break;
             case 'PG':
                 question = new PGQuestion(conf);
-                question.setTitle("标题");
+                if (data) {
+                    question.setTitle(data["title"]);
+                } else {
+                    question.setTitle("标题");
+                }
+
                 break;
         }
     };
@@ -257,6 +316,9 @@ define(function(require, exports) {
     Question.prototype.updateOptions = function() {};
     Question.prototype.setTitle = function(title) {
         this.title$.html(title);
+        if (title != '标题') {
+            UM.getEditor(this.guid).setContent(title);
+        }
     };
     Question.prototype.getValue = function() {
         var v = {
@@ -326,17 +388,19 @@ define(function(require, exports) {
 
     SCQuestion.prototype.addOption = function(opt) {
         var that = this;
-        var opt = opt || {};
-        var tr = $('<tr/>');
+        var opt = opt || {
+            text: "选项"
+        };
+        var tr = $('<tr/>').data("model", opt);
         var td1 = $("<td><input/></td>").appendTo(tr);
         td1.find("input").blur(function() {
             var this$ = $(this);
-            var data = tr.data("model") || {};
+            var data = tr.data("model");
             data.text = this$.val() || '';
             tr.data("model", data);
 
             that.updateOpt(tr.index(), data.text);
-        }).val(opt.text || '选项');
+        }).val(opt.text);
 
         var td2 = $("<td/>").appendTo(tr);
         var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
@@ -353,14 +417,15 @@ define(function(require, exports) {
         content.empty();
         var dv = this.prop$.find("tbody").children();
         dv.each(function() {
-            var text = ($(this).data("model") || {}).text || '选项';
+            var text = $(this).data("model").text;
             content.append('<span><input type="radio"></input><label>' + text + '</label></span>')
         });
     };
 
     SCQuestion.prototype.getValue = function() {
         var v = {
-            no: this.no
+            no: this.no,
+            type: "SC"
         };
 
         v["title"] = this.title$.html();
@@ -393,18 +458,20 @@ define(function(require, exports) {
 
     MTQuestion.prototype.addOption = function(opt) {
         var that = this;
-        var opt = opt || {};
-        var tr = $('<tr/>');
+        var opt = opt || {
+            text: "选项"
+        };
+        var tr = $('<tr/>').data("model", opt);
         var td1 = $("<td><input/></td>").appendTo(tr);
         td1.find("input").blur(function() {
             var this$ = $(this);
-            var data = tr.data("model") || {};
+            var data = tr.data("model");
             data.text = this$.val() || '';
             tr.data("model", data);
 
             that.updateOpt(tr.index(), data.text);
 
-        }).val(opt.text || '选项');;
+        }).val(opt.text);;
 
         var td2 = $("<td/>").appendTo(tr);
         var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
@@ -422,13 +489,14 @@ define(function(require, exports) {
         content.empty();
         var dv = this.prop$.find("tbody").children();
         dv.each(function() {
-            var text = ($(this).data("model") || {}).text || '选项';
+            var text = $(this).data("model").text;
             content.append('<span><input type="checkbox"></input><label>' + text + '</label></span>')
         });
     };
     MTQuestion.prototype.getValue = function() {
         var v = {
-            no: this.no
+            no: this.no,
+            type: "MT"
         };
 
         v["title"] = this.title$.html();
@@ -454,7 +522,8 @@ define(function(require, exports) {
     extend(ASQuestion, Question);
     ASQuestion.prototype.getValue = function() {
         var v = {
-            no: this.no
+            no: this.no,
+            type: "AS"
         };
 
         v["title"] = this.title$.html();
@@ -470,7 +539,9 @@ define(function(require, exports) {
 
     extend(PGQuestion, Question);
     PGQuestion.prototype.getValue = function() {
-        var v = {};
+        var v = {
+            type: "PG"
+        };
 
         v["title"] = this.title$.html();
 
