@@ -4,7 +4,7 @@
  * 天恒众航(2013) */
 package link.smartwall.web.control.entity;
 
-import com.itfsm.util.StrUtils;
+import link.smartwall.util.StrUtils;
 
 /**
  * Selector组件配置对象

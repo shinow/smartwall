@@ -3,8 +3,8 @@
  */
 package link.smartwall.grid.entity;
 
-import com.itfsm.base.api.IdName;
-import com.itfsm.util.DateUtils;
+import link.smartwall.base.api.IdName;
+import link.smartwall.util.DateUtils;
 
 /**
  * 默认值设置器

@@ -1,0 +1,470 @@
+/*-------------------------------------
+zTree Style
+
+version:	3.4
+author:		Hunter.z
+email:		hunter.z@263.net
+website:	http://code.google.com/p/jquerytree/
+
+-------------------------------------*/
+
+.ztree * {padding:0; margin:0; font-size:12px; font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif}
+.ztree {margin:0; padding:5px; color:#333}
+.ztree li{padding:0; margin:0; list-style:none; line-height:14px; text-align:left; white-space:nowrap; outline:0}
+.ztree li ul{ margin:0; padding:0 0 0 18px}
+.ztree li ul.line{ background:url(./img/line_conn.gif) 0 0 repeat-y;}
+
+.ztree li a {padding:1px 3px 0 0; margin:0; cursor:pointer; height:17px; color:#333; background-color: transparent;
+	text-decoration:none; vertical-align:top; display: inline-block}
+.ztree li a:hover {text-decoration:underline}
+.ztree li a.curSelectedNode {padding-top:0px; background-color:#FFE6B0; color:black; height:16px; border:1px #FFB951 solid; opacity:0.8;}
+.ztree li a.curSelectedNode_Edit {padding-top:0px; background-color:#FFE6B0; color:black; height:16px; border:1px #FFB951 solid; opacity:0.8;}
+.ztree li a.tmpTargetNode_inner {padding-top:0px; background-color:#316AC5; color:white; height:16px; border:1px #316AC5 solid;
+	opacity:0.8; filter:alpha(opacity=80)}
+.ztree li a.tmpTargetNode_prev {}
+.ztree li a.tmpTargetNode_next {}
+.ztree li a input.rename {height:14px; width:80px; padding:0; margin:0;
+	font-size:12px; border:1px #7EC4CC solid; *border:0px}
+.ztree li span {line-height:16px; margin-right:2px}
+.ztree li span.button {line-height:0; margin:0; width:14px; height:14px; display: inline-block; vertical-align:middle;
+	border:0 none; cursor: pointer;outline:none;
+	background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
+	background-image:url("./img/zTreeStandard.png"); *background-image:url("./img/zTreeStandard.gif")}
+
+.ztree li span.button.chk {width:13px; height:13px; margin:0 3px 0 0; cursor: auto}
+.ztree li span.button.chk.checkbox_false_full {background-position:0 0}
+.ztree li span.button.chk.checkbox_false_full_focus {background-position:0 -14px}
+.ztree li span.button.chk.checkbox_false_part {background-position:0 -28px}
+.ztree li span.button.chk.checkbox_false_part_focus {background-position:0 -42px}
+.ztree li span.button.chk.checkbox_false_disable {background-position:0 -56px}
+.ztree li span.button.chk.checkbox_true_full {background-position:-14px 0}
+.ztree li span.button.chk.checkbox_true_full_focus {background-position:-14px -14px}
+.ztree li span.button.chk.checkbox_true_part {background-position:-14px -28px}
+.ztree li span.button.chk.checkbox_true_part_focus {background-position:-14px -42px}
+.ztree li span.button.chk.checkbox_true_disable {background-position:-14px -56px}
+.ztree li span.button.chk.radio_false_full {background-position:-28px 0}
+.ztree li span.button.chk.radio_false_full_focus {background-position:-28px -14px}
+.ztree li span.button.chk.radio_false_part {background-position:-28px -28px}
+.ztree li span.button.chk.radio_false_part_focus {background-position:-28px -42px}
+.ztree li span.button.chk.radio_false_disable {background-position:-28px -56px}
+.ztree li span.button.chk.radio_true_full {background-position:-42px 0}
+.ztree li span.button.chk.radio_true_full_focus {background-position:-42px -14px}
+.ztree li span.button.chk.radio_true_part {background-position:-42px -28px}
+.ztree li span.button.chk.radio_true_part_focus {background-position:-42px -42px}
+.ztree li span.button.chk.radio_true_disable {background-position:-42px -56px}
+
+.ztree li span.button.switch {width:18px; height:18px}
+.ztree li span.button.root_open{background-position:-92px -54px}
+.ztree li span.button.root_close{background-position:-74px -54px}
+.ztree li span.button.roots_open{background-position:-92px 0}
+.ztree li span.button.roots_close{background-position:-74px 0}
+.ztree li span.button.center_open{background-position:-92px -18px}
+.ztree li span.button.center_close{background-position:-74px -18px}
+.ztree li span.button.bottom_open{background-position:-92px -36px}
+.ztree li span.button.bottom_close{background-position:-74px -36px}
+.ztree li span.button.noline_open{background-position:-92px -72px}
+.ztree li span.button.noline_close{background-position:-74px -72px}
+.ztree li span.button.root_docu{ background:none;}
+.ztree li span.button.roots_docu{background-position:-56px 0}
+.ztree li span.button.center_docu{background-position:-56px -18px}
+.ztree li span.button.bottom_docu{background-position:-56px -36px}
+.ztree li span.button.noline_docu{ background:none;}
+
+.ztree li span.button.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.ico_close{margin-right:2px; background-position:-110px 0; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.remove {margin-right:2px; background-position:-110px -64px; vertical-align:top; *vertical-align:middle}
+
+.ztree li span.button.ico_loading{margin-right:2px; background:url(./img/loading.gif) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+
+ul.tmpTargetzTree {background-color:#FFE6B0; opacity:0.8; filter:alpha(opacity=80)}
+
+span.tmpzTreeMove_arrow {width:16px; height:16px; display: inline-block; padding:0; margin:2px 0 0 1px; border:0 none; position:absolute;
+	background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
+	background-position:-110px -80px; background-image:url("./img/zTreeStandard.png"); *background-image:url("./img/zTreeStandard.gif")}
+
+ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden; background-color:#cfcfcf; border:1px #00B83F dotted; opacity:0.8; filter:alpha(opacity=80)}
+.zTreeMask {z-index:10000; background-color:#cfcfcf; opacity:0.0; filter:alpha(opacity=0); position:absolute}
+
+/* level style*/
+/*.ztree li span.button.level0 {
+	display:none;
+}
+.ztree li ul.level0 {
+	padding:0;
+	background:none;
+}*/
+.ztree li span.button.dept_ico_open{
+	margin-right: 2px;
+    background: url(./img/user-home.gif) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+}
+.ztree li span.button.dept_ico_close,.ztree li span.button.dept_ico_docu{
+	margin-right: 2px;
+    background: url(./img/user-home.gif) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+}
+.ztree li span.button.user_ico_docu{
+	margin-right: 2px;
+    background: url(./img/user-green.gif) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+}
+
+
+
+/* validated components start*/
+
+
+/* -------layout start-------*/
+
+.nv-layout {
+    position: relative;
+}
+
+.nv-layout-left,
+.nv-layout-right,
+.nv-layout-center,
+.nv-layout-top,
+.nv-layout-bottom,
+.nv-layout-centerbottom {
+    position: absolute;
+    background: white;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.nv-layout-top {
+    width: 100%;
+}
+
+.nv-layout-bottom {
+    width: 100%
+}
+
+.nv-layout-left .nv-layout-header-toggle {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    background-position: -20px 0px;
+    cursor: pointer;
+}
+
+.nv-layout-left .nv-layout-header-toggle-over {
+    background-position: -20px -20px;
+}
+
+.nv-layout-right .nv-layout-header-toggle {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    background-position: -20px -40px;
+    cursor: pointer;
+}
+
+.nv-layout-right .nv-layout-header-toggle-over {
+    background-position: -20px -60px;
+}
+
+.nv-layout-center .nv-layout-header {
+    cursor: default;
+    font-size: 14px;
+}
+
+.nv-layout-centerbottom .nv-layout-header {
+    cursor: default;
+}
+
+.nv-layout-header {
+    position: relative;
+    font-size: 14px;
+    padding-left: 10px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    overflow: hidden;
+    cursor: pointer
+}
+
+.nv-layout-header-inner {
+    padding-right: 22px;
+}
+
+.nv-layout-right .nv-layout-header-inner {
+    padding-left: 22px;
+    font-size: 14px;
+}
+
+.nv-layout-collapse-left,
+.nv-layout-collapse-right {
+    width: 24px;
+    position: absolute;
+    top: 0px;
+    display: none;
+    height: 100%;
+    z-index: 10;
+}
+
+.nv-layout-collapse-left-toggle,
+.nv-layout-collapse-right-toggle {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.nv-layout-collapse-left {
+    left: 2px;
+}
+
+.nv-layout-collapse-left-toggle {
+    top: 0px;
+    right: 2px;
+    background-position: -20px -40px;
+}
+
+.nv-layout-collapse-left-toggle-over {
+    background-position: -20px -60px;
+}
+
+.nv-layout-collapse-right {
+    right: 2px;
+}
+
+.nv-layout-collapse-right-toggle {
+    top: 0px;
+    left: 2px;
+    background-position: -20px 0px;
+}
+
+.nv-layout-collapse-right-toggle-over {
+    background-position: -20px -20px;
+}
+
+.nv-layout-drophandle-left {
+    position: absolute;
+    width: 5px;
+    cursor: col-resize;
+    z-index: 10;
+    display: none;
+}
+
+.nv-layout-drophandle-right {
+    position: absolute;
+    width: 5px;
+    cursor: col-resize;
+    z-index: 10;
+    display: none;
+}
+
+.nv-layout-drophandle-top {
+    position: absolute;
+    height: 5px;
+    cursor: row-resize;
+    z-index: 10;
+    display: none;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.nv-layout-drophandle-bottom {
+    position: absolute;
+    height: 5px;
+    cursor: row-resize;
+    z-index: 10;
+    display: none;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.nv-layout-drophandle-centerbottom {
+    position: absolute;
+    height: 5px;
+    cursor: row-resize;
+    z-index: 10;
+    display: none;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.nv-layout-dragging-xline {
+    background: #E0E4E2;
+    height: 4px;
+    position: absolute;
+    display: none;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.nv-layout-dragging-yline {
+    background: #E0E4E2;
+    width: 4px;
+    position: absolute;
+    display: none;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+}
+
+.nv-layout-lock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 9990;
+    margin: 0;
+    padding: 0;
+}
+
+.nv-layout-content {
+    position: relative;
+    background: white;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.nv-layout-drophandle {
+    position: absolute;
+    top: 0px;
+    left: -5px;
+    width: 5px;
+    cursor: col-resize;
+    z-index: 10;
+    height: 100%;
+    display: none;
+}
+
+.nv-layout-collapse {
+    width: 24px;
+    background: #EAF2FE;
+    border: 1px solid #B8D0D6;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    display: none;
+    height: 100%;
+    z-index: 10;
+}
+
+.nv-layout-collapse-over {
+    background: #F5F9FA;
+}
+
+.nv-layout-collapse-toggle {
+    position: absolute;
+    top: 0px;
+    right: 2px;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    background: url('images/layout/togglebar.gif');
+    background-position: -20px -40px;
+    cursor: pointer;
+}
+
+.nv-layout-collapse-toggle-over {
+    background-position: -20px -60px;
+}
+
+.nv-layout-dragging-line {
+    background: #E0E4E2;
+    width: 4px;
+    position: absolute;
+    top: 0px;
+    display: none;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.nv-layout-xmask {
+    cursor: col-resize;
+    z-index: 9990;
+}
+
+.nv-layout-ymask {
+    cursor: row-resize;
+    z-index: 9990;
+}
+
+
+/*--------- nv-query-input -------*/
+
+.nv-query-input {
+    font-size: 12px;
+    padding: 0;
+    margin: 2px;
+    height: 22px;
+    border: 1px solid #a6abbb;
+    border-radius: 4px;
+    background-color: #f9f5f5;
+    vertical-align: middle;
+}
+
+.nv-query-input .nv-query-input-q,
+.nv-query-input .nv-query-input-e {
+    height: 22px;
+    width: 22px;
+    display: block;
+    line-height: 22px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.nv-query-input .nv-query-input-q,
+.nv-query-input .nv-query-input-e {
+    height: 22px;
+    width: 22px;
+    display: block;
+    line-height: 22px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.nv-query-input .nv-query-input-q {
+    float: left;
+    background-image: url(./img/search.png);
+}
+
+.nv-query-input .nv-query-input-e {
+    float: right;
+    background-image: url(./img/enter.png);
+    cursor: pointer;
+}
+
+.nv-query-input .nv-query-input-e:hover {
+    background-image: url(./img/enter_h.png);
+}
+
+.nv-query-input input {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    border: 0;
+    width: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
+    height: 22px;
+    line-height: 22px;
+    background-color: #f9f5f5;
+}
+
+.nv-query-input .nv-query-input-wrapper {
+    margin-left: 26px;
+    margin-right: 26px;
+}
+
+
+/* validated components  end*/

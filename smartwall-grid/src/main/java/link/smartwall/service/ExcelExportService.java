@@ -31,17 +31,14 @@ import org.nutz.dao.sql.Sql;
 import org.nutz.dao.sql.SqlCallback;
 import org.nutz.ioc.loader.annotation.IocBean;
 
-import com.itfsm.base.http.UserManager;
-import com.itfsm.base.http.WebUser;
-import com.itfsm.config.tenant.parameter.TenantParameter;
-import com.itfsm.config.tenant.parameter.TenantParameterManager;
-import com.itfsm.service.BaseService;
-import com.itfsm.util.NumberUtils;
-import com.itfsm.util.StrUtils;
-
+import link.smartwall.base.http.UserManager;
+import link.smartwall.base.http.WebUser;
 import link.smartwall.grid.entity.Align;
 import link.smartwall.grid.entity.ConfGrid;
 import link.smartwall.grid.entity.ConfGridCol;
+import link.smartwall.service.BaseService;
+import link.smartwall.util.NumberUtils;
+import link.smartwall.util.StrUtils;
 
 /**
  * 网格导出service
@@ -230,10 +227,7 @@ public class ExcelExportService extends BaseService {
 
         WebUser webUser = UserManager.getCurrentUser();
         /* 是否导出清晰图 */
-        final String useThumbnail =
-                TenantParameterManager.INSTANCE.getParameterAsString(TenantParameter.IMAGE_EXPORT_USE_THUMBNAIL,
-                                                                     webUser.getTenantId(),
-                                                                     "false");
+        final String useThumbnail = "false";
         // 循环输出到Excel
         SqlCallback scb = new SqlCallback() {
             public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {

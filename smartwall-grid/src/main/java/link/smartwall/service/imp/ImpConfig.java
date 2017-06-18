@@ -3,7 +3,7 @@
  */
 package link.smartwall.service.imp;
 
-import com.itfsm.util.StrUtils;
+import link.smartwall.util.StrUtils;
 
 /**
  * 信息导入配置

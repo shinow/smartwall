@@ -4,7 +4,7 @@ import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Table;
 import org.nutz.dao.entity.annotation.View;
 
-import com.itfsm.basemodel.BaseEntity;
+import link.smartwall.basemodel.BaseEntity;
 
 @Table("conf_grid_action")
 @View("vs_conf_grid_action")

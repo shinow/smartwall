@@ -11,8 +11,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
-import com.itfsm.base.api.Result;
-
+import link.smartwall.base.api.Result;
 import link.smartwall.grid.entity.ConfFuncWorkFlow;
 import link.smartwall.service.FireFlowService;
 /**

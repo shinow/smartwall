@@ -3,7 +3,7 @@ package link.smartwall.grid.entity;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Table;
 
-import com.itfsm.basemodel.BaseEntity;
+import link.smartwall.basemodel.BaseEntity;
 /**
  * 下拉数据
  * @author caisj

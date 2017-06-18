@@ -3,7 +3,7 @@ package link.smartwall.grid.entity;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Table;
 
-import com.itfsm.basemodel.BaseEntity;
+import link.smartwall.basemodel.BaseEntity;
 
 @Table("conf_grid_filter")
 public class ConfGridFilter extends BaseEntity {

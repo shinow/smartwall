@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/com/alibaba/fastjson/1.2.3/fastjson-1.2.3.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/com/itfsm/hprose-java/2.0.0/hprose-java-2.0.0.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/geronimo/specs/geronimo-servlet_2.5_spec/1.2/geronimo-servlet_2.5_spec-1.2.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/slf4j/slf4j-ext/1.6.1/slf4j-ext-1.6.1.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/freemarker/freemarker/2.3.20/freemarker-2.3.20.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/joda-time/joda-time/2.7/joda-time-2.7.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/com/belerweb/pinyin4j/2.5.0/pinyin4j-2.5.0.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/httpcomponents/httpclient/4.4.1/httpclient-4.4.1.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/httpcomponents/httpcore/4.4.1/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/quartz-scheduler/quartz/2.2.3/quartz-2.2.3.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/poi/poi/3.9/poi-3.9.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/org/nutz/nutz/1.0.61/nutz-1.0.61.jar"/>
+	<classpathentry kind="lib" path="E:/Code/javalib/com/github/stuxuhai/jpinyin/1.0/jpinyin-1.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

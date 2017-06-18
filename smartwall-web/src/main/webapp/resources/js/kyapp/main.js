@@ -234,17 +234,23 @@ define(function(require) {
         }, {
             name: '题库管理',
             children: [{
-                name: '题库分类',
-                func: 'grid/show/e8df2d9ad0554a6e9d5d694cd8a558a8.mvc'
+                name: '政治题库',
+                func: 'grid/show/49B2ECD92D104BE8B5FEF5F7FEDB42B8.mvc'
             }, {
-                name: '试卷管理',
-                func: ''
+                name: '英语一题库',
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
-                name: '试题管理',
-                func: ''
+                name: '英语二题库',
+                func: 'grid/show/37433153D2B045648F63B062850E3E08.mvc'
             }, {
-                name: '错题统计',
-                func: ''
+                name: '数学一题库',
+                func: 'grid/show/3CE5976B6C8643B7B7B87CAB73DA586F.mvc'
+            },{
+                name: '数学二题库',
+                func: 'grid/show/2D036D6946F24CC98CF5DD06F5719839.mvc'
+            },{
+                name: '数学三题库',
+                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
             }]
         }, {
             name: '订单管理',

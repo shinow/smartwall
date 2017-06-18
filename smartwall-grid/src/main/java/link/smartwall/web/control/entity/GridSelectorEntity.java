@@ -10,7 +10,7 @@ import org.nutz.dao.entity.annotation.Prev;
 import org.nutz.dao.entity.annotation.SQL;
 import org.nutz.dao.entity.annotation.Table;
 
-import com.itfsm.util.StrUtils;
+import link.smartwall.util.StrUtils;
 
 /**
  * 网格选择组件配置实体

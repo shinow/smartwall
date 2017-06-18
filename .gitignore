@@ -3,3 +3,7 @@
 /smartwall-web/.gitignore
 /smartwall-web/.classpath
 /smartwall-web/src/main/resources/ioc/ioc.json
+/smartwall-base/bin
+/smartwall-base/target
+/smartwall-grid/target
+/smartwall-redis/target

@@ -7,9 +7,8 @@ import org.nutz.dao.entity.Record;
 import org.nutz.dao.sql.Sql;
 import org.nutz.ioc.loader.annotation.IocBean;
 
-import com.itfsm.service.BaseService;
-
 import link.smartwall.grid.entity.ConfFuncWorkFlow;
+import link.smartwall.service.BaseService;
 
 @IocBean(args = { "refer:dao" })
 public class FireFlowService extends BaseService {

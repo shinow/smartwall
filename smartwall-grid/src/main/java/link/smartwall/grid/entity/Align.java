@@ -2,7 +2,7 @@
  * 天恒众航(2013) */
 package link.smartwall.grid.entity;
 
-import com.itfsm.base.api.IdName;
+import link.smartwall.base.api.IdName;
 
 /**
  * 对齐
