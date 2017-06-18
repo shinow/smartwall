@@ -6,6 +6,7 @@ define(function(require, exports) {
     require("ligerui-css");
     require("ligerui-css-icons");
     require("controls/umeditor");
+    require("./css/editor.css");
 
     var editor;
     exports.init = function(conf) {

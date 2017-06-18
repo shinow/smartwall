@@ -1,5 +1,5 @@
 /**
- * 天恒众航(2013)
+ * SmartWall(2013)
  */
 package link.smartwall.web.controller.grid;
 
@@ -20,7 +20,7 @@ import link.smartwall.service.GridService;
  * 
  * @author <a herf="lexloo@gmail.com">lexloo</a>
  * @version 1.0
- * @since 销售宝 2.0
+ * @since  2.0
  *        <p/>
  * 
  *        <pre>

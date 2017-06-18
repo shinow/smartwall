@@ -1,5 +1,5 @@
 /**
- * 天恒众航（北京）科技股份公司(2015~2016)
+ * SmartWall(2015~2016)
  */
 package link.smartwall.base.api;
 

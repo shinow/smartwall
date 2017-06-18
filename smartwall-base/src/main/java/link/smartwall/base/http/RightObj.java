@@ -1,5 +1,5 @@
 /**
- * 北京中航嘉城科技股份有限公司(2013) 
+ * SmartWall(2013) 
  */
 package link.smartwall.base.http;
 
@@ -14,7 +14,7 @@ import link.smartwall.util.StrUtils;
  * 
  * @version 1.0
  * @author <a herf="lexloo@gmail.com">lexloo</a>
- * @since 销售宝 2.0
+ * @since  2.0
  * 
  *        <pre>
  * 历史：

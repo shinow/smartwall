@@ -17,7 +17,7 @@ import java.util.Map;
  * 
  * @version 1.0
  * @author <a href="ttan_style@sina.cn">ttan</a>
- * @since 销售宝 2.0
+ * @since  2.0
  * 
  *        <pre>
  * 历史：

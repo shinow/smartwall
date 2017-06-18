@@ -1,5 +1,5 @@
 /**
- * 北京中航嘉城科技股份有限公司(2013)
+ * SmartWall(2013)
  */
 package link.smartwall.util;
 

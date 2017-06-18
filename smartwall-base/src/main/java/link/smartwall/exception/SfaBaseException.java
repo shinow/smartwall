@@ -1,5 +1,5 @@
 /**
- * 天恒众航(2014)
+ * SmartWall(2014)
  */
 package link.smartwall.exception;
 

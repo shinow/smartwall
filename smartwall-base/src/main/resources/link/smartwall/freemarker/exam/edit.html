@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>试题编辑</title>
+    <script type="text/javascript" src="${context}/resources/js/sea.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        seajs.use(["exam/editor"], function(editor) {
+            editor.init({
+                container: "editor"
+            });
+
+            $("#save").click(function() {
+                alert(editor.getValue());
+            });
+
+            $(".btn-item-creator").click(function() {
+                var type = $(this).attr("type");
+                editor.addQuestion(type);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <span>插入题型:</span>
+        <button class="btn-item-creator" type="SC">单选</button>
+        <button class="btn-item-creator" type="MT">多选</button>
+        <button class="btn-item-creator" type="AS">问答题</button>
+        <button class="btn-item-creator" type="PG">段落说明</button>
+        <!--button class="btn-item-creator" type="photo-take">拍照题</button-->
+
+        <button id="save">保存</button>
+        <button>返回</button>
+    </div>
+    <div class="editor" id="editor">
+    </div>
+
+    <div id="editor-title" style="display:none">
+        <div style="margin-bottom:6px">
+            <label style="float:left">问卷标题:</label>
+            <input id="editor-title-ti" style="margin-left:10px;width: 85%"></input>
+        </div>
+        <div>
+            <label style="float:left">问卷说明:</label>
+            <script id="editor-title-um" style="width:500px;height:300px;" type="text/plain" ></script>
+        </div>
+    </div>
+</body>
+</html>

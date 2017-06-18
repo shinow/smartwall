@@ -1,6 +1,6 @@
 package link.smartwall.service;
 ///**
-// * 天恒众航（北京）科技股份公司(2015)
+// * SmartWall(2015)
 // */
 //package com.itfsm.web.control.service;
 //

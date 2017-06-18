@@ -20,7 +20,7 @@ import java.util.Map;
  * 
  * @author lexloo
  * @version 1.0 2010-8-26
- * @since 销售宝 2.0
+ * @since  2.0
  */
 public final class ServletUtils {
     /**

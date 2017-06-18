@@ -14,7 +14,7 @@ import link.smartwall.oss.mvc.OssViewMaker;
  * 
  * @author <a herf="lexloo@gmail.com">lexloo</a>
  * @version 1.0
- * @since 销售宝 2.0
+ * @since  2.0
  *        <p/>
  *        <p/>
  *        <p/>

@@ -28,7 +28,7 @@ import freemarker.template.TemplateExceptionHandler;
  * 
  * @author <a herf="lexloo@gmail.com">lexloo</a>
  * @version 1.0
- * @since 销售宝 5.0
+ * @since  5.0
  *        <p/>
  * 
  *        <pre>

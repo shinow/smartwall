@@ -1,5 +1,5 @@
 /**
- * 北京中航嘉城科技股份有限公司(2014)
+ * SmartWall(2014)
  */
 package link.smartwall.base.http;
 

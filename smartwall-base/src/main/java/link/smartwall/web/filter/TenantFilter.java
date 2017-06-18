@@ -21,7 +21,7 @@ import link.smartwall.base.http.Constants;
  * 
  * @version 1.0
  * @author <a herf="lexloo@gmail.com">lexloo</a>
- * @since 销售宝 2.0
+ * @since  2.0
  * 
  *        <pre>
  * 历史：

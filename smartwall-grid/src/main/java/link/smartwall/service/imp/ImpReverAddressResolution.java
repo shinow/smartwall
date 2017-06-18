@@ -1,5 +1,5 @@
 /**
- * 天恒众航（北京）科技股份公司(2014)
+ * SmartWall(2014)
  */
 package link.smartwall.service.imp;
 
