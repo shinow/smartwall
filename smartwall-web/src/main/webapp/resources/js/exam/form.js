@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 			name: "caption",
 			type: "text",
 			validate: {
-                maxLength:100,
+				maxLength: 100,
 				required: true
 			}
 		}],
@@ -23,4 +23,13 @@ define(function(require, exports, module) {
 
 	Exam = {};
 	form.initDefMethod(Exam, _formConfig);
+
+
+	Grid.showExamEditor = function() {
+		return function(rowdata, index, value) {
+			var href = CONTEXT + "exam/edit.mvc?type=ZZ&guid=" + rowdata["guid"];
+
+			return '<a href="' + href + '">编辑</a>';
+		};
+	};
 });
