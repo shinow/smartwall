@@ -12,6 +12,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
+import link.smartwall.base.api.Result;
 import link.smartwall.service.exam.ExamService;
 
 /**
@@ -33,11 +34,7 @@ public class ExamController {
 	private ExamService examService;
 
 	/**
-	 * 网格显示，显示第一页
-	 * 
-	 * @param grid
-	 *            网格配置
-	 * @return 页面
+	 * 编辑试卷
 	 */
 	@At("/exam/edit")
 	@Ok("fm:/exam/edit.html")
@@ -47,5 +44,25 @@ public class ExamController {
 		rtn.put("guid", guid);
 
 		return rtn;
+	}
+
+	/**
+	 * 保存试卷
+	 */
+	@At("/exam/save")
+	@Ok("json")
+	public Result save(@Param("type") String type, @Param("guid") String guid, @Param("value") String value) {
+		examService.saveExam(type, guid, value);
+
+		return Result.successResult();
+	}
+
+	/**
+	 * 获取试卷
+	 */
+	@At("/exam/save")
+	@Ok("json")
+	public Result get(@Param("type") String type, @Param("guid") String guid) {
+		return Result.successResult(examService.getExam(type, guid));
 	}
 }

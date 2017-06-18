@@ -14,8 +14,14 @@ define(function(require, exports) {
         //editor.addQuestion();
     };
 
-    exports.getValue = function() {
-        return JSON.stringify(editor.getValue());
+    exports.save = function() {
+        utils.postJson("exam/save.mvc", {
+            type: editor.examType,
+            guid: editor.examGuid,
+            value: JSON.stringify(editor.getValue())
+        }, function(result) {
+            alert(JSON.stringify(result));
+        });
     };
 
     exports.addQuestion = function(type) {
@@ -35,6 +41,9 @@ define(function(require, exports) {
 
     QEditor.prototype._init_ = function(conf) {
         this.container = $("#" + conf["container"]);
+        this.examGuid = conf["guid"];
+        this.examType = conf["type"];
+
         this.lastQ = null;
         this._initTitle(this.container);
     };
