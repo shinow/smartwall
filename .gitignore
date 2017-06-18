@@ -7,3 +7,4 @@
 /smartwall-base/target
 /smartwall-grid/target
 /smartwall-redis/target
+/smartwall-redis/bin
