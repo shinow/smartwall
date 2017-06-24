@@ -383,16 +383,17 @@ define(function(require, exports) {
         this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
 
         this.workarea$.append(this.prop$);
-        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
+        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th>是否正确答案</th><th style="width:100px">操作</th><tr>');
     };
 
     SCQuestion.prototype.addOption = function(opt) {
         var that = this;
         var opt = opt || {
-            text: "选项"
+            text: "选项",
+            right: false
         };
         var tr = $('<tr/>').data("model", opt);
-        var td1 = $("<td><input/></td>").appendTo(tr);
+        var td1 = $('<td><input/></td>').appendTo(tr);
         td1.find("input").blur(function() {
             var this$ = $(this);
             var data = tr.data("model");
@@ -403,13 +404,21 @@ define(function(require, exports) {
         }).val(opt.text);
 
         var td2 = $("<td/>").appendTo(tr);
-        var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
+        var td3 = $('<td><input type="checkbox"/></td>').appendTo(tr);
+        td3.find("input").change(function() {
+            var data = tr.data("model");
+            data.right = $(this).is(":checked");
+
+            that.updateOpt(tr.index(), data);
+        }).attr("checked", opt.right);
+
+        var td4 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
 
         this.prop$.find("tbody").append(tr);
     };
 
-    SCQuestion.prototype.updateOpt = function(index, text) {
-        this.content$.children().eq(index).find("label").text(text);
+    SCQuestion.prototype.updateOpt = function(index, data) {
+        this.content$.children().eq(index).find("label").text(data.text);
     };
     SCQuestion.prototype.updateOptions = function() {
         var content = this.content$;
@@ -435,6 +444,7 @@ define(function(require, exports) {
             if (model) {
                 var opt = {};
                 opt["text"] = model.text;
+                opt["right"] = model.right;
                 opts["" + (index + 1)] = opt;
             }
         });
@@ -453,13 +463,14 @@ define(function(require, exports) {
         this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
 
         this.workarea$.append(this.prop$);
-        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th style="width:100px">操作</th><tr>');
+        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th>是否正确答案</th><th style="width:100px">操作</th><tr>');
     };
 
     MTQuestion.prototype.addOption = function(opt) {
         var that = this;
         var opt = opt || {
-            text: "选项"
+            text: "选项",
+            right: false
         };
         var tr = $('<tr/>').data("model", opt);
         var td1 = $("<td><input/></td>").appendTo(tr);
@@ -469,18 +480,25 @@ define(function(require, exports) {
             data.text = this$.val() || '';
             tr.data("model", data);
 
-            that.updateOpt(tr.index(), data.text);
+            that.updateOpt(tr.index(), data);
 
         }).val(opt.text);;
 
         var td2 = $("<td/>").appendTo(tr);
-        var td3 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
+        var td3 = $('<td><input type="checkbox"/></td>').appendTo(tr);
+        td3.find("input").change(function() {
+            var data = tr.data("model");
+            data.right = $(this).is(":checked");
+
+            that.updateOpt(tr.index(), data);
+        }).attr("checked", opt.right);
+        var td4 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
 
         this.prop$.find("tbody").append(tr);
     };
 
-    MTQuestion.prototype.updateOpt = function(index, text) {
-        this.content$.children().eq(index).find("label").text(text);
+    MTQuestion.prototype.updateOpt = function(index, data) {
+        this.content$.children().eq(index).find("label").text(data.text);
     };
 
     MTQuestion.prototype.updateOptions = function() {
@@ -506,6 +524,7 @@ define(function(require, exports) {
             if (model) {
                 var opt = {};
                 opt["text"] = model.text;
+                opt["right"] = model.right;
                 opts["" + (index + 1)] = opt;
             }
         });
