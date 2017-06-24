@@ -308,9 +308,21 @@ define(function(require, exports) {
         });
 
         this.renderPropUI();
+        this.renderAnalysis();
     };
 
     Question.prototype.renderPropUI = function() {};
+    Question.prototype.renderAnalysis = function() {
+        this.analysis$ = $('<div class="qe-item-e-analysis"><label>题目分数</label><select></select><br/><label>试题解析</label><textarea/></div>');
+
+        var opts = '<option>0.5</option>';
+        for (var i = 1; i < 51; i++) {
+            opts = opts + '<option>' + i + '</option>';
+        }
+        $('select', this.analysis$).html(opts);
+
+        this.workarea$.append(this.analysis$);
+    };
     Question.prototype.addOption = function() {};
     Question.prototype.updateOpt = function(index, text) {};
     Question.prototype.updateOptions = function() {};
@@ -426,14 +438,6 @@ define(function(require, exports) {
                     }
                 });
             }
-
-            // $(this).parent().siblings().each(function() {
-            //     var checkbox = $(this).find("input");
-            //     alert(checkbox.length);
-            //     if (checkbox.is(":checked")) {
-            //         checkbox.change();
-            //     }
-            // });
 
             var data = tr.data("model");
             data.right = $(this).is(":checked");

@@ -145,3 +145,13 @@ html, body {
 .eq-item-e-down {
     background-position: -96px -113px;
 }
+
+.qe-item-e-analysis select {
+    width: 72px;
+}
+
+.qe-item-e-analysis textarea {
+    margin-top: 4px;
+    width: 520px;
+    min-height: 72px;
+}
