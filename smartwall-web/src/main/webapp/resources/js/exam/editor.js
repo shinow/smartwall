@@ -132,50 +132,22 @@ define(function(require, exports) {
         switch (type) {
             case 'SC':
                 question = new SCQuestion(conf);
-                if (data) {
-                    question.setTitle(data["title"]);
-                    $.each(data.opts, function() {
-                        question.addOption(this);
-                    });
-                } else {
-                    question.setTitle("标题");
-                    question.addOption();
-                    question.addOption();
-                }
-
+                question.setValue(data);
                 question.updateOptions();
                 break;
             case 'MT':
                 question = new MTQuestion(conf);
-                if (data) {
-                    question.setTitle(data["title"]);
-                    $.each(data.opts, function() {
-                        question.addOption(this);
-                    });
-                } else {
-                    question.setTitle("标题");
-                    question.addOption();
-                    question.addOption();
-                }
-
+                question.setValue(data);
                 question.updateOptions();
                 break;
             case 'AS':
                 question = new ASQuestion(conf);
-                if (data) {
-                    question.setTitle(data["title"]);
-                } else {
-                    question.setTitle("标题");
-                }
+                question.setValue(data);
 
                 break;
             case 'PG':
                 question = new PGQuestion(conf);
-                if (data) {
-                    question.setTitle(data["title"]);
-                } else {
-                    question.setTitle("标题");
-                }
+                question.setValue(data);
 
                 break;
         }
@@ -319,7 +291,7 @@ define(function(require, exports) {
         for (var i = 1; i < 51; i++) {
             opts = opts + '<option>' + i + '</option>';
         }
-        $('select', this.analysis$).html(opts);
+        $('select', this.analysis$).html(opts).val("1");
 
         this.workarea$.append(this.analysis$);
     };
@@ -338,7 +310,10 @@ define(function(require, exports) {
         };
 
         return v;
-    }
+    };
+
+    Question.prototype.setValue = function(data) {};
+
     Question.prototype.createOprAdd = function() {
         var that = this;
         return $('<span class="eq-item-e-btn eq-item-e-add"></span>').click(function() {
@@ -484,14 +459,30 @@ define(function(require, exports) {
         });
 
         v["opts"] = opts;
+        v["score"] = this.analysis$.find("select").val();
+        v["analysis"] = this.analysis$.find("textarea").val();
 
         return v;
-    }
-
+    };
+    SCQuestion.prototype.setValue = function(data) {
+        var that = this;
+        if (data) {
+            that.setTitle(data["title"]);
+            $.each(data.opts, function() {
+                that.addOption(this);
+            });
+            that.analysis$.find("select").val(data.score);
+            that.analysis$.find("textarea").val(data.analysis);
+        } else {
+            that.setTitle("标题");
+            that.addOption();
+            that.addOption();
+        }
+    };
     /*多选*/
     var MTQuestion = function(conf) {
         this._init_(conf);
-    }
+    };
     extend(MTQuestion, Question);
     MTQuestion.prototype.renderPropUI = function() {
         this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
@@ -565,10 +556,27 @@ define(function(require, exports) {
         });
 
         v["opts"] = opts;
+        v["score"] = this.analysis$.find("select").val();
+        v["analysis"] = this.analysis$.find("textarea").val();
 
         return v;
     };
+    MTQuestion.prototype.setValue = function(data) {
+        var that = this;
+        if (data) {
+            that.setTitle(data["title"]);
+            $.each(data.opts, function() {
+                that.addOption(this);
+            });
 
+            that.analysis$.find("select").val(data.score);
+            that.analysis$.find("textarea").val(data.analysis);
+        } else {
+            that.setTitle("标题");
+            that.addOption();
+            that.addOption();
+        }
+    };
     /*问答题*/
     var ASQuestion = function(conf) {
         this._init_(conf);
@@ -581,8 +589,18 @@ define(function(require, exports) {
         };
 
         v["title"] = this.title$.html();
-
+        v["score"] = this.analysis$.find("select").val();
+        v["analysis"] = this.analysis$.find("textarea").val();
         return v;
+    };
+    ASQuestion.prototype.setValue = function(data) {
+        if (data) {
+            this.setTitle(data["title"]);
+        } else {
+            this.setTitle("标题");
+        }
+        this.analysis$.find("select").val(data.score);
+        this.analysis$.find("textarea").val(data.analysis);
     };
 
     /*段落说明*/
@@ -600,6 +618,13 @@ define(function(require, exports) {
         v["title"] = this.title$.html();
 
         return v;
+    };
+    PGQuestion.prototype.setValue = function(data) {
+        if (data) {
+            this.setTitle(data["title"]);
+        } else {
+            this.setTitle("标题");
+        }
     };
     PGQuestion.prototype.updateNo = function() {
         return -1;
