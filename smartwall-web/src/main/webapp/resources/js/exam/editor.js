@@ -404,10 +404,40 @@ define(function(require, exports) {
         }).val(opt.text);
 
         var td2 = $("<td/>").appendTo(tr);
-        var td3 = $('<td><input type="checkbox"/></td>').appendTo(tr);
+        var cid = "C-" + this.guid;
+        var td3 = $('<td><input type="checkbox" cid="' + cid + '"/></td>').appendTo(tr);
         td3.find("input").change(function() {
+            var that$ = $(this);
+            if (that$.is(":checked")) {
+                $('input[cid="' + cid + '"]', tr.parent()).each(function() {
+                    var this$ = $(this);
+                    if (that$.is(this$)) {
+                        return true;
+                    }
+
+                    if (this$.is(":checked")) {
+                        var ctr = this$.parent().parent();
+                        var cdata = ctr.data("model");
+                        this$.attr("checked", false);
+                        cdata.right = false;
+                        ctr.data("model", cdata);
+
+                        that.updateOpt(ctr.index(), cdata);
+                    }
+                });
+            }
+
+            // $(this).parent().siblings().each(function() {
+            //     var checkbox = $(this).find("input");
+            //     alert(checkbox.length);
+            //     if (checkbox.is(":checked")) {
+            //         checkbox.change();
+            //     }
+            // });
+
             var data = tr.data("model");
             data.right = $(this).is(":checked");
+            tr.data("model", data);
 
             that.updateOpt(tr.index(), data);
         }).attr("checked", opt.right);
@@ -489,6 +519,7 @@ define(function(require, exports) {
         td3.find("input").change(function() {
             var data = tr.data("model");
             data.right = $(this).is(":checked");
+            tr.data("model", data);
 
             that.updateOpt(tr.index(), data);
         }).attr("checked", opt.right);
