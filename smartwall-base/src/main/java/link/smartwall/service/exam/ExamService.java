@@ -54,4 +54,22 @@ public class ExamService extends BaseService {
 
 		return sql.getResult();
 	}
+
+	/**
+	 * 获取试卷列表
+	 * 
+	 * @param type
+	 *            试卷类型
+	 * @return 试卷列表
+	 */
+	public Object getQuestionsList(String type) {
+		String sqlStr = "select guid, caption from kygj_exam_$type";
+		Sql sql = Sqls.create(sqlStr);
+		sql.setCallback(Sqls.callback.records());
+		sql.setVar("type", type);
+
+		dao().execute(sql);
+
+		return sql.getResult();
+	}
 }

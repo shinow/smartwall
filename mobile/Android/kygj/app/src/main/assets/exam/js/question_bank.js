@@ -9,7 +9,11 @@ $(function() {
 
     /*加载题库(ZZ|E1|E2|S1|S2|S3)*/
     function loadQB(type) {
-       // alert(type);
+        $.post("http://192.168.1.5:8787/sfa/exam/get_questions.mvc", {
+            type: type
+        }, function(result) {
+            alert(JSON.stringify(result));
+        }, "json");
     };
 
     loadQB("ZZ");
