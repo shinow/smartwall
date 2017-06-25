@@ -387,7 +387,7 @@ define(function(require, exports) {
             data.text = this$.val() || '';
             tr.data("model", data);
 
-            that.updateOpt(tr.index(), data.text);
+            that.updateOpt(tr.index(), data);
         }).val(opt.text);
 
         var td2 = $("<td/>").appendTo(tr);
