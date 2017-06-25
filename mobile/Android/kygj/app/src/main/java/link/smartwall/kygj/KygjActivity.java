@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import link.smartwall.controls.webview.NvWebViewFragment;
+
 public class KygjActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private MenuItem prevMenuItem;
@@ -44,7 +46,7 @@ public class KygjActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kygj);
 
-        viewPager = (ViewPager)this.findViewById(R.id.viewpager);
+        viewPager = (ViewPager) this.findViewById(R.id.viewpager);
         navigationView = (BottomNavigationView) findViewById(R.id.navigation);
         //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉
         BottomNavigationViewHelper.disableShiftMode(navigationView);
@@ -86,11 +88,29 @@ public class KygjActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(DemoFragment.newInstance("首页"));
-        adapter.addFragment(DemoFragment.newInstance("院校"));
-        adapter.addFragment(DemoFragment.newInstance("论坛"));
-        adapter.addFragment(DemoFragment.newInstance("题库"));
-        adapter.addFragment(DemoFragment.newInstance("我的"));
+        adapter.addFragment(this.createBase("首页"));
+        adapter.addFragment(this.createBase("院校"));
+        adapter.addFragment(this.createBase("论坛"));
+        adapter.addFragment(this.createQuestionBankFragment("题库"));
+        adapter.addFragment(this.createBase("我的"));
         viewPager.setAdapter(adapter);
+    }
+
+    private NvWebViewFragment createBase(String info) {
+        Bundle args = new Bundle();
+        NvWebViewFragment fragment = new NvWebViewFragment();
+        args.putString("url", "file:///android_asset/exam/test.html");
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    private NvWebViewFragment createQuestionBankFragment(String info) {
+        Bundle args = new Bundle();
+        NvWebViewFragment fragment = new NvWebViewFragment();
+        args.putString("url", "file:///android_asset/exam/question_bank.html");
+        fragment.setArguments(args);
+
+        return fragment;
     }
 }
