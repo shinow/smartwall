@@ -52,18 +52,58 @@ $(function() {
 
     init();
 
+    var EA = {
+        1: "A",
+        2: "B",
+        3: "C",
+        4: "D",
+        5: "E"
+    };
+
+    function getEA(index) {
+
+    };
+
     var Q;
     Questions = function(template) {
-        alert(JSON.stringify(template));
         this.template = template;
         this.ptr = 1;
+        this.showItem();
     };
 
     Questions.prototype.showItem = function() {
-        alert(this.ptr);
-    }
+        var data = this.template["Q" + this.ptr];
+        var c = $("#question-area").empty();
+
+        var html = "";
+        switch (data["type"]) {
+            case "SC":
+                html += '<div class="title">' + data.no + "." + data["title"] + '</div>';
+                $.each(data.opts, function(index) {
+                    html += '<div class="options">' + EA[index] + '.<input type="radio" name="uniq"/>' + this.text + '</div>';
+                });
+                break;
+
+            case "MT":
+                html += '<div class="title">' + data.no + "." + data["title"] + '</div>';
+                $.each(data.opts, function(index) {
+                    html += '<div class="options">' + EA[index] + '.<input type="checkbox"/>' + this.text + '</div>';
+                });
+                break;
+
+            case "AS":
+                html += '<div class="title">' + data.no + "." + data["title"] + '</div>';
+                html += '<div class="options"><textarea/></div>';
+                break;
+
+            case "PG":
+                html += '<div class="title">' + data["title"] + '</div>';
+                break;
+        }
+        c.append(html);
+    };
 
     Questions.prototype.hasQuestion = function() {
         return this.template["Q" + this.ptr] != undefined;
-    }
+    };
 });
