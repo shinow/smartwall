@@ -25,6 +25,11 @@ public enum ObjectFactory {
 
     private ObjectFactory() {
         putObj("kygj_exam_zz", "link.smartwall.base.entity.KygjExamZZ");
+        putObj("kygj_exam_e1", "link.smartwall.base.entity.KygjExamE1");
+        putObj("kygj_exam_e2", "link.smartwall.base.entity.KygjExamE2");
+        putObj("kygj_exam_s1", "link.smartwall.base.entity.KygjExamS1");
+        putObj("kygj_exam_s2", "link.smartwall.base.entity.KygjExamS2");
+        putObj("kygj_exam_s3", "link.smartwall.base.entity.KygjExamS3");
     }
 
     @SuppressWarnings("unchecked")
