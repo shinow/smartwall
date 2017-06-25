@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 	var _formConfig = {
 		width: 400,
 		height: 300,
-		bizCode: 'kygj_exam_zz',
+		bizCode: 'kygj_exam_e1',
 		columns: [{
 			display: "试题名称",
 			name: "caption",
