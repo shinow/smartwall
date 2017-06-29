@@ -41,7 +41,6 @@ define(function(require, exports) {
 
     QEditor.prototype._init_ = function(conf) {
         this.container = $("#" + conf["container"]);
-        this.nav = $("#nav-item-container");
         this.examGuid = conf["guid"];
         this.examType = conf["type"];
 
@@ -134,12 +133,12 @@ define(function(require, exports) {
             case 'SC':
                 question = new SCQuestion(conf);
                 question.setValue(data);
-                // question.updateOptions();
+                question.updateOptions();
                 break;
             case 'MT':
                 question = new MTQuestion(conf);
                 question.setValue(data);
-                // question.updateOptions();
+                question.updateOptions();
                 break;
             case 'AS':
                 question = new ASQuestion(conf);
@@ -173,21 +172,15 @@ define(function(require, exports) {
 
     Question.prototype._init_ = function(conf) {
         this.editor = conf.editor;
-        this.navContainer = conf.editor.nav;
         /*注释题型*/
         this.isMemo = false;
         /*题目编号,注释题型没有*/
         this.no = this.updateNo();
-        this.data = {
-            no: this.no,
-            title: '标题'
-        };
-        this.nav = $('<tr class="qe-item qe-item-question"></tr>').appendTo(this.navContainer);
+        this.container = $('<div class="qe-item qe-item-question"></div>').appendTo(this.editor.container);
         /*添加到data.question中*/
-        this.nav.data("question", this);
-
+        this.container.data("question", this);
         this.guid = utils.guid();
-        //this.renderUI();
+        this.renderUI();
     };
 
     Question.prototype.updateNo = function() {
@@ -473,20 +466,18 @@ define(function(require, exports) {
     };
     SCQuestion.prototype.setValue = function(data) {
         var that = this;
-        this.nav.empty().append('<td>' + data.no + '</td>').append('<td>' + data.title + '</td>').append("<td>操作</td>");
-        // var that = this;
-        // if (data) {
-        //     that.setTitle(data["title"]);
-        //     $.each(data.opts, function() {
-        //         that.addOption(this);
-        //     });
-        //     that.analysis$.find("select").val(data.score);
-        //     that.analysis$.find("textarea").val(data.analysis);
-        // } else {
-        //     that.setTitle("标题");
-        //     that.addOption();
-        //     that.addOption();
-        // }
+        if (data) {
+            that.setTitle(data["title"]);
+            $.each(data.opts, function() {
+                that.addOption(this);
+            });
+            that.analysis$.find("select").val(data.score);
+            that.analysis$.find("textarea").val(data.analysis);
+        } else {
+            that.setTitle("标题");
+            that.addOption();
+            that.addOption();
+        }
     };
     /*多选*/
     var MTQuestion = function(conf) {
@@ -572,21 +563,19 @@ define(function(require, exports) {
     };
     MTQuestion.prototype.setValue = function(data) {
         var that = this;
-        this.nav.empty().append('<td>' + data.no + '</td>').append('<td>' + data.title + '</td>').append("操作");
-        // var that = this;
-        // if (data) {
-        //     that.setTitle(data["title"]);
-        //     $.each(data.opts, function() {
-        //         that.addOption(this);
-        //     });
+        if (data) {
+            that.setTitle(data["title"]);
+            $.each(data.opts, function() {
+                that.addOption(this);
+            });
 
-        //     that.analysis$.find("select").val(data.score);
-        //     that.analysis$.find("textarea").val(data.analysis);
-        // } else {
-        //     that.setTitle("标题");
-        //     that.addOption();
-        //     that.addOption();
-        // }
+            that.analysis$.find("select").val(data.score);
+            that.analysis$.find("textarea").val(data.analysis);
+        } else {
+            that.setTitle("标题");
+            that.addOption();
+            that.addOption();
+        }
     };
     /*问答题*/
     var ASQuestion = function(conf) {
@@ -605,15 +594,13 @@ define(function(require, exports) {
         return v;
     };
     ASQuestion.prototype.setValue = function(data) {
-        var that = this;
-        this.nav.empty().append('<td></td>').append('<td>' + data.title + '</td>').append("操作");
-        // if (data) {
-        //     this.setTitle(data["title"]);
-        // } else {
-        //     this.setTitle("标题");
-        // }
-        // this.analysis$.find("select").val(data.score);
-        // this.analysis$.find("textarea").val(data.analysis);
+        if (data) {
+            this.setTitle(data["title"]);
+        } else {
+            this.setTitle("标题");
+        }
+        this.analysis$.find("select").val(data.score);
+        this.analysis$.find("textarea").val(data.analysis);
     };
 
     /*段落说明*/
@@ -633,13 +620,11 @@ define(function(require, exports) {
         return v;
     };
     PGQuestion.prototype.setValue = function(data) {
-        var that = this;
-        this.nav.empty().append('<td></td>').append('<td>' + data.title + '</td>').append("操作");
-        // if (data) {
-        //     this.setTitle(data["title"]);
-        // } else {
-        //     this.setTitle("标题");
-        // }
+        if (data) {
+            this.setTitle(data["title"]);
+        } else {
+            this.setTitle("标题");
+        }
     };
     PGQuestion.prototype.updateNo = function() {
         return -1;

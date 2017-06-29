@@ -30,29 +30,15 @@
 
 <body>
     <div>
+        <span>插入题型:</span>
+        <button class="btn-item-creator" type="SC">单选</button>
+        <button class="btn-item-creator" type="MT">多选</button>
+        <button class="btn-item-creator" type="AS">问答题</button>
+        <button class="btn-item-creator" type="PG">段落说明</button>
+        <!--button class="btn-item-creator" type="photo-take">拍照题</button-->
+
         <button id="save">保存</button>
         <button id="return">返回</button>
-    </div>
-    <div class="nav" id="nav">
-        <div>
-            <span>题型:</span>
-            <button class="btn-item-creator" type="SC">单选</button>
-            <button class="btn-item-creator" type="MT">多选</button>
-            <button class="btn-item-creator" type="AS">问答题</button>
-            <button class="btn-item-creator" type="PG">段落说明</button>
-        </div>
-        <table class="nav-list">
-            <title>题目列表</title>
-            <thead>
-                <tr>
-                    <th style="width:40px;">题号</th>
-                    <th>标题</th>
-                    <th style="width:68px">操作</th>
-                </tr>
-            </thead>
-            <tbody id="nav-item-container">
-            </tbody>
-        </table>
     </div>
     <div class="editor" id="editor">
     </div>
