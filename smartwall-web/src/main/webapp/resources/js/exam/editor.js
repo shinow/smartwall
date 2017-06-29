@@ -9,9 +9,33 @@ define(function(require, exports) {
     require("./css/editor.css");
 
     var editor;
+    var curr_question;
     exports.init = function(conf) {
         editor = new QEditor(conf);
-        //editor.addQuestion();
+        UM.getEditor('UM-SC').addListener("blur", function(type, event) {
+            $("#editor-SC .qe-item-title").html(UM.getEditor('UM-SC').getContent());
+        });
+        UM.getEditor('UM-MT').addListener("blur", function(type, event) {
+            $("#editor-MT .qe-item-title").html(UM.getEditor('UM-MT').getContent());
+        });
+        UM.getEditor('UM-AS').addListener("blur", function(type, event) {
+            $("#editor-AS .qe-item-title").html(UM.getEditor('UM-AS').getContent());
+        });
+        UM.getEditor('UM-PG').addListener("blur", function(type, event) {
+            $("#editor-PG .qe-item-title").html(UM.getEditor('UM-PG').getContent());
+        });
+
+        var opts = '<option>0.5</option>';
+        for (var i = 1; i < 51; i++) {
+            opts = opts + '<option>' + i + '</option>';
+        }
+        $('select').html(opts).val("1");
+
+        $('.qe-item-btn-finish').click(function() {
+            if (curr_question) {
+                curr_question.save();
+            }
+        });
     };
 
     exports.save = function() {
@@ -25,7 +49,7 @@ define(function(require, exports) {
     };
 
     exports.addQuestion = function(type) {
-        editor.addQuestion(type);
+        editor.addQuestion(type, null);
     };
 
     function extend(subClass, superClass) {
@@ -40,19 +64,16 @@ define(function(require, exports) {
     };
 
     QEditor.prototype._init_ = function(conf) {
-        this.container = $("#" + conf["container"]);
-        this.nav = $("#nav-item-container");
         this.examGuid = conf["guid"];
         this.examType = conf["type"];
 
         this.lastQ = null;
-        this._initTitle(this.container);
+        this._initTitle();
         this._loadExam();
     };
 
     QEditor.prototype._initTitle = function() {
-        var dom = $('<div id="qe-title" class="qe-item"><div id="qe-title-main">问卷标题</div><div id="qe-title-sub">问卷说明</div></div>');
-        dom.dblclick(function() {
+        $("#qe-title").dblclick(function() {
             UM.getEditor("editor-title-um").setContent($("#qe-title-sub").html());
             $('#editor-title').find("#editor-title-ti").val($("#qe-title-main").text());
             $.ligerDialog.open({
@@ -76,8 +97,6 @@ define(function(require, exports) {
                 }]
             });
         });
-
-        this.container.append(dom);
     };
 
     QEditor.prototype._loadExam = function() {
@@ -112,44 +131,23 @@ define(function(require, exports) {
         }
     };
 
-    /*获取最大编号*/
-    QEditor.prototype.getMaxNo = function() {
-        var nc = 0;
-        $(".qe-item-question").each(function(index) {
-            var question = $(this).data("question");
-            if (!question.isMemo) {
-                nc++;
-            }
-        });
-
-        return nc;
-    };
-
     QEditor.prototype.addQuestion = function(type, data) {
         var conf = {
-            editor: this
+            //editor: this
         };
         var question;
         switch (type) {
             case 'SC':
-                question = new SCQuestion(conf);
-                question.setValue(data);
-                // question.updateOptions();
+                question = new SCQuestion(conf, data);
                 break;
             case 'MT':
-                question = new MTQuestion(conf);
-                question.setValue(data);
-                // question.updateOptions();
+                question = new MTQuestion(conf, data);
                 break;
             case 'AS':
-                question = new ASQuestion(conf);
-                question.setValue(data);
-
+                question = new ASQuestion(conf, data);
                 break;
             case 'PG':
-                question = new PGQuestion(conf);
-                question.setValue(data);
-
+                question = new PGQuestion(conf, data);
                 break;
         }
     };
@@ -167,160 +165,39 @@ define(function(require, exports) {
         return v;
     };
 
-    var Question = function(conf) {
-        this._init_(conf);
+    var Question = function(conf, data) {
+        this._init_(conf, data || {});
     };
 
-    Question.prototype._init_ = function(conf) {
-        this.editor = conf.editor;
-        this.navContainer = conf.editor.nav;
+    var tpl = '<tr class="qe-item qe-item-question"><td>{no}</td><td>{title}</td></tr>';
+    Question.prototype._init_ = function(conf, data) {
         /*注释题型*/
         this.isMemo = false;
+
         /*题目编号,注释题型没有*/
-        this.no = this.updateNo();
-        this.data = {
-            no: this.no,
-            title: '标题'
-        };
-        this.nav = $('<tr class="qe-item qe-item-question"></tr>').appendTo(this.navContainer);
+        this.no = data.no;
+        this.data = data;
+
+        this.nav = $(utils.format(tpl, data)).appendTo($("#nav-item-container"));
+
+        var that = this;
         /*添加到data.question中*/
-        this.nav.data("question", this);
-
-        this.guid = utils.guid();
-        //this.renderUI();
-    };
-
-    Question.prototype.updateNo = function() {
-        return this.editor.getMaxNo() + 1;
-    };
-
-    /*界面绘制*/
-    Question.prototype.renderUI = function() {
-        /*绘制题干区*/
-        this.renderTitle();
-        /*绘制内容区*/
-        this.renderContent();
-        /*绘制工具栏*/
-        this.renderToolbar();
-        /*绘属性编辑区*/
-        this.renderWorkarea();
-    }
-
-    Question.prototype.setEditing = function(editing) {
-        if (editing) {
-            this.btnEditor$.text("完成");
-            this.container.addClass("qe-item-editing");
-        } else {
-            this.btnEditor$.text("编辑");
-            this.container.removeClass("qe-item-editing");
-        }
-    }
-    Question.prototype.renderTitle = function() {
-        this.title$ = $('<div class="qe-item-title"></div>');
-        this.container.append(this.title$);
-    };
-
-    Question.prototype.renderContent = function() {
-        this.content$ = $('<div class="qe-item-content"></div>');
-
-        this.container.append(this.content$);
-        this.container.append("<hr/>");
-    };
-
-    Question.prototype.renderToolbar = function() {
-        /*编辑|删除|上移|下移|最前|最后*/
-        var toolbar$ = $('<div class="qe-item-toolbar"></div>');
-        var that = this;
-
-        this.btnEditor$ = $('<a>编辑</a>').click(function() {
-            var doEding = ($(this).text() == '编辑');
-            if (doEding) {
-                if (that.editor.lastQ) {
-                    that.editor.lastQ.setEditing(false);
-                }
-            }
-            that.editor.lastQ = that;
-            that.setEditing(doEding);
-        }).appendTo(toolbar$);
-        $('<a>删除</a>').click(function() {
-            $(this).parent().parent().remove();
-        }).appendTo(toolbar$);
-        $('<a>上移</a>').click(function() {
-            var pp = $(this).parent().parent();
-            var prev = pp.prev();
-            if (prev.length > 0) {
-                pp.after(prev);
-            }
-        }).appendTo(toolbar$);
-        $('<a>下移</a>').click(function() {
-            var pp = $(this).parent().parent();
-            var next = pp.next();
-            if (next.length > 0) {
-                pp.before(next);
-            }
-        }).appendTo(toolbar$);
-        $('<a>最前</a>').click(function() {
-            var pp = $(this).parent().parent();
-            pp.parent().prepend(pp);
-        }).appendTo(toolbar$);
-        $('<a>最后</a>').click(function() {
-            var pp = $(this).parent().parent();
-            pp.parent().append(pp);
-        }).appendTo(toolbar$);
-
-        this.container.append(toolbar$);
-    };
-
-    Question.prototype.renderWorkarea = function() {
-        this.workarea$ = $('<div class="qe-item-workarea">标题</div>').appendTo(this.container);
-        this.titleEditor = $('<div class="qe-item-e-title"><script id="' +
-            this.guid +
-            '" style="width:400px;height:160px;" type="text/plain" ></script></div>');
-        this.optEditor = $('<div class="qe-item-e-opt"></div>');
-        this.required$ = $('<label><input type="checkbox"></input>必答题</label>').appendTo(this.optEditor);
-
-        this.workarea$.append(this.titleEditor).append(this.optEditor);
-
-        var that = this;
-        UM.getEditor(this.guid).addListener("blur", function(type, event) {
-            that.title$.html(UM.getEditor(that.guid).getContent());
+        this.nav.data("question", this).click(function() {
+            curr_question = $(this).data("question");
+            that.edit();
         });
-
-        this.renderPropUI();
-        this.renderAnalysis();
     };
 
-    Question.prototype.renderPropUI = function() {};
-    Question.prototype.renderAnalysis = function() {
-        this.analysis$ = $('<div class="qe-item-e-analysis"><label>题目分数</label><select></select><br/><label>试题解析</label><textarea/></div>');
-
-        var opts = '<option>0.5</option>';
-        for (var i = 1; i < 51; i++) {
-            opts = opts + '<option>' + i + '</option>';
-        }
-        $('select', this.analysis$).html(opts).val("1");
-
-        this.workarea$.append(this.analysis$);
+    Question.prototype.edit = function() {
+        this.showUI();
     };
-    Question.prototype.addOption = function() {};
-    Question.prototype.updateOpt = function(index, text) {};
+
+    Question.prototype.showUI = function() {};
+    Question.prototype.save = function() {
+        alert("save")
+    };
+
     Question.prototype.updateOptions = function() {};
-    Question.prototype.setTitle = function(title) {
-        this.title$.html(title);
-        if (title != '标题') {
-            UM.getEditor(this.guid).setContent(title);
-        }
-    };
-    Question.prototype.getValue = function() {
-        var v = {
-            no: this.no
-        };
-
-        return v;
-    };
-
-    Question.prototype.setValue = function(data) {};
-
     Question.prototype.createOprAdd = function() {
         var that = this;
         return $('<span class="eq-item-e-btn eq-item-e-add"></span>').click(function() {
@@ -369,15 +246,27 @@ define(function(require, exports) {
     };
 
     /*单选*/
-    var SCQuestion = function(conf) {
-        this._init_(conf);
+    var SCQuestion = function(conf, data) {
+        this._init_(conf, data);
     }
     extend(SCQuestion, Question);
-    SCQuestion.prototype.renderPropUI = function() {
-        this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
+    SCQuestion.prototype.showUI = function() {
+        $('.editor-item').hide();
+        var that = this;
+        var data = this.data
 
-        this.workarea$.append(this.prop$);
-        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th>是否正确答案</th><th style="width:100px">操作</th><tr>');
+        $("#editor-SC .qe-item-title").html(data.title);
+        UM.getEditor('UM-SC').setContent(data.title);
+
+        $("#editor-SC").find("tbody").empty();
+        $.each(data.opts, function() {
+            that.addOption(this);
+        });
+
+        $("#editor-SC").find("select").val(data.score);
+        $("#editor-SC").find("textarea").val(data.analysis);
+        this.updateOptions();
+        $('#editor-SC').show();
     };
 
     SCQuestion.prototype.addOption = function(opt) {
@@ -430,32 +319,33 @@ define(function(require, exports) {
 
         var td4 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
 
-        this.prop$.find("tbody").append(tr);
+        $("#editor-SC").find("tbody").append(tr);
     };
 
     SCQuestion.prototype.updateOpt = function(index, data) {
-        this.content$.children().eq(index).find("label").text(data.text);
+        $("#editor-SC .qe-item-content").children().eq(index).find("label").text(data.text);
     };
+
     SCQuestion.prototype.updateOptions = function() {
-        var content = this.content$;
+        var content = $("#editor-SC .qe-item-content");
 
         content.empty();
-        var dv = this.prop$.find("tbody").children();
+        var dv = $("#editor-SC").find("tbody").children();
         dv.each(function() {
             var text = $(this).data("model").text;
             content.append('<span><input type="radio"></input><label>' + text + '</label></span>')
         });
     };
 
-    SCQuestion.prototype.getValue = function() {
+    SCQuestion.prototype.save = function() {
         var v = {
             no: this.no,
             type: "SC"
         };
 
-        v["title"] = this.title$.html();
+        v["title"] = $("#editor-SC .qe-item-title").html();
         var opts = {};
-        this.prop$.find("tbody").children().each(function(index) {
+        $("#editor-SC").find("tbody").children().each(function(index) {
             var model = $(this).data("model");
             if (model) {
                 var opt = {};
@@ -466,38 +356,34 @@ define(function(require, exports) {
         });
 
         v["opts"] = opts;
-        v["score"] = this.analysis$.find("select").val();
-        v["analysis"] = this.analysis$.find("textarea").val();
+        v["score"] = $("#editor-SC").find("select").val();
+        v["analysis"] = $("#editor-SC").find("textarea").val();
 
-        return v;
+        this.data = v;
     };
-    SCQuestion.prototype.setValue = function(data) {
-        var that = this;
-        this.nav.empty().append('<td>' + data.no + '</td>').append('<td>' + data.title + '</td>').append("<td>操作</td>");
-        // var that = this;
-        // if (data) {
-        //     that.setTitle(data["title"]);
-        //     $.each(data.opts, function() {
-        //         that.addOption(this);
-        //     });
-        //     that.analysis$.find("select").val(data.score);
-        //     that.analysis$.find("textarea").val(data.analysis);
-        // } else {
-        //     that.setTitle("标题");
-        //     that.addOption();
-        //     that.addOption();
-        // }
-    };
+
     /*多选*/
-    var MTQuestion = function(conf) {
-        this._init_(conf);
+    var MTQuestion = function(conf, data) {
+        this._init_(conf, data);
     };
     extend(MTQuestion, Question);
-    MTQuestion.prototype.renderPropUI = function() {
-        this.prop$ = $('<table class="qe-item-e-prop"><thead></thead><tbody></tbody></table>');
+    MTQuestion.prototype.showUI = function() {
+        $('.editor-item').hide();
+        var that = this;
+        var data = this.data
 
-        this.workarea$.append(this.prop$);
-        this.prop$.find("thead").append('<tr><th style="width:300px">选项文字</th><th style="width:80px">图片</th><th>是否正确答案</th><th style="width:100px">操作</th><tr>');
+        $("#editor-MT .qe-item-title").html(data.title);
+        UM.getEditor('UM-MT').setContent(data.title);
+
+        $("#editor-MT").find("tbody").empty();
+        $.each(data.opts, function() {
+            that.addOption(this);
+        });
+
+        $("#editor-MT").find("select").val(data.score);
+        $("#editor-MT").find("textarea").val(data.analysis);
+        this.updateOptions();
+        $('#editor-MT').show();
     };
 
     MTQuestion.prototype.addOption = function(opt) {
@@ -529,32 +415,33 @@ define(function(require, exports) {
         }).attr("checked", opt.right);
         var td4 = $("<td/>").append(this.createOprAdd()).append(this.createOprDel()).append(this.createOprUp()).append(this.createOprDown()).appendTo(tr);
 
-        this.prop$.find("tbody").append(tr);
+        $("#editor-MT").find("tbody").append(tr);
     };
 
     MTQuestion.prototype.updateOpt = function(index, data) {
-        this.content$.children().eq(index).find("label").text(data.text);
+        $("#editor-MT .qe-item-content").children().eq(index).find("label").text(data.text);
     };
 
     MTQuestion.prototype.updateOptions = function() {
-        var content = this.content$;
+        var content = $("#editor-MT .qe-item-content");
 
         content.empty();
-        var dv = this.prop$.find("tbody").children();
+        var dv = $("#editor-MT").find("tbody").children();
         dv.each(function() {
             var text = $(this).data("model").text;
             content.append('<span><input type="checkbox"></input><label>' + text + '</label></span>')
         });
     };
-    MTQuestion.prototype.getValue = function() {
+
+    MTQuestion.prototype.save = function() {
         var v = {
             no: this.no,
             type: "MT"
         };
 
-        v["title"] = this.title$.html();
+        v["title"] = $("#editor-MT .qe-item-title").html();
         var opts = {};
-        this.prop$.find("tbody").children().each(function(index) {
+        $("#editor-MT").find("tbody").children().each(function(index) {
             var model = $(this).data("model");
             if (model) {
                 var opt = {};
@@ -565,86 +452,72 @@ define(function(require, exports) {
         });
 
         v["opts"] = opts;
-        v["score"] = this.analysis$.find("select").val();
-        v["analysis"] = this.analysis$.find("textarea").val();
+        v["score"] = $("#editor-MT").find("select").val();
+        v["analysis"] = $("#editor-MT").find("textarea").val();
 
-        return v;
+        this.data = v;
     };
-    MTQuestion.prototype.setValue = function(data) {
-        var that = this;
-        this.nav.empty().append('<td>' + data.no + '</td>').append('<td>' + data.title + '</td>').append("操作");
-        // var that = this;
-        // if (data) {
-        //     that.setTitle(data["title"]);
-        //     $.each(data.opts, function() {
-        //         that.addOption(this);
-        //     });
 
-        //     that.analysis$.find("select").val(data.score);
-        //     that.analysis$.find("textarea").val(data.analysis);
-        // } else {
-        //     that.setTitle("标题");
-        //     that.addOption();
-        //     that.addOption();
-        // }
-    };
     /*问答题*/
-    var ASQuestion = function(conf) {
-        this._init_(conf);
+    var ASQuestion = function(conf, data) {
+        this._init_(conf, data);
     }
     extend(ASQuestion, Question);
-    ASQuestion.prototype.getValue = function() {
+    ASQuestion.prototype.showUI = function() {
+        $('.editor-item').hide();
+        var that = this;
+        var data = this.data
+
+        $("#editor-AS .qe-item-title").html(data.title);
+        UM.getEditor('UM-AS').setContent(data.title);
+
+        $("#editor-AS").find("select").val(data.score);
+        $("#editor-AS").find("textarea").val(data.analysis);
+
+        $('#editor-AS').show();
+    };
+
+    ASQuestion.prototype.save = function() {
         var v = {
             no: this.no,
             type: "AS"
         };
 
-        v["title"] = this.title$.html();
-        v["score"] = this.analysis$.find("select").val();
-        v["analysis"] = this.analysis$.find("textarea").val();
-        return v;
-    };
-    ASQuestion.prototype.setValue = function(data) {
-        var that = this;
-        this.nav.empty().append('<td></td>').append('<td>' + data.title + '</td>').append("操作");
-        // if (data) {
-        //     this.setTitle(data["title"]);
-        // } else {
-        //     this.setTitle("标题");
-        // }
-        // this.analysis$.find("select").val(data.score);
-        // this.analysis$.find("textarea").val(data.analysis);
+        v["title"] = $("#editor-AS .qe-item-title").html();
+        v["score"] = $("#editor-AS").find("select").val();
+        v["analysis"] = $("#editor-AS").find("textarea").val();
+
+        this.data = v;
     };
 
     /*段落说明*/
-    var PGQuestion = function(conf) {
-        this._init_(conf);
+    var PGQuestion = function(conf, data) {
+        this._init_(conf, data);
         this.isMemo = true;
     }
 
     extend(PGQuestion, Question);
-    PGQuestion.prototype.getValue = function() {
+    PGQuestion.prototype.showUI = function() {
+        $('.editor-item').hide();
+        var that = this;
+        var data = this.data
+
+        $("#editor-PG .qe-item-title").html(data.title);
+        UM.getEditor('UM-PG').setContent(data.title);
+
+        $('#editor-PG').show();
+    };
+
+    PGQuestion.prototype.save = function() {
         var v = {
+            no: this.no,
             type: "PG"
         };
 
-        v["title"] = this.title$.html();
+        v["title"] = $("#editor-PG .qe-item-title").html();
+        v["score"] = $("#editor-PG").find("select").val();
+        v["analysis"] = $("#editor-PG").find("textarea").val();
 
-        return v;
+        this.data = v;
     };
-    PGQuestion.prototype.setValue = function(data) {
-        var that = this;
-        this.nav.empty().append('<td></td>').append('<td>' + data.title + '</td>').append("操作");
-        // if (data) {
-        //     this.setTitle(data["title"]);
-        // } else {
-        //     this.setTitle("标题");
-        // }
-    };
-    PGQuestion.prototype.updateNo = function() {
-        return -1;
-    };
-    PGQuestion.prototype.renderPropUI = function() {};
-
-    PGQuestion.prototype.addOption = function() {};
 });

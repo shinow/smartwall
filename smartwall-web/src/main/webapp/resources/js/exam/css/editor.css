@@ -17,9 +17,30 @@ html, body {
     color: #fff;
 }
 
+.pnl-btns {
+    padding: 4px;
+}
+
+.pnl-btns button {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 14px;
+    height: 32px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 3px;
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+.pnl-btns #save {
+    background-color: #03a9f4;
+    color: #fff;
+}
+
 #nav {
     position: absolute;
-    top: 44px;
+    top: 40px;
     padding: 4px;
     width: 300px;
     border: 1px solid #e0e0e0;
@@ -51,29 +72,19 @@ html, body {
 
 #editor {
     height: auto;
-    width: 600px;
     top: 32px;
     overflow: auto;
     margin-left: 320px;
-}
-
-#editor #qe-title {
-    padding: 20px 40px;
-}
-
-#editor .qe-item {
     border:1px solid #ffffff;
 }
 
-#editor .qe-item-editing {
-    border: 1px solid #0095da !important;
+#qe-title {
+    padding: 20px 40px;
+    border: 1px solid #eee;
+    margin-left: 320px;
 }
 
-#editor .qe-item:hover {
-    border:1px solid #ff6600;
-}
-
-#editor #qe-title #qe-title-main {
+#qe-title #qe-title-main {
     text-align: center;
     font-size: 22px;
     font-weight: bold;
@@ -88,13 +99,24 @@ html, body {
     margin-left:0 !important;
 }
 
+.qe-item-btn-finish {
+    margin: 4px;
+    display: block;
+    background-color: #FF9800;
+    color: #fff;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 3px;
+}
+
 .edui-toolbar {
     box-shadow:none !important;
 }
 
 .qe-item-toolbar {
     text-align: right;
-    display: none;
 }
 
 .qe-item-toolbar a {
@@ -120,11 +142,6 @@ html, body {
 .qe-item-workarea {
     background: none repeat scroll 0 0 #eff9fe;
     padding: 10px 20px;
-    display: none;
-}
-
-#editor .qe-item:hover .qe-item-toolbar {
-    display: block;
 }
 
 #editor .qe-item-editing .qe-item-toolbar,  #editor .qe-item-editing .qe-item-workarea {
