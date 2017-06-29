@@ -17,7 +17,7 @@
                 });
 
                 $("#return").click(function() {
-                    history.back(-1);
+                    history.back();
                 });
 
                 $(".btn-item-creator").click(function() {
@@ -35,7 +35,7 @@
         <button id="return">返回</button>
     </div>
     <div class="nav" id="nav">
-        <div>
+        <div id="nav-tools">
             <span>题型:</span>
             <button class="btn-item-creator" type="SC">单选</button>
             <button class="btn-item-creator" type="MT">多选</button>
@@ -43,7 +43,6 @@
             <button class="btn-item-creator" type="PG">段落说明</button>
         </div>
         <table class="nav-list">
-            <title>题目列表</title>
             <thead>
                 <tr>
                     <th style="width:40px;">题号</th>
@@ -51,9 +50,18 @@
                     <th style="width:68px">操作</th>
                 </tr>
             </thead>
-            <tbody id="nav-item-container">
-            </tbody>
         </table>
+        <div id="nav-question">
+            <table class="nav-list">
+                <colgroup>
+                    <col width="40px" />
+                    <col align="left" />
+                    <col width="68px" />
+                </colgroup>
+                <tbody id="nav-item-container">
+                </tbody>
+            </table>
+        </div>
     </div>
     <div id="qe-title" class="qe-item">
         <div id="qe-title-main">问卷标题</div>
@@ -103,7 +111,7 @@
                     <label>试题解析</label><textarea></textarea>
                 </div>
             </div>
-            <a class="qe-item-btn-finish" href="#">完成</a>
+            <a class="qe-item-btn-finish" href="javascript:void(0)">完成</a>
         </div>
         <!--多选题编辑器-->
         <div class="editor-item" id="editor-MT" style="display:none">
@@ -138,7 +146,7 @@
                 </div>
             </div>
             
-            <a class="qe-item-btn-finish" href="#">完成</a>
+            <a class="qe-item-btn-finish" href="javascript:void(0)">完成</a>
         </div>
         <!--问答题编辑器-->
         <div class="editor-item" id="editor-AS" style="display:none">
@@ -160,7 +168,7 @@
                     <label>试题解析</label><textarea></textarea>
                 </div>
             </div>
-            <a class="qe-item-btn-finish" href="#">完成</a>
+            <a class="qe-item-btn-finish" href="javascript:void(0)">完成</a>
         </div>
 
         <!--段落题编辑器-->
@@ -174,7 +182,7 @@
                     <script id="UM-PG" style="width:400px;height:160px;" type="text/plain" ></script>
                 </div>
             </div>
-            <a class="qe-item-btn-finish" href="#">完成</a>
+            <a class="qe-item-btn-finish" href="javascript:void(0)">完成</a>
         </div>
     </div>
 </body>

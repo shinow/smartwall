@@ -41,15 +41,28 @@ html, body {
 #nav {
     position: absolute;
     top: 40px;
-    padding: 4px;
+    padding: 0;
     width: 400px;
     border: 1px solid #e0e0e0;
-    min-height: 500px;
+    bottom: 0;
+}
+
+#nav #nav-tools {
+    margin: 4px;
+}
+
+#nav #nav-question {
+    position: absolute;
+    top: 72px;
+    width: 100%;
+    bottom: 0;
+    overflow: auto;
 }
 
 .nav-list {
     width: 100%;
     border-collapse: collapse;
+    border:0;
 }
 
 .nav-list tr {
@@ -116,15 +129,23 @@ html, body {
 }
 
 .qe-item .eq-item-e-btn {
-    margin: 0 -2px !important;
+    margin: 0 0 !important;
 }
 
 #nav-item-container .qe-item:first-child .eq-item-e-up {
     display: none !important;
 }
 
+#nav-item-container .qe-item:first-child td:nth-child(3) {
+    text-align: right !important;
+}
+
 #nav-item-container .qe-item:last-child .eq-item-e-down{
     display: none !important;
+}
+
+#nav-item-container .qe-item:last-child td:nth-child(3) {
+    text-align: left !important;
 }
 
 .qe-item-workarea {

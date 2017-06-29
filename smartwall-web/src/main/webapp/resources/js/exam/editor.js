@@ -45,6 +45,7 @@ define(function(require, exports) {
             value: JSON.stringify(editor.getValue())
         }, function(result) {
             //alert(JSON.stringify(result));
+            alert("保存成功");
         });
     };
 
@@ -165,7 +166,7 @@ define(function(require, exports) {
 
         $(".qe-item-question").each(function(index) {
             var question = $(this).data("question");
-            v["Q" + (index + 1)] = question.getValue();
+            v["Q" + (index + 1)] = question.data;
         });
 
         return v;
@@ -194,7 +195,7 @@ define(function(require, exports) {
 
     var tpl = '<tr class="qe-item qe-item-question"> \
                 <td>{no}</td> \
-                <td style="text-align:left;">{title}</td> \
+                <td>{title}</td> \
                 <td> \
                     <span class="eq-item-e-btn eq-item-e-up"></span> \
                     <span class="eq-item-e-btn eq-item-e-down"></span> \
@@ -204,12 +205,49 @@ define(function(require, exports) {
         /*注释题型*/
         this.isMemo = false;
 
-        /*题目编号,注释题型没有*/
-        this.no = data.no;
+        this.qno = data.qno;
         this.data = data;
 
         this.nav = $(utils.format(tpl, data)).appendTo($("#nav-item-container"));
+        this.nav.find(".eq-item-e-up").click(function(event) {
+            event.stopPropagation();
 
+            var pp = $(this).parent().parent();
+            var prev = pp.prev();
+            if (prev.length > 0) {
+                pp.after(prev);
+                editor.updateNo();
+            }
+        });
+        this.nav.find(".eq-item-e-down").click(function(event) {
+            event.stopPropagation();
+
+            var pp = $(this).parent().parent();
+            var next = pp.next();
+            if (next.length > 0) {
+                pp.before(next);
+
+                editor.updateNo();
+            }
+        });
+        this.nav.find(".eq-item-e-del").click(function(event) {
+            event.stopPropagation();
+
+            var pp = $(this).parent().parent();
+            var p = pp.next();
+            if (p.length > 0) {
+                p.click();
+            } else {
+                p = pp.prev();
+                if (p.length > 0) {
+                    p.click();
+                }
+            }
+
+            pp.remove();
+
+            editor.updateNo();
+        });
         var that = this;
         /*添加到data.question中*/
         this.nav.data("question", this).click(function() {
@@ -370,7 +408,6 @@ define(function(require, exports) {
 
     SCQuestion.prototype.save = function() {
         var v = {
-            no: this.no,
             type: "SC"
         };
 
@@ -391,6 +428,7 @@ define(function(require, exports) {
         v["analysis"] = $("#editor-SC").find("textarea").val();
 
         this.data = v;
+        this.nav.children().eq(1).html(v.title);
     };
 
     /*多选*/
@@ -466,7 +504,6 @@ define(function(require, exports) {
 
     MTQuestion.prototype.save = function() {
         var v = {
-            no: this.no,
             type: "MT"
         };
 
@@ -487,6 +524,7 @@ define(function(require, exports) {
         v["analysis"] = $("#editor-MT").find("textarea").val();
 
         this.data = v;
+        this.nav.children().eq(1).html(v.title);
     };
 
     /*问答题*/
@@ -510,7 +548,6 @@ define(function(require, exports) {
 
     ASQuestion.prototype.save = function() {
         var v = {
-            no: this.no,
             type: "AS"
         };
 
@@ -519,6 +556,7 @@ define(function(require, exports) {
         v["analysis"] = $("#editor-AS").find("textarea").val();
 
         this.data = v;
+        this.nav.children().eq(1).html(v.title);
     };
 
     /*段落说明*/
@@ -541,7 +579,6 @@ define(function(require, exports) {
 
     PGQuestion.prototype.save = function() {
         var v = {
-            no: this.no,
             isMemo: true,
             type: "PG"
         };
@@ -551,5 +588,6 @@ define(function(require, exports) {
         v["analysis"] = $("#editor-PG").find("textarea").val();
 
         this.data = v;
+        this.nav.children().eq(1).html(v.title);
     };
 });
