@@ -3833,8 +3833,8 @@ seajs.config({
 		"viewer-css": "lib/viewer/viewer.min.css"
 	},
 	map: [
-		['.css', '.css?v=20170619'],
-		['.js', '.js?v=20170620']
+		['.css', '.css?v=20170630'],
+		['.js', '.js?v=20170630']
 	],
 	charset: 'utf-8',
 	base: MODULES_DIR
