@@ -195,7 +195,7 @@ define(function(require, exports) {
 
     var tpl = '<tr class="qe-item qe-item-question"> \
                 <td>{no}</td> \
-                <td>{title}</td> \
+                <td style="text-align:left">{title}</td> \
                 <td> \
                     <span class="eq-item-e-btn eq-item-e-up"></span> \
                     <span class="eq-item-e-btn eq-item-e-down"></span> \
