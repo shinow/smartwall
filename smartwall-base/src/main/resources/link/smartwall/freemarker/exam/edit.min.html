@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html> <head><meta charset=UTF-8><title>试题编辑</title><script type=text/javascript src=${context}/resources/js/sea.js type=text/javascript></script><script type=text/javascript>
+        $(function() {
+            seajs.use(["exam/editor"], function(editor) {
+                editor.init({
+                    type: '${value.type}',
+                    guid: '${value.guid}'
+                });
+
+                $("#save").click(function() {
+                    editor.save();
+                });
+
+                $("#return").click(function() {
+                    history.back(-1);
+                });
+
+                $(".btn-item-creator").click(function() {
+                    var type = $(this).attr("type");
+                    editor.addQuestion(type);
+                });
+            });
+        });
+    </script></head> <body> <div> <button id=save>保存</button> <button id=return>返回</button> </div> <div class=nav id=nav> <div> <span>题型:</span> <button class=btn-item-creator type=SC>单选</button> <button class=btn-item-creator type=MT>多选</button> <button class=btn-item-creator type=AS>问答题</button> <button class=btn-item-creator type=PG>段落说明</button> </div> <table class=nav-list> <title>题目列表</title> <thead> <tr> <th style=width:40px;>题号</th> <th>标题</th> <th style=width:68px>操作</th> </tr> </thead> <tbody id=nav-item-container> </tbody> </table> </div> <div class=editor id=editor> </div> </body> </html> 

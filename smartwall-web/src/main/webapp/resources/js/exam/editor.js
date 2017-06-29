@@ -49,7 +49,10 @@ define(function(require, exports) {
     };
 
     exports.addQuestion = function(type) {
-        editor.addQuestion(type, null);
+        editor.addQuestion(type, {
+            title: '标题',
+            opts: [null]
+        });
     };
 
     function extend(subClass, superClass) {
@@ -67,7 +70,6 @@ define(function(require, exports) {
         this.examGuid = conf["guid"];
         this.examType = conf["type"];
 
-        this.lastQ = null;
         this._initTitle();
         this._loadExam();
     };
@@ -127,8 +129,10 @@ define(function(require, exports) {
                 break;
             }
 
-            editor.addQuestion(q.type, q);
+            this.addQuestion(q.type, q);
         }
+
+        this.updateNo();
     };
 
     QEditor.prototype.addQuestion = function(type, data) {
@@ -150,6 +154,8 @@ define(function(require, exports) {
                 question = new PGQuestion(conf, data);
                 break;
         }
+
+        this.updateNo();
     };
 
     QEditor.prototype.getValue = function() {
@@ -165,11 +171,35 @@ define(function(require, exports) {
         return v;
     };
 
+    /*更新试题编号*/
+    QEditor.prototype.updateNo = function() {
+        var ptr = 1;
+        $("#nav-item-container").children().each(function(index) {
+            var q = $(this).data("question").data;
+            q.no = (index + 1)
+            if (q.isMemo) {
+                q.qno = 0;
+            } else {
+                q.qno = ptr;
+                ptr++;
+            }
+
+            $(this).children().first().html(q.qno || '');
+        });
+    };
+
     var Question = function(conf, data) {
         this._init_(conf, data || {});
     };
 
-    var tpl = '<tr class="qe-item qe-item-question"><td>{no}</td><td>{title}</td></tr>';
+    var tpl = '<tr class="qe-item qe-item-question"> \
+                <td>{no}</td> \
+                <td style="text-align:left;">{title}</td> \
+                <td> \
+                    <span class="eq-item-e-btn eq-item-e-up"></span> \
+                    <span class="eq-item-e-btn eq-item-e-down"></span> \
+                    <span class="eq-item-e-btn eq-item-e-del"></span> \
+                </td></tr>';
     Question.prototype._init_ = function(conf, data) {
         /*注释题型*/
         this.isMemo = false;
@@ -184,6 +214,7 @@ define(function(require, exports) {
         /*添加到data.question中*/
         this.nav.data("question", this).click(function() {
             curr_question = $(this).data("question");
+            $(this).addClass("qe-item-select").siblings().removeClass("qe-item-select");
             that.edit();
         });
     };
@@ -493,7 +524,7 @@ define(function(require, exports) {
     /*段落说明*/
     var PGQuestion = function(conf, data) {
         this._init_(conf, data);
-        this.isMemo = true;
+        data.isMemo = true;
     }
 
     extend(PGQuestion, Question);
@@ -511,6 +542,7 @@ define(function(require, exports) {
     PGQuestion.prototype.save = function() {
         var v = {
             no: this.no,
+            isMemo: true,
             type: "PG"
         };
 
