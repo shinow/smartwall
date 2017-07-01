@@ -95,20 +95,6 @@ a {
     content: '\e471';
 }
 
-.itekui-title {
-    font-size: 17px;
-    font-weight: 500;
-    line-height: 44px;
-    position: absolute;
-    display: block;
-    width: 100%;
-    margin: 0 -10px;
-    padding: 0;
-    text-align: center;
-    white-space: nowrap;
-    color: #000;
-}
-
 .itekui-bar .itekui-title {
     right: 40px;
     left: 40px;
@@ -117,6 +103,14 @@ a {
     width: auto;
     margin: 0;
     text-overflow: ellipsis;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 44px;
+    position: absolute;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #000;
 }
 
 .itekui-bar-nav~.itekui-content {
@@ -229,6 +223,7 @@ a {
 }
 
 .itekui-tab-cell-item:after {
-	content: '>';
+    font-family: Muiicons;
+	content: '\e470';
 	float: right;
 }
