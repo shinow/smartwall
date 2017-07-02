@@ -39,6 +39,7 @@ $(function() {
             if (Q.hasQuestion()) {
                 Q.showItem();
             } else {
+                alert("已经是最后一题");
                 Q.ptr--;
             }
         });
