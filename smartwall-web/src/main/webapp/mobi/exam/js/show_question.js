@@ -102,11 +102,38 @@ $(function() {
     var Questions = function(template) {
         /*试卷*/
         this.template = template;
+        this.R = this.getR();
+        this.showAnalysis = false;
         /*答案*/
         this.answers = {};
         this.ptr = 1;
         this.sptr = "";
         this.showItem();
+    };
+
+    /*计算标准答案*/
+    Questions.prototype.getR = function() {
+        var R = {};
+        for (var ptr = 1;; ptr++) {
+            var sptr = "Q" + ptr;
+            var data = this.template[sptr];
+
+            if (data == undefined) {
+                break;
+            }
+
+            if (data.type == 'SC' || data.type == 'MT') {
+                var ro = [];
+                $.each(data.opts, function(k, v) {
+                    if (v.right) {
+                        ro.push(k);
+                    }
+                });
+                R[sptr] = ro.join(",");
+            }
+        }
+
+        return R;
     };
 
     Questions.prototype.showItem = function(show) {
@@ -124,6 +151,15 @@ $(function() {
                 $.each(data.opts, function(index) {
                     html += '<div class="options"><span class="radio">' + EA[index] + '</span><span>' + this.text + '</span></div>';
                 });
+
+                if (this.showAnalysis) {
+                    html += '<hr/><div>解析</div>'
+                    html += '<div>正确答案</div>';
+                    html += '<div>' + this.R[this.sptr] + '</div>';
+                    html += '<div>答案解析</div>';
+                    html += '<div>' + data.analysis + '</div>';
+                }
+
                 html += '</div>';
                 html = $(html);
                 html.find('.options').tap(function(event) {
@@ -147,6 +183,13 @@ $(function() {
                     html += '<div class="options"><span class="checkbox">' + EA[index] + '</span><span>' + this.text + '</span></div>';
                 });
 
+                if (this.showAnalysis) {
+                    html += '<hr/><div>解析</div>'
+                    html += '<div>正确答案</div>';
+                    html += '<div>' + this.R[this.sptr] + '</div>';
+                    html += '<div>答案解析</div>';
+                    html += '<div>' + data.analysis + '</div>';
+                }
                 html += '</div>';
                 html = $(html);
                 html.find(".options").tap(function(event) {
@@ -241,26 +284,7 @@ $(function() {
             "E": 0
         };
 
-        /*计算标准答案*/
-        var R = {};
-        for (var ptr = 1;; ptr++) {
-            var sptr = "Q" + ptr;
-            var data = this.template[sptr];
-
-            if (data == undefined) {
-                break;
-            }
-
-            if (data.type == 'SC' || data.type == 'MT') {
-                var ro = [];
-                $.each(data.opts, function(k, v) {
-                    if (v.right) {
-                        ro.push(k);
-                    }
-                });
-                R[sptr] = ro.join(",");
-            }
-        }
+        var R = this.R;
 
         $.each(R, function(key, value) {
             var ans = that.answers[key];
@@ -305,104 +329,12 @@ $(function() {
         $('#r-right-s').html('共答对：' + rt.R + ' 题');
         $('#r-error-s').html('共答错：' + rt.E + ' 题');
         $('#r-no-s').html('未回答：' + rt.U + ' 题');
-        $('#r-right-p').html('正确率:' + parseInt(rt.R / (rt.R + rt.E + rt.U)) + '%')
-    };
-
-    /*显示解析结果*/
-    Questions.prototype.showItem2 = function(show) {
-        var that = this;
-
-        this.sptr = "Q" + this.ptr;
-        var data = this.template[this.sptr];
-        var answer = this.answers[this.sptr];
-        var c = $("#question-area").empty();
-
-        var html = "";
-        switch (data["type"]) {
-            case "SC":
-                html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
-                $.each(data.opts, function(index) {
-                    html += '<div class="options"><span class="radio">' + EA[index] + '</span><span>' + this.text + '</span></div>';
-                });
-                html += '</div>';
-                html = $(html);
-                html.find('.options').tap(function(event) {
-                    event.stopPropagation();
-
-                    $(this).addClass("selected").siblings().removeClass("selected");
-                    that.answers[that.sptr] = $(this).index();
-                });
-
-                if (answer) {
-                    html.find('.options').eq(answer - 1).addClass("selected");
-                }
-
-                c.append(html);
-
-                break;
-
-            case "MT":
-                html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
-                $.each(data.opts, function(index) {
-                    html += '<div class="options"><span class="checkbox">' + EA[index] + '</span><span>' + this.text + '</span></div>';
-                });
-
-                html += '</div>';
-                html = $(html);
-                html.find(".options").tap(function(event) {
-                    event.stopPropagation();
-
-                    var this$ = $(this);
-                    if (this$.hasClass("selected")) {
-                        this$.removeClass("selected");
-                    } else {
-                        this$.addClass("selected");
-                    }
-
-                    var ans = [];
-                    $(".options", this$.parent()).each(function(index) {
-                        if ($(this).hasClass("selected")) {
-                            ans.push(index + 1);
-                        }
-                    });
-
-                    if (ans.length > 0) {
-                        that.answers[that.sptr] = ans;
-                    } else {
-                        that.answers[that.sptr] = null;
-                    }
-                });
-
-                if (answer) {
-                    $.each(answer, function() {
-                        html.find('.options').eq(this - 1).addClass("selected");
-                    });
-                }
-
-                c.append(html);
-                break;
-
-            case "AS":
-                html += '<div class="title">' + data.qno + "." + data["title"] + '</div>';
-                html += '<div class="options"><textarea/></div>';
-                html = $(html);
-                html.find("textarea").blur(function() {
-                    that.answers[that.sptr] = $(this).val();
-                });
-
-                c.append(html);
-                break;
-
-            case "PG":
-                html += '<div class="title">' + data["title"] + '</div>';
-
-                c.append(html);
-                break;
-        }
+        $('#r-right-p').html('正确率:' + parseInt(rt.R * 100 / (rt.R + rt.E + rt.U)) + '%')
     };
 
     Questions.prototype.analysis = function() {
         this.ptr = 1;
-        this.showItem2();
+        this.showAnalysis = true;
+        this.showItem();
     };
 });
