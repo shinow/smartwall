@@ -57,9 +57,10 @@ $(function() {
             $(".page").hide();
             $("#page-question").show();
         });
-        
-        $("#submit").click(function() {
 
+        $("#submit").click(function() {
+           $(".page").hide();
+            $("#page-result").show(); 
         });
     };
 
@@ -191,6 +192,28 @@ $(function() {
     };
 
     Questions.prototype.showResult = function() {
+        var c = $("#answer-sheet");
+        c.empty();
 
+        var html = '';
+        for (var ptr = 1;; ptr++) {
+            var sptr = "Q" + ptr;
+            var data = this.template[sptr];
+
+            if (data == undefined) {
+                break;
+            }
+
+            var qno = data.qno;
+            if (qno) {
+                html += '<span class="answer-no';
+                if (this.answers[sptr]) {
+                    html += ' answer-no-do';
+                }
+                html += '">' + qno + '</span>';
+            }
+        }
+
+        c.append(html);
     };
 });

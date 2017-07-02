@@ -137,7 +137,8 @@
 
 #answer-sheet .answer-no-do {
     border: 1px solid #007aff !important;
-    color: #007aff !important;
+    background-color: #007aff !important;
+    color: #fff;
 }
 
 #page-result {
