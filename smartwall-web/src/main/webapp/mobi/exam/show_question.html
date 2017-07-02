@@ -15,13 +15,40 @@
 			<a class="itekui-action-back itekui-icon itekui-icon-left-nav"></a>
 			<h1 id="title" class="itekui-title"></h1>
 		</header>
-		<div id="question-area" class="question-area">
+		<div class="page" id="page-question">
+			<div id="question-area" class="question-area">
 			
+			</div>
+			<span id="analysis">解析</span>
+			<span id="submit-page">交卷</span>
+			<footer class="question-nav">
+				<a id="prev">上一题</a>
+				<a id="next">下一题</a>
+			</footer>
 		</div>
-		<footer class="question-nav">
-			<a id="prev">上一题</a>
-			<a id="next">下一题</a>
-		</footer>
+		<div class="page" id="page-answer-sheet" style="display:none">
+			<span id="sheet-title">答题卡:</span>
+			<div id="answer-sheet">
+				<span class="answer-no">1</span>
+				<span class="answer-no">2</span>
+				<span class="answer-no">3</span>
+				<span class="answer-no">4</span>
+				<span class="answer-no">5</span>
+				<span class="answer-no">6</span>
+				<span class="answer-no">7</span>
+				<span class="answer-no">8</span>
+				<span class="answer-no">9</span>
+				<span class="answer-no">10</span>
+				<span class="answer-no">11</span>
+				<span class="answer-no">12</span>
+			</div>
+			<footer class="question-nav">
+				<a id="discard">放弃交卷</a>
+				<a id="submit">确认交卷</a>
+			</footer>
+		</div>
+		<div class="page" id="page-result" style="display:none">
+		</div>
 		<script type="text/javascript" src="./js/show_question.js"></script>
 	</body>
 </html>

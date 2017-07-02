@@ -1,4 +1,6 @@
 $(function() {
+    "use strict";
+
     function getUrlVars() {
         var vars = [],
             hash;
@@ -43,6 +45,22 @@ $(function() {
                 Q.ptr--;
             }
         });
+
+        $("#submit-page").click(function() {
+            $(".page").hide();
+            $("#page-answer-sheet").show();
+            Q.showResult();
+        });
+
+
+        $("#discard").click(function() {
+            $(".page").hide();
+            $("#page-question").show();
+        });
+        
+        $("#submit").click(function() {
+
+        });
     };
 
     function loadQuestions(type, guid) {
@@ -70,7 +88,7 @@ $(function() {
     };
 
     var Q;
-    Questions = function(template) {
+    var Questions = function(template) {
         /*试卷*/
         this.template = template;
         /*答案*/
@@ -170,5 +188,9 @@ $(function() {
 
     Questions.prototype.hasQuestion = function() {
         return this.template["Q" + this.ptr] != undefined;
+    };
+
+    Questions.prototype.showResult = function() {
+
     };
 });
