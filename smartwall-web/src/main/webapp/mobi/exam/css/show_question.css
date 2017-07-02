@@ -1,5 +1,6 @@
 .question-area {
     font-size:12px;
+    padding: 10px;
     background-color: #fff;
     height: auto;
     position: absolute;
@@ -47,4 +48,22 @@
     padding-right: 4px;
     padding-bottom: 4px;
     padding-left: 10px;
+}
+
+.question-area .radio, .question-area .checkbox {
+    border: 1px solid #bdbdbd;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 12px;
+    margin-right: 8px;
+    color: #bdbdbd;
+}
+
+.question-area .selected > .radio, .question-area .selected > .checkbox {
+    border: 1px solid #007aff !important;
+    color: #fff !important;
+    background: #007aff;
 }

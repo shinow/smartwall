@@ -24,13 +24,17 @@ $(function() {
         });
 
         loadQuestions(vars["type"], vars["guid"]);
-        $(".question-nav #prev").tap(function() {
+        $(".question-nav #prev").tap(function(event) {
+            event.stopPropagation();
+
             if (Q.ptr > 1) {
                 Q.ptr--;
                 Q.showItem();
             }
         });
-        $(".question-nav #next").tap(function() {
+        $(".question-nav #next").tap(function(event) {
+            event.stopPropagation();
+
             Q.ptr++;
             if (Q.hasQuestion()) {
                 Q.showItem();
@@ -78,29 +82,55 @@ $(function() {
         var html = "";
         switch (data["type"]) {
             case "SC":
-                html += '<div class="title">' + data.no + "." + data["title"] + '</div>';
+                html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
                 $.each(data.opts, function(index) {
-                    html += '<div class="options">' + EA[index] + '.<input type="radio" name="uniq"/>' + this.text + '</div>';
+                    html += '<div class="options"><span class="radio">' + EA[index] + '</span><span>' + this.text + '</span></div>';
                 });
+                html += '</div>';
+                html = $(html);
+                html.find('.options').tap(function(event) {
+                    event.stopPropagation();
+
+                    $(this).addClass("selected").siblings().removeClass("selected");
+                });
+                c.append(html);
                 break;
 
             case "MT":
-                html += '<div class="title">' + data.no + "." + data["title"] + '</div>';
+                html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
                 $.each(data.opts, function(index) {
-                    html += '<div class="options">' + EA[index] + '.<input type="checkbox"/>' + this.text + '</div>';
+                    html += '<div class="options"><span class="checkbox">' + EA[index] + '</span><span>' + this.text + '</span></div>';
                 });
+
+                html += '</div>';
+                html = $(html);
+                html.find(".options").tap(function(event) {
+                    event.stopPropagation();
+
+                    var this$ = $(this);
+                    if (this$.hasClass("selected")) {
+                        this$.removeClass("selected");
+                    } else {
+                        this$.addClass("selected");
+                    }
+                });
+
+                c.append(html);
                 break;
 
             case "AS":
-                html += '<div class="title">' + data.no + "." + data["title"] + '</div>';
+                html += '<div class="title">' + data.qno + "." + data["title"] + '</div>';
                 html += '<div class="options"><textarea/></div>';
+
+                c.append(html);
                 break;
 
             case "PG":
                 html += '<div class="title">' + data["title"] + '</div>';
+
+                c.append(html);
                 break;
         }
-        c.append(html);
     };
 
     Questions.prototype.hasQuestion = function() {
