@@ -70,13 +70,21 @@ $(function() {
 
     var Q;
     Questions = function(template) {
+        /*试卷*/
         this.template = template;
+        /*答案*/
+        this.answers = {};
         this.ptr = 1;
+        this.sptr = "";
         this.showItem();
     };
 
     Questions.prototype.showItem = function() {
-        var data = this.template["Q" + this.ptr];
+        var that = this;
+
+        this.sptr = "Q" + this.ptr;
+        var data = this.template[this.sptr];
+        var answer = this.answers[this.sptr];
         var c = $("#question-area").empty();
 
         var html = "";
@@ -92,8 +100,15 @@ $(function() {
                     event.stopPropagation();
 
                     $(this).addClass("selected").siblings().removeClass("selected");
+                    that.answers[that.sptr] = $(this).index();
                 });
+
+                if (answer) {
+                    html.find('.options').eq(answer - 1).addClass("selected");
+                }
+
                 c.append(html);
+
                 break;
 
             case "MT":
@@ -113,7 +128,22 @@ $(function() {
                     } else {
                         this$.addClass("selected");
                     }
+
+                    var ans = [];
+                    $(".options", this$.parent()).each(function(index) {
+                        if ($(this).hasClass("selected")) {
+                            ans.push(index + 1);
+                        }
+                    });
+
+                    that.answers[that.sptr] = ans;
                 });
+
+                if (answer) {
+                    $.each(answer, function() {
+                        html.find('.options').eq(this - 1).addClass("selected");
+                    });
+                }
 
                 c.append(html);
                 break;
@@ -121,6 +151,10 @@ $(function() {
             case "AS":
                 html += '<div class="title">' + data.qno + "." + data["title"] + '</div>';
                 html += '<div class="options"><textarea/></div>';
+                html = $(html);
+                html.find("textarea").blur(function() {
+                    that.answers[that.sptr] = $(this).val();
+                });
 
                 c.append(html);
                 break;
