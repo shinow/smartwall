@@ -64,6 +64,14 @@ $(function() {
 
             Q.showSubmit();
         });
+
+        $("#show-analysis").click(function() {
+            $(".page").hide();
+            $("#submit-page").hide();
+            $("#analysis").hide();
+            $("#page-question").show();
+            Q.analysis();
+        });
     };
 
     function loadQuestions(type, guid) {
@@ -94,7 +102,6 @@ $(function() {
     var Questions = function(template) {
         /*试卷*/
         this.template = template;
-        alert(JSON.stringify(this.template));
         /*答案*/
         this.answers = {};
         this.ptr = 1;
@@ -102,7 +109,7 @@ $(function() {
         this.showItem();
     };
 
-    Questions.prototype.showItem = function() {
+    Questions.prototype.showItem = function(show) {
         var that = this;
 
         this.sptr = "Q" + this.ptr;
@@ -298,5 +305,104 @@ $(function() {
         $('#r-right-s').html('共答对：' + rt.R + ' 题');
         $('#r-error-s').html('共答错：' + rt.E + ' 题');
         $('#r-no-s').html('未回答：' + rt.U + ' 题');
+        $('#r-right-p').html('正确率:' + parseInt(rt.R / (rt.R + rt.E + rt.U)) + '%')
+    };
+
+    /*显示解析结果*/
+    Questions.prototype.showItem2 = function(show) {
+        var that = this;
+
+        this.sptr = "Q" + this.ptr;
+        var data = this.template[this.sptr];
+        var answer = this.answers[this.sptr];
+        var c = $("#question-area").empty();
+
+        var html = "";
+        switch (data["type"]) {
+            case "SC":
+                html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
+                $.each(data.opts, function(index) {
+                    html += '<div class="options"><span class="radio">' + EA[index] + '</span><span>' + this.text + '</span></div>';
+                });
+                html += '</div>';
+                html = $(html);
+                html.find('.options').tap(function(event) {
+                    event.stopPropagation();
+
+                    $(this).addClass("selected").siblings().removeClass("selected");
+                    that.answers[that.sptr] = $(this).index();
+                });
+
+                if (answer) {
+                    html.find('.options').eq(answer - 1).addClass("selected");
+                }
+
+                c.append(html);
+
+                break;
+
+            case "MT":
+                html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
+                $.each(data.opts, function(index) {
+                    html += '<div class="options"><span class="checkbox">' + EA[index] + '</span><span>' + this.text + '</span></div>';
+                });
+
+                html += '</div>';
+                html = $(html);
+                html.find(".options").tap(function(event) {
+                    event.stopPropagation();
+
+                    var this$ = $(this);
+                    if (this$.hasClass("selected")) {
+                        this$.removeClass("selected");
+                    } else {
+                        this$.addClass("selected");
+                    }
+
+                    var ans = [];
+                    $(".options", this$.parent()).each(function(index) {
+                        if ($(this).hasClass("selected")) {
+                            ans.push(index + 1);
+                        }
+                    });
+
+                    if (ans.length > 0) {
+                        that.answers[that.sptr] = ans;
+                    } else {
+                        that.answers[that.sptr] = null;
+                    }
+                });
+
+                if (answer) {
+                    $.each(answer, function() {
+                        html.find('.options').eq(this - 1).addClass("selected");
+                    });
+                }
+
+                c.append(html);
+                break;
+
+            case "AS":
+                html += '<div class="title">' + data.qno + "." + data["title"] + '</div>';
+                html += '<div class="options"><textarea/></div>';
+                html = $(html);
+                html.find("textarea").blur(function() {
+                    that.answers[that.sptr] = $(this).val();
+                });
+
+                c.append(html);
+                break;
+
+            case "PG":
+                html += '<div class="title">' + data["title"] + '</div>';
+
+                c.append(html);
+                break;
+        }
+    };
+
+    Questions.prototype.analysis = function() {
+        this.ptr = 1;
+        this.showItem2();
     };
 });
