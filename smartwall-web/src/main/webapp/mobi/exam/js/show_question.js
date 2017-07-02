@@ -59,8 +59,10 @@ $(function() {
         });
 
         $("#submit").click(function() {
-           $(".page").hide();
-            $("#page-result").show(); 
+            $(".page").hide();
+            $("#page-result").show();
+
+            Q.showSubmit();
         });
     };
 
@@ -92,6 +94,7 @@ $(function() {
     var Questions = function(template) {
         /*试卷*/
         this.template = template;
+        alert(JSON.stringify(this.template));
         /*答案*/
         this.answers = {};
         this.ptr = 1;
@@ -156,7 +159,11 @@ $(function() {
                         }
                     });
 
-                    that.answers[that.sptr] = ans;
+                    if (ans.length > 0) {
+                        that.answers[that.sptr] = ans;
+                    } else {
+                        that.answers[that.sptr] = null;
+                    }
                 });
 
                 if (answer) {
@@ -215,5 +222,81 @@ $(function() {
         }
 
         c.append(html);
+    };
+
+
+    Questions.prototype.showSubmit = function() {
+        var that = this;
+        var rd = {};
+        var rt = {
+            "U": 0,
+            "R": 0,
+            "E": 0
+        };
+
+        /*计算标准答案*/
+        var R = {};
+        for (var ptr = 1;; ptr++) {
+            var sptr = "Q" + ptr;
+            var data = this.template[sptr];
+
+            if (data == undefined) {
+                break;
+            }
+
+            if (data.type == 'SC' || data.type == 'MT') {
+                var ro = [];
+                $.each(data.opts, function(k, v) {
+                    if (v.right) {
+                        ro.push(k);
+                    }
+                });
+                R[sptr] = ro.join(",");
+            }
+        }
+
+        $.each(R, function(key, value) {
+            var ans = that.answers[key];
+            if (ans) {
+                if (ans == value) {
+                    rt.R = rt.R + 1;
+                    rd[key] = 'R';
+                } else {
+                    rt.E = rt.E + 1;
+                    rd[key] = 'E';
+                }
+            } else {
+                rt.U = rt.U + 1;
+                rd[key] = 'U';
+            }
+        });
+
+
+        var html = '';
+        for (var ptr = 1;; ptr++) {
+            var sptr = "Q" + ptr;
+            var data = this.template[sptr];
+
+            if (data == undefined) {
+                break;
+            }
+
+            var qno = data.qno;
+            if (qno) {
+                html += '<span class="answer-no';
+                if (rd[sptr] == 'R') {
+                    html += ' answer-no-do';
+                } else
+                if (rd[sptr] == 'E') {
+                    html += ' answer-no-error';
+                }
+                html += '">' + qno + '</span>';
+            }
+        }
+
+        $("#result-sheet").empty().html(html);
+        $('#r-right-s').html('共答对：' + rt.R + ' 题');
+        $('#r-error-s').html('共答错：' + rt.E + ' 题');
+        $('#r-no-s').html('未回答：' + rt.U + ' 题');
     };
 });

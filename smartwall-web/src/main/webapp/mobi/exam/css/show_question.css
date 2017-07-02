@@ -123,7 +123,7 @@
     padding-left: 10px;
 }
 
-#answer-sheet .answer-no, #result-sheet .answer-no {
+#answer-sheet .answer-no {
     width: 24px;
     height: 24px;
     display: inline-block;
@@ -186,8 +186,66 @@
     margin-left: 10px;
 }
 
+#result-sheet .answer-no {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    font-size: 12px;
+    border: 1px solid #bdbdbd;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 24px;
+    margin: 8px;
+    color: #bdbdbd;
+}
+
+#result-sheet .answer-no-error {
+    border: 1px solid #f00 !important;
+    background-color: #f00 !important;
+    color: #fff;
+}
+
 #result-sheet .answer-no-do {
     border: 1px solid #007aff !important;
     background-color: #007aff !important;
     color: #fff;
+}
+
+#r-right {
+    width: 16px;
+    height: 16px;
+    background-color: #007aff;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+#r-right-s {
+    color: #007aff;
+}
+
+
+#r-error {
+    width: 16px;
+    height: 16px;
+    background-color: #f00;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+#r-error-s {
+    color: #f00;
+}
+
+#r-no {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #bdbdbd;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+#r-no-s {
+    color: #bdbdbd;
 }
