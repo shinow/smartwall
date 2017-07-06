@@ -71,36 +71,36 @@ define(function(require, exports) {
         this.examGuid = conf["guid"];
         this.examType = conf["type"];
 
-        this._initTitle();
+        // this._initTitle();
         this._loadExam();
     };
 
-    QEditor.prototype._initTitle = function() {
-        $("#qe-title").dblclick(function() {
-            UM.getEditor("editor-title-um").setContent($("#qe-title-sub").html());
-            $('#editor-title').find("#editor-title-ti").val($("#qe-title-main").text());
-            $.ligerDialog.open({
-                title: "修改",
-                width: 600,
-                hegith: 400,
-                target: $('#editor-title'),
-                buttons: [{
-                    text: '保存',
-                    onclick: function(i, d) {
-                        $("#qe-title-sub").html(UM.getEditor("editor-title-um").getContent());
-                        $("#qe-title-main").text($('#editor-title').find("#editor-title-ti").val());
+    // QEditor.prototype._initTitle = function() {
+    //     $("#qe-title").dblclick(function() {
+    //         UM.getEditor("editor-title-um").setContent($("#qe-title-sub").html());
+    //         $('#editor-title').find("#editor-title-ti").val($("#qe-title-main").text());
+    //         $.ligerDialog.open({
+    //             title: "修改",
+    //             width: 600,
+    //             hegith: 400,
+    //             target: $('#editor-title'),
+    //             buttons: [{
+    //                 text: '保存',
+    //                 onclick: function(i, d) {
+    //                     $("#qe-title-sub").html(UM.getEditor("editor-title-um").getContent());
+    //                     $("#qe-title-main").text($('#editor-title').find("#editor-title-ti").val());
 
-                        d.hide();
-                    }
-                }, {
-                    text: '关闭',
-                    onclick: function(i, d) {
-                        d.hide();
-                    }
-                }]
-            });
-        });
-    };
+    //                     d.hide();
+    //                 }
+    //             }, {
+    //                 text: '关闭',
+    //                 onclick: function(i, d) {
+    //                     d.hide();
+    //                 }
+    //             }]
+    //         });
+    //     });
+    // };
 
     QEditor.prototype._loadExam = function() {
         var that = this;

@@ -84,11 +84,12 @@ html, body {
 }
 
 #editor {
-    height: auto;
-    top: 32px;
+    position: absolute;
+    top: 40px;
     overflow: auto;
-    margin-left: 420px;
-    border:1px solid #ffffff;
+    margin-left: 410px;
+    border: 1px solid #e0e0e0;
+    bottom: 0;
 }
 
 #qe-title {
@@ -158,8 +159,8 @@ html, body {
 }
 .qe-item-e-opt {
     position: relative;
-    width: 200px;
-    left: 430px;
+    width: 60px;
+    left: 630px;
     top: -240px;
 }
 
