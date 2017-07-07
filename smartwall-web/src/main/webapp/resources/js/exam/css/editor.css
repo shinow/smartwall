@@ -104,8 +104,10 @@ html, body {
     font-weight: bold;
 }
 
+.qe-item-e-title {
+    float: left;
+}
 .edui-container {
-    margin-left:60px;
     box-shadow:none !important;
 }
 

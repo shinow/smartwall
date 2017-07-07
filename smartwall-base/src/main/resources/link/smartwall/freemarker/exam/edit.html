@@ -80,12 +80,13 @@
             <div class="qe-item-content"></div>
             <hr/>
             <div class="qe-item-workarea">
-                <span>标题</span>
+                <span style="float:left;">标题</span>
                 <div class="qe-item-e-title">
                     <script id="UM-SC" style="width:560px;height:160px;" type="text/plain" ></script>
                 </div>
                 <div class="qe-item-e-opt">
-                    <label><input type="checkbox"></input>必答题</label>
+                    <label><input type="checkbox" id="sc-required"></input>必答题</label>
+                    <label><input type="checkbox" id="sc-show-pg"></input>显示段落标题</label>
                 </div>
                 <table class="qe-item-e-prop">
                     <thead>
@@ -119,7 +120,8 @@
                     <script id="UM-MT" style="width:560px;height:160px;" type="text/plain" ></script>
                 </div>
                 <div class="qe-item-e-opt">
-                    <label><input type="checkbox"></input>必答题</label>
+                    <label><input type="checkbox" id="mt-required"></input>必答题</label>
+                    <label><input type="checkbox" id="mt-show-pg"></input>显示段落标题</label>
                 </div>
                 <table class="qe-item-e-prop">
                     <thead>
@@ -154,7 +156,8 @@
                     <script id="UM-AS" style="width:560px;height:160px;" type="text/plain" ></script>
                 </div>
                 <div class="qe-item-e-opt">
-                    <label><input type="checkbox"></input>必答题</label>
+                    <label><input type="checkbox" id="qe-required"></input>必答题</label>
+                    <label><input type="checkbox" id="qe-show-pg"></input>显示段落标题</label>
                 </div>
                 <div class="qe-item-e-analysis">
                     <label>题目分数</label>
