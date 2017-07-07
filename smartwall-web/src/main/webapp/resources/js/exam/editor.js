@@ -44,11 +44,14 @@ define(function(require, exports) {
     };
 
     exports.addQuestion = function(type) {
-        editor.addQuestion(type, {
+        var nav = editor.addQuestion(type, {
             title: '标题',
             score: 1,
             opts: [null]
-        }).nav.click();
+        }).nav;
+        
+        nav.click();
+        nav[0].scrollIntoView();
     };
 
     function save() {
