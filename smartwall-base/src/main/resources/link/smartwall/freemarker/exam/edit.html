@@ -12,10 +12,6 @@
                     guid: '${value.guid}'
                 });
 
-                $("#save").click(function() {
-                    editor.save();
-                });
-
                 $("#return").click(function() {
                     history.back();
                 });
@@ -31,7 +27,6 @@
 
 <body>
     <div class="pnl-btns">
-        <button id="save">保存</button>
         <button id="return">返回</button>
     </div>
     <div class="nav" id="nav">
@@ -63,13 +58,13 @@
             </table>
         </div>
     </div>
-    <div id="qe-title" class="qe-item">
+<!--     <div id="qe-title" class="qe-item">
         <div id="qe-title-main">问卷标题</div>
         <div id="qe-title-sub">问卷说明</div>
-    </div>
+    </div> -->
     <div class="editor" id="editor">
         <!--标题编辑器-->
-        <div id="editor-title" style="display:none">
+<!--         <div id="editor-title" style="display:none">
             <div style="margin-bottom:6px">
                 <label style="float:left">问卷标题:</label>
                 <input id="editor-title-ti" style="margin-left:10px;width: 85%"></input>
@@ -78,7 +73,7 @@
                 <label style="float:left">问卷说明:</label>
                 <script id="editor-title-um" style="width:500px;height:300px;" type="text/plain" ></script>
             </div>
-        </div>
+        </div> -->
         <!--单选题编辑器-->
         <div class="editor-item" id="editor-SC" style="display:none">
             <div class="qe-item-title"></div>
@@ -87,7 +82,7 @@
             <div class="qe-item-workarea">
                 <span>标题</span>
                 <div class="qe-item-e-title">
-                    <script id="UM-SC" style="width:400px;height:160px;" type="text/plain" ></script>
+                    <script id="UM-SC" style="width:560px;height:160px;" type="text/plain" ></script>
                 </div>
                 <div class="qe-item-e-opt">
                     <label><input type="checkbox"></input>必答题</label>
@@ -121,7 +116,7 @@
             <div class="qe-item-workarea">
                 <span>标题</span>
                 <div class="qe-item-e-title">
-                    <script id="UM-MT" style="width:400px;height:160px;" type="text/plain" ></script>
+                    <script id="UM-MT" style="width:560px;height:160px;" type="text/plain" ></script>
                 </div>
                 <div class="qe-item-e-opt">
                     <label><input type="checkbox"></input>必答题</label>
@@ -156,7 +151,7 @@
             <div class="qe-item-workarea">
                 <span>标题</span>
                 <div class="qe-item-e-title">
-                    <script id="UM-AS" style="width:400px;height:160px;" type="text/plain" ></script>
+                    <script id="UM-AS" style="width:560px;height:160px;" type="text/plain" ></script>
                 </div>
                 <div class="qe-item-e-opt">
                     <label><input type="checkbox"></input>必答题</label>
@@ -179,7 +174,7 @@
             <div class="qe-item-workarea">
                 <span>标题</span>
                 <div class="qe-item-e-title">
-                    <script id="UM-PG" style="width:400px;height:160px;" type="text/plain" ></script>
+                    <script id="UM-PG" style="width:560px;height:160px;" type="text/plain" ></script>
                 </div>
             </div>
             <a class="qe-item-btn-finish" href="javascript:void(0)">完成</a>

@@ -29,32 +29,38 @@ define(function(require, exports) {
         for (var i = 1; i < 51; i++) {
             opts = opts + '<option>' + i + '</option>';
         }
-        $('select').html(opts).val("1");
+        $('select').html(opts);
 
         $('.qe-item-btn-finish').click(function() {
             if (curr_question) {
                 curr_question.save();
+                save();
             }
         });
+
+        $(window).resize(function() {
+            $('.editor-item').width($(window).width() - 420);
+        }).resize();
     };
 
-    exports.save = function() {
+    exports.addQuestion = function(type) {
+        editor.addQuestion(type, {
+            title: '标题',
+            score: 1,
+            opts: [null]
+        }).nav.click();
+    };
+
+    function save() {
         utils.postJson("exam/save.mvc", {
             type: editor.examType,
             guid: editor.examGuid,
             value: JSON.stringify(editor.getValue())
         }, function(result) {
             //alert(JSON.stringify(result));
-            alert("保存成功");
+            //alert("保存成功");
         });
-    };
-
-    exports.addQuestion = function(type) {
-        editor.addQuestion(type, {
-            title: '标题',
-            opts: [null]
-        });
-    };
+    }
 
     function extend(subClass, superClass) {
         var F = function() {};
@@ -137,9 +143,7 @@ define(function(require, exports) {
     };
 
     QEditor.prototype.addQuestion = function(type, data) {
-        var conf = {
-            //editor: this
-        };
+        var conf = {};
         var question;
         switch (type) {
             case 'SC':
@@ -157,6 +161,8 @@ define(function(require, exports) {
         }
 
         this.updateNo();
+
+        return question;
     };
 
     QEditor.prototype.getValue = function() {
@@ -245,8 +251,8 @@ define(function(require, exports) {
             }
 
             pp.remove();
-
             editor.updateNo();
+            save();
         });
         var that = this;
         /*添加到data.question中*/
