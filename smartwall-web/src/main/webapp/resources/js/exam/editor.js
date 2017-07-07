@@ -49,7 +49,7 @@ define(function(require, exports) {
             score: 1,
             opts: [null]
         }).nav;
-        
+
         nav.click();
         nav[0].scrollIntoView();
     };
@@ -596,12 +596,13 @@ define(function(require, exports) {
             isMemo: true,
             type: "PG"
         };
-
+        v['guid'] = this.data.guid ? this.data.guid : utils.guid();
         v["title"] = $("#editor-PG .qe-item-title").html();
         v["score"] = $("#editor-PG").find("select").val();
         v["analysis"] = $("#editor-PG").find("textarea").val();
 
         this.data = v;
+        alert(JSON.stringify(this.data));
         this.nav.children().eq(1).html(v.title);
     };
 });
