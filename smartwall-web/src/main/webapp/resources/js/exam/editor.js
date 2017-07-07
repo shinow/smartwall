@@ -39,7 +39,7 @@ define(function(require, exports) {
         });
 
         $(window).resize(function() {
-            $('.editor-item').width($(window).width() - 420);
+            $('.editor-item').width($(window).width() - 430);
         }).resize();
     };
 
@@ -129,6 +129,7 @@ define(function(require, exports) {
         $("#qe-title-sub").html(exam.comment);
         $("#qe-title-main").text(exam.title);
 
+        var lastQ;
         for (var i = 1; i < 500; i++) {
             var q = exam["Q" + i];
 
@@ -136,10 +137,12 @@ define(function(require, exports) {
                 break;
             }
 
-            this.addQuestion(q.type, q);
+            lastQ = this.addQuestion(q.type, q);
         }
 
         this.updateNo();
+
+        lastQ && lastQ.nav.click();
     };
 
     QEditor.prototype.addQuestion = function(type, data) {
@@ -223,6 +226,7 @@ define(function(require, exports) {
             if (prev.length > 0) {
                 pp.after(prev);
                 editor.updateNo();
+                save();
             }
         });
         this.nav.find(".eq-item-e-down").click(function(event) {
@@ -234,6 +238,7 @@ define(function(require, exports) {
                 pp.before(next);
 
                 editor.updateNo();
+                save();
             }
         });
         this.nav.find(".eq-item-e-del").click(function(event) {
