@@ -176,9 +176,17 @@ define(function(require, exports) {
         v["title"] = $("#qe-title-main").text();
         v["comment"] = $("#qe-title-sub").html();
 
+        var ptr = 1;
         $(".qe-item-question").each(function(index) {
             var question = $(this).data("question");
-            v["Q" + (index + 1)] = question.data;
+            var data = question.data;
+            if (data.isMemo) {
+                data.qno = 0;
+            } else {
+                data.qno = ptr;
+                ptr++;
+            }
+            v["Q" + (index + 1)] = data;
         });
 
         return v;
@@ -356,7 +364,7 @@ define(function(require, exports) {
     SCQuestion.prototype.addOption = function(opt) {
         var that = this;
         var opt = opt || {
-            text: "选项",
+            text: "",
             right: false
         };
         var tr = $('<tr/>').data("model", opt);
@@ -475,7 +483,7 @@ define(function(require, exports) {
     MTQuestion.prototype.addOption = function(opt) {
         var that = this;
         var opt = opt || {
-            text: "选项",
+            text: "",
             right: false
         };
         var tr = $('<tr/>').data("model", opt);

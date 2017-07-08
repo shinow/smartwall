@@ -26,7 +26,7 @@ $(function() {
         });
 
         loadQuestions(vars["type"], vars["guid"]);
-        $(".question-nav #prev").tap(function(event) {
+        $(".question-nav #prev").click(function(event) {
             event.stopPropagation();
 
             if (Q.ptr > 1) {
@@ -34,7 +34,7 @@ $(function() {
                 Q.showItem();
             }
         });
-        $(".question-nav #next").tap(function(event) {
+        $(".question-nav #next").click(function(event) {
             event.stopPropagation();
 
             Q.ptr++;
