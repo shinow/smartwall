@@ -7110,7 +7110,7 @@ UM.plugins['enterkey'] = function() {
                     return;
                 }
             }
-            if (tag == 'p') {
+            if (tag == 'br') {
 
 
                 if (!browser.ie) {
