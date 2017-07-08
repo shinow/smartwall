@@ -222,7 +222,7 @@ define(function(require, exports) {
 
     var tpl = '<tr class="qe-item qe-item-question"> \
                 <td>{no}</td> \
-                <td style="text-align:left">{title}</td> \
+                <td>{title}</td> \
                 <td> \
                     <span class="eq-item-e-btn eq-item-e-up"></span> \
                     <span class="eq-item-e-btn eq-item-e-down"></span> \
@@ -264,6 +264,10 @@ define(function(require, exports) {
         });
         this.nav.find(".eq-item-e-del").click(function(event) {
             event.stopPropagation();
+
+            if (!confirm("确认删除?")) {
+                return;
+            }
 
             var pp = $(this).parent().parent();
             var p = pp.next();
