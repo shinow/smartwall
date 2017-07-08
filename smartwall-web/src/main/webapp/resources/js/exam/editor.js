@@ -348,6 +348,7 @@ define(function(require, exports) {
 
         $("#editor-SC").find("select").val(data.score);
         $("#editor-SC").find("textarea").val(data.analysis);
+        $("#sc-show-pg").prop('checked', !!data.show_pg);
         this.updateOptions();
         $('#editor-SC').show();
     };
@@ -440,6 +441,7 @@ define(function(require, exports) {
         v["opts"] = opts;
         v["score"] = $("#editor-SC").find("select").val();
         v["analysis"] = $("#editor-SC").find("textarea").val();
+        v['show_pg'] = $("#sc-show-pg").is(":checked");
 
         this.data = v;
         this.nav.children().eq(1).html(v.title);
@@ -465,6 +467,7 @@ define(function(require, exports) {
 
         $("#editor-MT").find("select").val(data.score);
         $("#editor-MT").find("textarea").val(data.analysis);
+        $("#mt-show-pg").prop('checked', data.show_pg || false);
         this.updateOptions();
         $('#editor-MT').show();
     };
@@ -536,6 +539,7 @@ define(function(require, exports) {
         v["opts"] = opts;
         v["score"] = $("#editor-MT").find("select").val();
         v["analysis"] = $("#editor-MT").find("textarea").val();
+        v['show_pg'] = $("#mt-show-pg").is(":checked");
 
         this.data = v;
         this.nav.children().eq(1).html(v.title);
@@ -556,7 +560,7 @@ define(function(require, exports) {
 
         $("#editor-AS").find("select").val(data.score);
         $("#editor-AS").find("textarea").val(data.analysis);
-
+        $("#as-show-pg").prop('checked', data.show_pg || false);
         $('#editor-AS').show();
     };
 
@@ -568,6 +572,7 @@ define(function(require, exports) {
         v["title"] = $("#editor-AS .qe-item-title").html();
         v["score"] = $("#editor-AS").find("select").val();
         v["analysis"] = $("#editor-AS").find("textarea").val();
+        v['show_pg'] = $("#as-show-pg").is(":checked");
 
         this.data = v;
         this.nav.children().eq(1).html(v.title);

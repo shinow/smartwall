@@ -66,6 +66,7 @@ html, body {
 }
 
 .nav-list tr {
+    border: 1px solid #E0E0E0;
     height: 32px; 
 }
 
@@ -106,7 +107,9 @@ html, body {
 
 .qe-item-e-title {
     float: left;
+    margin-left: 10px;
 }
+
 .edui-container {
     box-shadow:none !important;
 }
@@ -154,6 +157,7 @@ html, body {
 .qe-item-workarea {
     background: none repeat scroll 0 0 #eff9fe;
     padding: 10px 20px;
+    min-height: 240px;
 }
 
 #editor .qe-item-editing .qe-item-toolbar,  #editor .qe-item-editing .qe-item-workarea {
@@ -161,8 +165,8 @@ html, body {
 }
 .qe-item-e-opt {
     position: relative;
-    width: 60px;
-    left: 630px;
+    width: 120px;
+    left: 610px;
     top: -240px;
 }
 
@@ -214,4 +218,9 @@ html, body {
     margin-top: 4px;
     width: 520px;
     min-height: 72px;
+}
+
+.qe-item-content > span {
+    display: list-item;
+    margin-left: 10px;
 }
