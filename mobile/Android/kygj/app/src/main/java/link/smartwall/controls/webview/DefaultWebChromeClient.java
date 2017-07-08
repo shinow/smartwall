@@ -33,14 +33,14 @@ public class DefaultWebChromeClient extends WebChromeClient {
     @Override
     public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
         // 对alert的简单封装
-        new AlertDialog.Builder(context).setTitle("Alert").setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(view.getContext()).setTitle("警告").setMessage(message)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         result.confirm();
                     }
-                }).create().show();
+                }).setCancelable(false).create().show();
 
         return true;
     }
@@ -51,8 +51,8 @@ public class DefaultWebChromeClient extends WebChromeClient {
     @Override
     public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
         // 对confirm的简单封装
-        new AlertDialog.Builder(context).setTitle("Confirm").setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(context).setTitle("确认").setMessage(message)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         result.confirm();
