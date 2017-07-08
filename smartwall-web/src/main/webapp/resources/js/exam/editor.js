@@ -10,6 +10,12 @@ define(function(require, exports) {
 
     var editor;
     var curr_question;
+    var Q_TYPE = {
+        "SC": "单选题",
+        "MT": "多选题",
+        "AS": "问答题",
+        "PG": "段落说明"
+    }
     exports.init = function(conf) {
         editor = new QEditor(conf);
         UM.getEditor('UM-SC').addListener("blur", function(type, event) {
@@ -45,6 +51,7 @@ define(function(require, exports) {
 
     exports.addQuestion = function(type) {
         var nav = editor.addQuestion(type, {
+            type: type,
             title: '标题',
             score: 1,
             opts: [null]
@@ -228,7 +235,10 @@ define(function(require, exports) {
         this.qno = data.qno;
         this.data = data;
 
-        this.nav = $(utils.format(tpl, data)).appendTo($("#nav-item-container"));
+        this.nav = $(utils.format(tpl, {
+            no: data.qno,
+            title: Q_TYPE[data.type]
+        })).appendTo($("#nav-item-container"));
         this.nav.find(".eq-item-e-up").click(function(event) {
             event.stopPropagation();
 
