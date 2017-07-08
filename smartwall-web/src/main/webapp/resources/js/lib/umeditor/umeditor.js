@@ -3792,7 +3792,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                         domUtils.isCustomeNode(child)
                         )
                     && child === this.body.lastChild) {
-                    this.body.innerHTML = '<p>' + (browser.ie ? '&nbsp;' : '<br/>') + '</p>' + this.body.innerHTML;
+                    this.body.innerHTML = '<div>' + (browser.ie ? '&nbsp;' : '<br/>') + '</div>' + this.body.innerHTML;
 
                 } else {
                     var p = me.document.createElement('p');
@@ -8008,7 +8008,7 @@ UM.plugins['autosave'] = function() {
     me.commands['drafts'] = {
         execCommand:function (cmd, name) {
             if ( saveKey ) {
-                me.body.innerHTML = LocalStorage.getLocalData( saveKey ) || '<p>'+(browser.ie ? '&nbsp;' : '<br/>')+'</p>';
+                me.body.innerHTML = LocalStorage.getLocalData( saveKey ) || '<div>'+(browser.ie ? '&nbsp;' : '<br/>')+'</div>';
                 me.focus(true);
             }
         },
