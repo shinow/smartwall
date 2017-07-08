@@ -136,6 +136,33 @@ $(function() {
         return R;
     };
 
+    Questions.prototype.showPg = function(data) {
+        var p = $("#question-pg-title");
+        var c = $("#question-area");
+        if (data.show_pg) {
+            c.css({
+                top: "50%"
+            });
+
+            p.empty();
+            for (var i = this.ptr - 1; i > 0; i--) {
+                var item = this.template['Q' + i];
+                if (item.type == 'PG') {
+                    p.html(item.title);
+                    break;
+                }
+            }
+
+            p.show();
+        } else {
+            c.css({
+                top: "45px"
+            });
+
+            p.hide();
+        }
+    };
+
     Questions.prototype.showItem = function(show) {
         var that = this;
 
@@ -147,6 +174,8 @@ $(function() {
         var html = "";
         switch (data["type"]) {
             case "SC":
+                this.showPg(data);
+
                 html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
                 $.each(data.opts, function(index) {
                     html += '<div class="options"><span class="radio">' + EA[index] + '</span><span>' + this.text + '</span></div>';
@@ -178,6 +207,8 @@ $(function() {
                 break;
 
             case "MT":
+                this.showPg(data);
+
                 html += '<div><div class="title">' + data.qno + "." + data["title"] + '</div>';
                 $.each(data.opts, function(index) {
                     html += '<div class="options"><span class="checkbox">' + EA[index] + '</span><span>' + this.text + '</span></div>';
@@ -223,9 +254,12 @@ $(function() {
                 }
 
                 c.append(html);
+
                 break;
 
             case "AS":
+                this.showPg(data);
+
                 html += '<div class="title">' + data.qno + "." + data["title"] + '</div>';
                 html += '<div class="options"><textarea/></div>';
                 html = $(html);
@@ -237,6 +271,7 @@ $(function() {
                 break;
 
             case "PG":
+                this.showPg(data);
                 html += '<div class="title">' + data["title"] + '</div>';
 
                 c.append(html);
