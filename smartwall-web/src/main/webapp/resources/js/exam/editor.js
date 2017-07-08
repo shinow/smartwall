@@ -607,7 +607,6 @@ define(function(require, exports) {
         v["analysis"] = $("#editor-PG").find("textarea").val();
 
         this.data = v;
-        alert(JSON.stringify(this.data));
         this.nav.children().eq(1).html(v.title);
     };
 });
