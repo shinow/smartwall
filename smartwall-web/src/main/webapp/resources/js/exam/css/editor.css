@@ -47,6 +47,12 @@ html, body {
     bottom: 0;
 }
 
+#UM-SC, #UM-MT, #UM-AS, #UM-PG{
+    min-height: 200px !important;
+    height: 200px; 
+    overflow: auto;s
+}
+
 #nav #nav-tools {
     margin: 4px;
 }
@@ -106,7 +112,7 @@ html, body {
 }
 
 .qe-item-e-title {
-    float: left;
+    display: inline-block;
     margin-left: 10px;
 }
 

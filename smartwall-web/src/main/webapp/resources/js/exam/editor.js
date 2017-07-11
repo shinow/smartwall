@@ -19,6 +19,12 @@ define(function(require, exports) {
 
 	exports.init = function(conf) {
 		editor = new QEditor(conf);
+
+		UM.getEditor('UM-SC').setHeight(300);
+		UM.getEditor('UM-MT').setHeight(300);
+		UM.getEditor('UM-AS').setHeight(300);
+		UM.getEditor('UM-PG').setHeight(300);
+
 		UM.getEditor('UM-SC').addListener("blur", function(type, event) {
 			$("#editor-SC .qe-item-title").html(UM.getEditor('UM-SC').getContent());
 		});
