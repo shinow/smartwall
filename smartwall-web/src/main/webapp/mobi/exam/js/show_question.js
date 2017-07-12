@@ -46,6 +46,12 @@ $(function() {
             }
         });
 
+        $("#analysis").click(function() {
+            tmpShowAnalysis = true;
+            Q.showItem();
+            tmpShowAnalysis = false;
+        });
+
         $("#submit-page").click(function() {
             $(".page").hide();
             $("#page-answer-sheet").show();
@@ -99,6 +105,7 @@ $(function() {
     };
 
     var Q;
+    var tmpShowAnalysis;
     var Questions = function(template) {
         /*试卷*/
         this.template = template;
@@ -181,7 +188,7 @@ $(function() {
                     html += '<div class="options"><span class="radio">' + EA[index] + '</span><span>' + this.text + '</span></div>';
                 });
 
-                if (this.showAnalysis) {
+                if (this.showAnalysis || tmpShowAnalysis) {
                     html += '<hr/><div>解析</div>'
                     html += '<div>正确答案</div>';
                     html += '<div>' + this.R[this.sptr] + '</div>';
@@ -214,7 +221,7 @@ $(function() {
                     html += '<div class="options"><span class="checkbox">' + EA[index] + '</span><span>' + this.text + '</span></div>';
                 });
 
-                if (this.showAnalysis) {
+                if (this.showAnalysis || tmpShowAnalysis) {
                     html += '<hr/><div>解析</div>'
                     html += '<div>正确答案</div>';
                     html += '<div>' + this.R[this.sptr] + '</div>';
