@@ -279,6 +279,25 @@ $(function() {
         }
     };
 
+    Questions.prototype.gotoItem = function(num) {
+        for (var i = 1; i < 500; i++) {
+            var item = this.template['Q' + i];
+            if (!item) {
+                return;
+            }
+
+            if (item.qno == num) {
+                this.ptr = i;
+
+                $(".page").hide();
+                $("#page-question").show();
+                Q.showItem();
+
+                break;
+            }
+        }
+    };
+
     Questions.prototype.hasQuestion = function() {
         return this.template["Q" + this.ptr] != undefined;
     };
@@ -307,6 +326,9 @@ $(function() {
         }
 
         c.append(html);
+        c.find(".answer-no").click(function() {
+            Q.gotoItem($(this).text());
+        });
     };
 
 
