@@ -291,7 +291,7 @@ $(function() {
 
                 $(".page").hide();
                 $("#page-question").show();
-                Q.showItem();
+                this.showItem();
 
                 break;
             }
@@ -326,8 +326,10 @@ $(function() {
         }
 
         c.append(html);
+
+        var that = this;
         c.find(".answer-no").click(function() {
-            Q.gotoItem($(this).text());
+            that.gotoItem($(this).text());
         });
     };
 
@@ -383,6 +385,13 @@ $(function() {
         }
 
         $("#result-sheet").empty().html(html);
+        $("#result-sheet").find('.answer-no').click(function() {
+            that.showAnalysis = true;
+            $("#submit-page").hide();
+            $("#analysis").hide();
+            that.gotoItem($(this).text());
+        });
+
         $('#r-right-s').html('共答对：' + rt.R + ' 题');
         $('#r-error-s').html('共答错：' + rt.E + ' 题');
         $('#r-no-s').html('未回答：' + rt.U + ' 题');
