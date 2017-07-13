@@ -6,27 +6,16 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import link.smartwall.controls.webview.support.JSNativeClass;
-import link.smartwall.controls.webview.support.JSPluginInfo;
-import link.smartwall.controls.webview.support.JSPluginManager;
-
 
 public class NativeWebView extends WebView implements INatvieWebViewAware {
     private Context context;
     private Handler handler = new Handler(Looper.getMainLooper());
-    private JSPluginManager manager;
+//    private JSPluginManager manager;
 
     public NativeWebView(Context context) {
         super(context);
@@ -47,7 +36,7 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
     }
 
     private void init() {
-        manager = new JSPluginManager("config/PluginConfig.json", this.getContext());
+//        manager = new JSPluginManager("config/PluginConfig.json", this.getContext());
 
         WebSettings ws = this.getSettings();
         ws.setJavaScriptEnabled(true);
@@ -72,7 +61,7 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
         //开启 Application Caches 功能
         ws.setAppCacheEnabled(true);
 
-        this.addJavascriptInterface(new JSNativeClass(this), "__Native__");
+//        this.addJavascriptInterface(new JSNativeClass(this), "__Native__");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             this.setWebContentsDebuggingEnabled(true);
@@ -102,39 +91,39 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
      * 注册核心JS
      */
     private void onWebPageFinished() {
-        String coreBridgeJsCodeStr = manager.localCoreBridgeJSCode("sdk/html5_sdk_m.js");
-        // 多行注释
-        String multiComment = "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/";
-        // 单行注释
-        String singleComment = "//[^\r\n]*+";
-        Pattern p = Pattern.compile(multiComment + "|" + singleComment + "|" + "\t|\r|\n");
-        Matcher m = p.matcher(coreBridgeJsCodeStr);
-        coreBridgeJsCodeStr = m.replaceAll("");
-        coreBridgeJsCodeStr = "javascript:" + coreBridgeJsCodeStr;
-        this.loadUrl(coreBridgeJsCodeStr);
+//        String coreBridgeJsCodeStr = manager.localCoreBridgeJSCode("sdk/html5_sdk_m.js");
+//        // 多行注释
+//        String multiComment = "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/";
+//        // 单行注释
+//        String singleComment = "//[^\r\n]*+";
+//        Pattern p = Pattern.compile(multiComment + "|" + singleComment + "|" + "\t|\r|\n");
+//        Matcher m = p.matcher(coreBridgeJsCodeStr);
+//        coreBridgeJsCodeStr = m.replaceAll("");
+//        coreBridgeJsCodeStr = "javascript:" + coreBridgeJsCodeStr;
+//        this.loadUrl(coreBridgeJsCodeStr);
     }
 
     private void regNativie() {
-        HashMap<String, JSPluginInfo> pluginMap = manager.getPluginMap();
-        Set<Map.Entry<String, JSPluginInfo>> entries = pluginMap.entrySet();
-        StringBuilder sb = new StringBuilder();
-        sb.append("javascript:");
-        for (Map.Entry<String, JSPluginInfo> info : entries) {
-            String key = info.getKey();
-            JSPluginInfo value = info.getValue();
-            HashMap<String, JSPluginManager.LDJSExportDetail> exports = value.getExports();
-            Set<String> strings = exports.keySet();
-            StringBuilder methods = new StringBuilder();
-            for (String string : strings) {
-                methods.append(string);
-                methods.append(",");
-            }
-            String path = "iTek.__html5_reg('" + key + "','" + methods.toString() + "');";
-            sb.append(path);
-        }
-        String regMessage = sb.toString();
-        Log.d("JSService", regMessage);
-        this.loadUrl(regMessage);
+//        HashMap<String, JSPluginInfo> pluginMap = manager.getPluginMap();
+//        Set<Map.Entry<String, JSPluginInfo>> entries = pluginMap.entrySet();
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("javascript:");
+//        for (Map.Entry<String, JSPluginInfo> info : entries) {
+//            String key = info.getKey();
+//            JSPluginInfo value = info.getValue();
+//            HashMap<String, JSPluginManager.LDJSExportDetail> exports = value.getExports();
+//            Set<String> strings = exports.keySet();
+//            StringBuilder methods = new StringBuilder();
+//            for (String string : strings) {
+//                methods.append(string);
+//                methods.append(",");
+//            }
+//            String path = "iTek.__html5_reg('" + key + "','" + methods.toString() + "');";
+//            sb.append(path);
+//        }
+//        String regMessage = sb.toString();
+//        Log.d("JSService", regMessage);
+//        this.loadUrl(regMessage);
     }
 
     /**

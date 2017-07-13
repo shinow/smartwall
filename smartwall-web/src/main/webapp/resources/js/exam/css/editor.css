@@ -50,7 +50,7 @@ html, body {
 #UM-SC, #UM-MT, #UM-AS, #UM-PG{
     min-height: 200px !important;
     height: 200px; 
-    overflow: auto;s
+    overflow: auto;
 }
 
 #nav #nav-tools {

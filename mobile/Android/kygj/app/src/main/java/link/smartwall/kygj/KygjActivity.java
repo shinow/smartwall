@@ -108,7 +108,7 @@ public class KygjActivity extends AppCompatActivity {
     private NvWebViewFragment createQuestionBankFragment(String info) {
         Bundle args = new Bundle();
         NvWebViewFragment fragment = new NvWebViewFragment();
-        args.putString("url", "http://121.43.96.235:8787/sfa/mobi/exam/question_bank.html");
+        args.putString("url", "http://192.168.1.2:8787/sfa/mobi/exam/question_bank.html");
         fragment.setArguments(args);
 
         return fragment;
