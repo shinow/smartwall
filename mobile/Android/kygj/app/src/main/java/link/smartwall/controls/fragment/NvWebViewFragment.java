@@ -1,4 +1,4 @@
-package link.smartwall.controls.webview;
+package link.smartwall.controls.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import link.smartwall.controls.webview.NativeWebView;
 import link.smartwall.kygj.R;
 
 public class NvWebViewFragment extends Fragment {
@@ -26,7 +27,7 @@ public class NvWebViewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.activity_web_views, null);
+        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_web_views, null);
     }
 
     @Override

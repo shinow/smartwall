@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.webkit.JavascriptInterface;
 
 import link.smartwall.controls.webview.NativeWebView;
-import link.smartwall.controls.webview.NvWebViewActivity;
+import link.smartwall.controls.activity.NvWebViewActivity;
 
 public class JSNativeClass {
     private NativeWebView webView;

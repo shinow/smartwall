@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import link.smartwall.controls.webview.NvWebViewFragment;
+import link.smartwall.controls.fragment.NvWebViewFragment;
 
 public class KygjActivity extends AppCompatActivity {
     private ViewPager viewPager;

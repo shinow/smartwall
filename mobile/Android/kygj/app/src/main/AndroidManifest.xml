@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="link.smartwall.controls.webview.NvWebViewActivity" android:screenOrientation="portrait">
+        <activity android:name="link.smartwall.controls.activity.NvWebViewActivity" android:screenOrientation="portrait">
 
         </activity>
     </application>

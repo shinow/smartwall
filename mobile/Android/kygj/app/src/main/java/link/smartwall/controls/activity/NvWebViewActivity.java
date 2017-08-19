@@ -1,9 +1,10 @@
-package link.smartwall.controls.webview;
+package link.smartwall.controls.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import link.smartwall.controls.webview.NativeWebView;
 import link.smartwall.kygj.R;
 
 public class NvWebViewActivity extends FragmentActivity {
