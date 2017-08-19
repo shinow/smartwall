@@ -11,6 +11,8 @@ import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import link.smartwall.controls.webview.support.JSNativeClass;
+
 
 public class NativeWebView extends WebView implements INatvieWebViewAware {
     private Context context;
@@ -61,7 +63,8 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
         //开启 Application Caches 功能
         ws.setAppCacheEnabled(true);
 
-//        this.addJavascriptInterface(new JSNativeClass(this), "__Native__");
+        // Add Javascript support
+        this.addJavascriptInterface(new JSNativeClass(this), "__Native__");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             this.setWebContentsDebuggingEnabled(true);
@@ -130,13 +133,13 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
      * 通过回调通知前端页面本地Service已经初始化完毕
      */
     private void readyWithEventName() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String url = "javascript:iTek.__html5_evt('JSBridgeReady');";
-                loadUrl(url);
-            }
-        });
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                String url = "javascript:iTek.__html5_evt('JSBridgeReady');";
+//                loadUrl(url);
+//            }
+//        });
     }
 
     @Override

@@ -23,17 +23,11 @@
 </div>
 <script type="text/javascript">
 
-    var a;
-    iTek.on("JSBridgeReady", function() {
-a = __Native__;
-    });
+    var a = __Native__;
 
     function dd(){
-
-        alert(a);
-        alert(a.getName());
-        a.setName("teshfydsfasdf");
-        alert(a.getName());
+        alert(a.openWindow);
+        a.openWindow("ACTION_WEBVIEW","");
     }
 </script>
 <button onclick="dd();">yyyyyyyyy</button>
