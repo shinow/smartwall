@@ -28,7 +28,7 @@ $(function() {
                 var guid = a.attr("data-guid");
 
                 iTek.ui.goURL(location.protocol + "//" + location.host + "/sfa/mobi/exam/show_question.html?type=" + type + "&guid=" + guid + "&caption=" + a.text());
-            });
+             });
         }, "json");
     };
 

@@ -8,12 +8,15 @@
     right: 10px;
     bottom: 90px;
     font-size: 12px;
+    color:#fff;
     height: 40px;
-    border: 1px solid #bdbdbd;
+    border: 1px solid #FF9800;
+    background-color: #FF9800;
     border-radius: 20px;
     width: 40px;
     line-height: 40px;
     text-align: center;
+    z-index: 999999;
 }
 
 #page-question #submit-page {
@@ -21,12 +24,15 @@
     right: 10px;
     bottom: 45px;
     font-size: 12px;
+    color:#fff;
     height: 40px;
-    border: 1px solid #bdbdbd;
+    border: 1px solid #FF9800;
+    background-color: #FF9800;
     border-radius: 20px;
     width: 40px;
     line-height: 40px;
-    text-align: center
+    text-align: center;
+    z-index: 999999;
 }
 
 .question-area {
