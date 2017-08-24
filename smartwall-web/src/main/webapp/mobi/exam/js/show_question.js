@@ -22,7 +22,7 @@ $(function() {
 
         $("#title").text(decodeURIComponent(vars["caption"]));
         $(".itekui-action-back").tap(function() {
-            history.back();
+            iTek.ui.close();
         });
 
         loadQuestions(vars["type"], vars["guid"]);
