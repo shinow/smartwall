@@ -50,6 +50,7 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
         ws.setDomStorageEnabled(true);
         ws.setDatabaseEnabled(true);
         ws.setAllowFileAccess(true);
+        ws.setTextZoom(100);
         //设置定位的数据库路径
 //		String dir = MyApplication.app.getContext().getDir("database", Context.MODE_PRIVATE).getPath();
 //		ws.setGeolocationDatabasePath(dir);

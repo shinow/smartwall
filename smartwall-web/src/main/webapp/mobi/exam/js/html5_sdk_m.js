@@ -32,12 +32,8 @@
                 data: JSON.stringify(data)
             });
         } else {
-            __Native__.invoke({
-                module: module,
-                funcName: funcName,
-                data: JSON.stringify(data)
-            });
-        }
+            __Native__.invoke(module, funcName, JSON.stringify(data));
+        };
     };
 
     iTek.__html5_reg = function(module, methods) {

@@ -17,26 +17,25 @@ public class NvWebViewActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_views);
         m_webView = (NativeWebView) findViewById(R.id.nativewebview);
-//        url = getIntent().getStringExtra("url");
-//        isNative= getIntent().getBooleanExtra("isNative",true);
+
+        url = getIntent().getStringExtra("url");
         initActivity();
     }
 
     private void initActivity() {
-//        m_webView.loadUrl(url);
-//        m_webView.setNative(isNative);
+        m_webView.loadUrl(url);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        if (m_webView.getListenr() != null) {
 //            m_webView.getListenr().onActivityResult(requestCode, resultCode, data);
 //        }
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onDestroy() {
-//        m_webView.onDestroy();
+        m_webView.onDestroy();
         super.onDestroy();
     }
 }

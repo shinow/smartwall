@@ -4,12 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <link.smartwall.controls.view.NavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="45dip" />
-
-    <link.smartwall.controls.webview.NativeWebView
+     <link.smartwall.controls.webview.NativeWebView
         android:id="@+id/nativewebview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
