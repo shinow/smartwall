@@ -9,3 +9,6 @@
 /smartwall-redis/target
 /smartwall-redis/bin
 /smartwall-web/.settings
+/smartwall-forum/target
+/smartwall-forum/.classpath
+/smartwall-forum/.project
