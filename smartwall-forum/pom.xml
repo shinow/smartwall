@@ -49,6 +49,11 @@
       <groupId>org.nutz</groupId>
       <artifactId>nutz</artifactId>
       <version>1.0.61</version>
+    </dependency>
+    <dependency>
+      <groupId>common.jdbc</groupId>
+      <artifactId>ojdbc</artifactId>
+      <version>14</version>
     </dependency>          
     <dependency>
       <groupId>junit</groupId>

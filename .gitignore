@@ -12,3 +12,4 @@
 /smartwall-forum/target
 /smartwall-forum/.classpath
 /smartwall-forum/.project
+/smartwall-forum/src/main/resources/application.yml
