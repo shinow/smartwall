@@ -6,10 +6,18 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import link.smartwall.controls.webview.support.JSNativeClass;
 
@@ -17,6 +25,7 @@ import link.smartwall.controls.webview.support.JSNativeClass;
 public class NativeWebView extends WebView implements INatvieWebViewAware {
     private Context context;
     private Handler handler = new Handler(Looper.getMainLooper());
+    private String x;
 //    private JSPluginManager manager;
 
     public NativeWebView(Context context) {
@@ -82,6 +91,7 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                //                String url = "javascript:iTek.__html5_evt('JSBridgeReady');";
                 super.onPageFinished(view, url);
                 onWebPageFinished();
                 regNativie();
@@ -95,16 +105,16 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
      * 注册核心JS
      */
     private void onWebPageFinished() {
-//        String coreBridgeJsCodeStr = manager.localCoreBridgeJSCode("sdk/html5_sdk_m.js");
-//        // 多行注释
-//        String multiComment = "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/";
-//        // 单行注释
-//        String singleComment = "//[^\r\n]*+";
-//        Pattern p = Pattern.compile(multiComment + "|" + singleComment + "|" + "\t|\r|\n");
-//        Matcher m = p.matcher(coreBridgeJsCodeStr);
-//        coreBridgeJsCodeStr = m.replaceAll("");
-//        coreBridgeJsCodeStr = "javascript:" + coreBridgeJsCodeStr;
-//        this.loadUrl(coreBridgeJsCodeStr);
+        String coreBridgeJsCodeStr = localCoreBridgeJSCode("sdk/html5_sdk_m.js");
+        // 多行注释
+        String multiComment = "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/";
+        // 单行注释
+        String singleComment = "//[^\r\n]*+";
+        Pattern p = Pattern.compile(multiComment + "|" + singleComment + "|" + "\t|\r|\n");
+        Matcher m = p.matcher(coreBridgeJsCodeStr);
+        coreBridgeJsCodeStr = m.replaceAll("");
+        coreBridgeJsCodeStr = "javascript:" + coreBridgeJsCodeStr;
+        this.loadUrl(coreBridgeJsCodeStr);
     }
 
     private void regNativie() {
@@ -134,13 +144,42 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
      * 通过回调通知前端页面本地Service已经初始化完毕
      */
     private void readyWithEventName() {
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                String url = "javascript:iTek.__html5_evt('JSBridgeReady');";
-//                loadUrl(url);
-//            }
-//        });
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //String url = "javascript:window.dispatchEvent('H5Ready');";
+                //loadUrl(url);
+            }
+        });
+    }
+
+    /**
+     * 获取核心js
+     */
+    private String localCoreBridgeJSCode(String file) {
+        String jsBrideCodeStr = "";
+        try {
+            System.out.println("file:" + file);
+            InputStream instream = context.getAssets().open(file);
+            if (instream != null) {
+                StringBuilder content = new StringBuilder(); // 文件内容字符串
+                InputStreamReader inputreader = new InputStreamReader(instream);
+                BufferedReader buffreader = new BufferedReader(inputreader);
+                char[] buffer = new char[2048];
+                int length;
+                // 分行读取
+                while ((length = buffreader.read(buffer)) > 0) {
+                    content.append(buffer, 0, length);
+                }
+                jsBrideCodeStr = content.toString();
+                instream.close();
+            }
+        } catch (java.io.FileNotFoundException e) {
+            Log.d("TestFile", "The File doesn't not exist.");
+        } catch (IOException e) {
+            Log.d("TestFile", e.getMessage());
+        }
+        return jsBrideCodeStr;
     }
 
     @Override

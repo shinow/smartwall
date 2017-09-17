@@ -10,6 +10,8 @@ import com.alibaba.fastjson.JSONObject;
 import link.smartwall.controls.activity.NvWebViewActivity;
 import link.smartwall.controls.webview.NativeWebView;
 
+import static android.R.attr.x;
+
 public class JSNativeClass {
     private NativeWebView webView;
 
@@ -35,6 +37,12 @@ public class JSNativeClass {
                 this.webView.obtainActivity().finish();
             }
         }
+    }
+
+    @JavascriptInterface
+    public void on(String func) {
+        System.out.println(func);
+
     }
 
     public JSNativeClass(NativeWebView webView) {
