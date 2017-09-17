@@ -1,17 +1,10 @@
 package link.smartwall.cloud.forum.domain;
 
-import java.util.Date;
-
 import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
 @Table(value = "forum_rank")
-public class Rank {
-	@Column(value = "rank_guid")
-	@Name
-	private String guid;
-
+public class Rank extends ForumBaseEntity {
 	@Column(value = "rank_name")
 	private String name;
 
@@ -21,9 +14,27 @@ public class Rank {
 	@Column(value = "rank_image")
 	private String rankImage;
 
-	@Column(value = "tenant_id")
-	private int tenantId;
+	public String getName() {
+		return name;
+	}
 
-	@Column(value = "data_time")
-	private Date dataTime;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getRankMin() {
+		return rankMin;
+	}
+
+	public void setRankMin(int rankMin) {
+		this.rankMin = rankMin;
+	}
+
+	public String getRankImage() {
+		return rankImage;
+	}
+
+	public void setRankImage(String rankImage) {
+		this.rankImage = rankImage;
+	}
 }

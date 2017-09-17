@@ -3,15 +3,10 @@ package link.smartwall.cloud.forum.domain;
 import java.util.Date;
 
 import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
 @Table(value = "forum_post")
-public class Post {
-	@Column(value = "post_guid")
-	@Name
-	private String guid;
-
+public class Post extends ForumBaseEntity {
 	@Column(value = "topic_guid")
 	private String topic;
 
@@ -33,9 +28,59 @@ public class Post {
 	@Column(value = "attach_count")
 	private int attachCount;
 
-	@Column(value = "tenant_id")
-	private int tenantId;
+	public String getTopic() {
+		return topic;
+	}
 
-	@Column(value = "data_time")
-	private Date dataTime;
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public String getForum() {
+		return forum;
+	}
+
+	public void setForum(String forum) {
+		this.forum = forum;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public Date getPostTime() {
+		return postTime;
+	}
+
+	public void setPostTime(Date postTime) {
+		this.postTime = postTime;
+	}
+
+	public Date getEditTime() {
+		return editTime;
+	}
+
+	public void setEditTime(Date editTime) {
+		this.editTime = editTime;
+	}
+
+	public int getEditCount() {
+		return editCount;
+	}
+
+	public void setEditCount(int editCount) {
+		this.editCount = editCount;
+	}
+
+	public int getAttachCount() {
+		return attachCount;
+	}
+
+	public void setAttachCount(int attachCount) {
+		this.attachCount = attachCount;
+	}
 }

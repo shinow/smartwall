@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import link.smartwall.cloud.forum.dao.ForumDao;
+import link.smartwall.cloud.forum.domain.Attach;
 
 /**
  * Hello world!
@@ -27,20 +28,24 @@ public class HelloController {
 
 	@RequestMapping("/hello")
 	public String index() {
-		Sql sql = Sqls.create("select guid, caption from kygj_exam_e1");
-		sql.setCallback(new SqlCallback() {
-
-			@Override
-			public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {
-				while (rs.next()) {
-					System.out.println(rs.getString("guid"));
-					System.out.println(rs.getString("caption"));
-				}
-
-				return null;
-			}
-		});
-		this.dao.getDao().execute(sql);
+//		Sql sql = Sqls.create("select guid, caption from kygj_exam_e1");
+//		sql.setCallback(new SqlCallback() {
+//
+//			@Override
+//			public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException {
+//				while (rs.next()) {
+//					System.out.println(rs.getString("guid"));
+//					System.out.println(rs.getString("caption"));
+//				}
+//
+//				return null;
+//			}
+//		});
+//		this.dao.getDao().execute(sql);
+		Attach att = new Attach();
+		att.setGuid("CYDFSF");
+		
+		dao.getDao().fastInsert(att);
 
 		return "Hello World";
 	}

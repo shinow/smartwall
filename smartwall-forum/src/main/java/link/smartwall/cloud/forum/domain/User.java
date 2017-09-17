@@ -3,15 +3,10 @@ package link.smartwall.cloud.forum.domain;
 import java.util.Date;
 
 import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
 @Table(value = "forum_user")
-public class User {
-	@Column(value = "user_guid")
-	@Name
-	private String guid;
-
+public class User extends ForumBaseEntity {
 	@Column(value = "active")
 	private boolean active;
 
@@ -41,10 +36,84 @@ public class User {
 
 	@Column(value = "gender")
 	private String gender;
-	
-	@Column(value = "tenant_id")
-	private int tenantId;
 
-	@Column(value = "data_time")
-	private Date dataTime;
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getLastInDate() {
+		return lastInDate;
+	}
+
+	public void setLastInDate(Date lastInDate) {
+		this.lastInDate = lastInDate;
+	}
+
+	public Date getLastOutDate() {
+		return lastOutDate;
+	}
+
+	public void setLastOutDate(Date lastOutDate) {
+		this.lastOutDate = lastOutDate;
+	}
+
+	public int getPostCount() {
+		return postCount;
+	}
+
+	public void setPostCount(int postCount) {
+		this.postCount = postCount;
+	}
+
+	public int getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(int userLevel) {
+		this.userLevel = userLevel;
+	}
+
+	public String getRankGuid() {
+		return rankGuid;
+	}
+
+	public void setRankGuid(String rankGuid) {
+		this.rankGuid = rankGuid;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 }

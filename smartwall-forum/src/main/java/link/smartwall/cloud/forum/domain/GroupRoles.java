@@ -1,26 +1,29 @@
 package link.smartwall.cloud.forum.domain;
 
-import java.util.Date;
-
 import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
 @Table(value = "forum_group_roles")
-public class GroupRoles {
+public class GroupRoles extends ForumBaseEntity {
 	@Column(value = "group_guid")
-	@Name
-	private String guid;
-
-	@Column(value = "role_guid")
-	private String roleGuid;
+	private String groupGuid;
 
 	@Column(value = "role_name")
 	private String roleName;
 
-	@Column(value = "tenant_id")
-	private int tenantId;
+	public String getGroupGuid() {
+		return groupGuid;
+	}
 
-	@Column(value = "data_time")
-	private Date dataTime;
+	public void setGroupGuid(String groupGuid) {
+		this.groupGuid = groupGuid;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 }

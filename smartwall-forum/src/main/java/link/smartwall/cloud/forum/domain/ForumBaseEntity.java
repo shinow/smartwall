@@ -4,19 +4,11 @@ import java.util.Date;
 
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Name;
-import org.nutz.dao.entity.annotation.Table;
 
-@Table(value = "forum_categories")
-public class Categories {
-	@Column(value = "categories_guid")
+public class ForumBaseEntity {
+	@Column(value = "guid")
 	@Name
 	private String guid;
-
-	@Column(value = "title")
-	private String title;
-
-	@Column(value = "display_order")
-	private String displayOrder;
 
 	@Column(value = "tenant_id")
 	private int tenantId;
@@ -30,22 +22,6 @@ public class Categories {
 
 	public void setGuid(String guid) {
 		this.guid = guid;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDisplayOrder() {
-		return displayOrder;
-	}
-
-	public void setDisplayOrder(String displayOrder) {
-		this.displayOrder = displayOrder;
 	}
 
 	public int getTenantId() {
@@ -63,4 +39,5 @@ public class Categories {
 	public void setDataTime(Date dataTime) {
 		this.dataTime = dataTime;
 	}
+
 }
