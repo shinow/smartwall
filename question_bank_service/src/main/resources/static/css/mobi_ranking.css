@@ -1,0 +1,171 @@
+html, body, #app,
+.mui-content{
+    height: 100%;
+    overflow: hidden;
+}
+.mui-input-group{
+    margin: 0;
+}
+.mui-input-group:before {
+    height: 0;
+}
+.ranking-back{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 45px;
+    height: 45px;
+    color: transparent;
+    display: inline-block;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("img/exam/back.png");
+}
+.ranking-title{
+    font-size: 15px;
+    margin-left: 35px;
+}
+.ranking-backtopx{
+    float: right;
+    font-size: 15px;
+    color: #105299;
+}
+.ranking-score{
+    font-size: 15px;
+}
+.mui-input-row,
+.ranking-info{
+    padding: 12px;
+}
+.ranking-info{
+    position: relative;
+    padding: 8px;
+}
+.ranking-info-left{
+    padding: 13px;
+    width: 100px;
+    height: 100px;
+    background-color: #105299;
+}
+.ranking-info-left .stars{
+    width: 74px;
+    height: 50px;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("img/exam/stars.png");
+}
+.ranking-info-left .ranking{
+    text-align: center;
+    color:#fff;
+    font-size: 12px;
+    line-height: 24px;
+    background-color: #0e4886;
+    border-radius: 12px;
+}
+.ranking-info-right{
+    position: absolute;
+    left: 116px;
+    right: 8px;
+    top: 8px;
+    bottom: 8px;
+    background-color: #105299;
+    padding: 25px 20px;
+}
+.ranking-info-right .avatar{
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    background-image: url(img/icon_user.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    float: left;
+}
+.ranking-info-right .info{
+    position: absolute;
+    left: 75px;
+    right: 15px;
+    height: 50px;
+    color:#fff;
+    font-size: 12px;
+    padding: 4px;
+}
+.ranking-info-right .info div{
+    line-height: 23px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.ranking-info-right .name{
+    font-weight: bold;
+    font-size: 16px;
+}
+.ranking-info-right .score{
+    font-size: 14px;
+}
+.ranking-list{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 206px;
+    bottom: 0;
+    padding: 8px;
+    background-color: #fff;
+}
+.ranking-list .mui-scroll-wrapper{
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    overflow: hidden;
+    width: auto;
+    border: 1px solid #eee;
+}
+.ranking-list table{
+    width: 100%;
+}
+.ranking-list tr{
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.ranking-list tr:first-child{
+    border-top: none;
+}
+.ranking-list tr:last-child{
+    border-bottom: none;
+}
+.ranking-list tr:nth-child(1) .ranking{
+    background-image: url("img/exam/ranking1.png");
+}
+.ranking-list tr:nth-child(2) .ranking{
+    background-image: url("img/exam/ranking2.png");
+}
+.ranking-list tr:nth-child(3) .ranking{
+    background-image: url("img/exam/ranking3.png");
+}
+.ranking-list td{
+    padding: 8px 5px;
+    line-height: 24px;
+}
+.ranking-list .ranking{
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: center center;
+    text-align: center;
+}
+.ranking-list .name{
+
+}
+.ranking-list .company{
+
+}
+.ranking-list .score{
+
+}

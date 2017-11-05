@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>考试答题</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--CSS-->
+    <link rel="stylesheet" href="js/lib/mui/css/mui.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/mobi_answer.css">
+    <!--JS-->
+    <script type="text/javascript" src="js/lib/zepto/zepto-1.2.0.js"></script>
+    <script type="text/javascript" src="js/lib/vue/vue.min.js"></script>
+    <script type="text/javascript" src="js/lib/mui/js/mui.min.js" ></script>
+    <script type="text/javascript" src="js/lib/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="js/lib/pub/tool.js"></script>
+    <script type="text/javascript" src="js/code/mobi_answer.js"></script>
+</head>
+<body>
+<div id="app" v-show="isShow" style="display: none">
+
+    <template v-if="type == 'answer'">
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-pull-left"></a>
+            <h1 class="mui-title">考试答题</h1>
+            <a class="mui-pull-right" v-text="questionIndex"></a>
+        </header>
+
+        <div class="mui-content">
+            <div class="mui-input-group">
+                <div class="mui-input-row exam-question">
+                    <!--题目-->
+                    <div class="question-description"
+                         v-html="question.subject"></div>
+                    <!--单选、多选及评分选项-->
+                    <div class="question-options"
+                         v-if="question.option">
+                        <div class="q-option-item"
+                             v-for="(option, index) in question.option"
+                             :class="{ select: selectedHandler(option, index)}">
+                            <div class="q-option-image"
+                                 v-show="option.image">
+                                <img :src="option.image">
+                            </div>
+                            <div class="q-option-text"
+                                 v-text="option.caption"></div>
+                            <input v-if="question.type != 'multiple-choice'"
+                                   type="radio"
+                                   name="radio"
+                                   v-model="question.value"
+                                   :value="option.no">
+                            <input v-if="question.type == 'multiple-choice'"
+                                   type="checkbox"
+                                   name="checkbox"
+                                   :value="option.no"
+                                   v-model="option.selected">
+                        </div>
+                    </div>
+                    <!--判断题选项-->
+                    <div class="question-options"
+                         v-if="question.type === 'truefalse-question'">
+                        <div class="q-option-item"
+                             :class="{ select: question.value === true }">
+                            <div class="q-option-text"
+                                 v-text="'对'"></div>
+                            <input type="radio"
+                                   name="radio"
+                                   v-model="question.value"
+                                   :value="true">
+                        </div>
+                        <div class="q-option-item"
+                             :class="{ select: question.value === false}">
+                            <div class="q-option-text"
+                                 v-text="'错'"></div>
+                            <input type="radio"
+                                   name="radio"
+                                   v-model="question.value"
+                                   :value="false">
+                        </div>
+                    </div>
+                </div>
+                <!--问答题-->
+                <div class="mui-input-row"
+                     v-show="question.type == 'question-answer'">
+                    <label>请作答：</label>
+                    <div class="y-textarea">
+                    <textarea placeholder="请输入答案"
+                              v-model="question.value"></textarea>
+                    </div>
+                </div>
+                <!--答题理由-->
+                <div class="mui-input-row"
+                     v-show="question.type == 'score-choice'">
+                    <label>答题理由</label>
+                    <div class="y-textarea">
+                    <textarea placeholder="请输入理由"
+                              v-model="question.remark"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="mui-bar mui-bar-tab y-nav">
+            <div class="y-btns" v-show="questionList.length != question.index">
+                <button class="y-btn"
+                        @click="nextProblem">下一题</button>
+            </div>
+            <div class="y-btns" v-show="questionList.length == question.index">
+                <button class="y-btn"
+                        @tap="submit">提交</button>
+            </div>
+        </nav>
+    </template>
+
+    <template v-if="type != 'answer'">
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-pull-left"></a>
+            <h1 class="mui-title">答题解析</h1>
+            <a class="mui-pull-right" v-text="questionIndex"></a>
+        </header>
+
+        <div class="mui-content">
+            <div class="mui-input-group">
+                <div class="mui-input-row exam-question">
+                    <!--题目-->
+                    <div class="question-description"
+                         v-html="question.subject"></div>
+                    <!--单选、多选及评分选项-->
+                    <div class="question-options"
+                         v-if="question.option">
+                        <div class="q-option-item"
+                             v-for="(option, index) in question.option"
+                             :class="{ select: selectedHandler(option, index)}">
+                            <div class="q-option-image"
+                                 v-show="option.image">
+                                <img :src="option.image">
+                            </div>
+                            <div class="q-option-text"
+                                 :class="{right: option.is_right}"
+                                 v-text="option.caption"></div>
+                        </div>
+                    </div>
+                    <!--判断题选项-->
+                    <div class="question-options"
+                         v-if="question.type === 'truefalse-question'">
+                        <div class="q-option-item"
+                             :class="{ select: question.value === true }">
+                            <div class="q-option-text"
+                                 :class="{right: question.answer === true}"
+                                 v-text="'对'"></div>
+                        </div>
+                        <div class="q-option-item"
+                             :class="{ select: question.value === false}">
+                            <div class="q-option-text"
+                                 :class="{right: question.answer === false}"
+                                 v-text="'错'"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--问答题-->
+                <div class="mui-input-row"
+                     v-show="question.type == 'question-answer'">
+                    <label>答：</label>
+                    <span class="mui-input-content"
+                          v-text="question.value"></span>
+                </div>
+                <div class="mui-input-row"
+                     v-show="question.type == 'score-choice'">
+                    <label>答题理由</label>
+                    <span class="mui-input-content"
+                          v-text="question.remark"></span>
+                </div>
+                <div class="mui-input-row"
+                     v-show="question.analysis">
+                    <label>答案解析</label>
+                    <span class="mui-input-content"
+                          v-text="question.analysis"></span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="mui-bar mui-bar-tab y-nav">
+            <div class="y-btns">
+                <button class="y-btn"
+                        @click="prevProblem"
+                        v-if="question.index != 1">上一题</button>
+                <button class="y-btn"
+                        @click="showRanking"
+                        v-if="question.index == questionList.length">查看排名</button>
+                <button class="y-btn"
+                        @click="nextProblem"
+                        v-if="questionList.length != question.index">下一题</button>
+            </div>
+        </nav>
+    </template>
+
+</div>
+<script type="text/javascript">
+    Y.init();
+    function goback(){
+        mobile.dismiss();
+    }
+</script>
+</body>
+</html>

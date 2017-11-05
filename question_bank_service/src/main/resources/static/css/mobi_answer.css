@@ -1,0 +1,55 @@
+img{
+    max-width: 100% !important;
+}
+p{
+    color: #333;
+}
+.mui-bar-nav~.mui-content {
+    padding-top: 44px;
+    padding-bottom: 90px;
+}
+.exam-question{
+    padding: 12px 15px;
+}
+.question-description{
+    margin-bottom: 12px;
+}
+.question-options{
+    overflow: hidden;
+}
+.q-option-item{
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 7px 26px 7px 7px;
+    margin-bottom: 5px;
+    min-height: 37px;
+}
+.question-options input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    filter:alpha(Opacity=0);
+    -moz-opacity:0;
+    opacity: 0;
+}
+.q-option-item:last-child{
+    margin-bottom: 0;
+}
+.q-option-item.select{
+    border: 1px solid #005AFF;
+    background-image: url("img/exam/select.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+}
+.q-option-item .q-option-image img{
+    max-width: 80% !important;
+}
+.q-option-item .q-option-text.right:after{
+    content: " （正确答案）";
+    color: #4d934d;
+}

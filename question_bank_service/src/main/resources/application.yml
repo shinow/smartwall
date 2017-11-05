@@ -1,0 +1,36 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+      hystrix:
+command:
+    default:
+      execution:
+        isolation:
+          thread:
+            #避免第一次请求超时
+            timeoutInMilliseconds: 5000
+server:
+  port: 8015
+  context-path: /exam_service 
+spring:
+  application:
+    name: exam-service
+  data:
+    mongodb:
+      uri: mongodb://sfa:iTek123456@112.124.108.130/exam
+########################################################  
+###FREEMARKER (FreeMarkerAutoConfiguration)  
+########################################################  
+  freemarker:
+    allow-request-override: false
+    cache: false
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    request-context-attribute: request
+    suffix: .ftl
+    template-loader-path: classpath:/templates/

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>考试系统</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="css/examination.css">
+    <link rel="stylesheet" href="js/filters/css/dialog_box.css">
+    <!--JS-->
+    <script type="text/javascript" src="js/lib/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js/lib/jquery/jquery.form.js"></script>
+    <script type="text/javascript" src="js/lib/vue/vue.min.js"></script>
+    <script type="text/javascript" src="js/dist/bundle.js"></script>
+    <script type="text/javascript" src="js/lib/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="js/lib/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="js/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="js/lib/pub/tool.js"></script>
+    <script type="text/javascript" src="js/code/examination.js"></script>
+</head>
+<body>
+<div class="exam-wrapper" id="app" v-show="isShow" style="display: none">
+    <div class="paper-banner-wrapper">
+        <div class="paper-banner">
+            <div class="create-question">
+                <div>插入题型:</div>
+                <div class="createQ-btn"
+                     v-for="item in subjectType"
+                     @click="createSubject(item.type)"
+                     v-show="item.flag"
+                     v-text="item.label"></div>
+            </div>
+            <div class="paper-features">
+                <!--<div id="preview" class="createQ-btn">预览</div>-->
+                <div class="createQ-btn" @click="saveExam('提交成功')">保存</div>
+                <div id="back" class="createQ-btn" @click="backExamList">返回</div>
+            </div>
+        </div>
+    </div>
+    <div class="paper-content-warpper">
+        <div class="paper-topic-list">
+            <ul>
+                <li v-if="subjectList.length == 0">请添加试题</li>
+                <li v-for="(item, index) in subjectList"
+                    @click="selectSubject(item, index)"
+                    :class="{edit: index === subjectShowIndex}">
+                    <span class="p-t-number" v-text="index + 1"></span>
+                    <span class="p-t-problem"
+                          v-text="subjectContentHandler(item)"></span>
+                    <span class="p-t-ctrl">
+                        <span class="p-t-up"  @click.stop="upSubject(item, index)"></span>
+                        <span class="p-t-down" @click.stop="downSubject(item, index)"></span>
+                        <span class="p-t-del" @click.stop="delSubject(item, index)"></span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="paper-question-detail">
+            <div class="e-paper c-hover" v-show="subjectShowHandler">
+                <div class="e-questions-wrapper e-editing">
+
+                    <!--问题展示 start-->
+                    <div class="e-question-item">
+                        <div class="e-q-title">
+                            <span v-html="subjectShow.subject"></span>
+                            <span v-text="'*(分值:' + subjectShow.record + '分)'"
+                                  v-if="subjectShow.record"></span>
+                        </div>
+                        <ul class="e-q-options">
+                            <li class="e-q-option"
+                                v-for="option in subjectShow.option">
+                                <div class="e-q-option-img" v-if="option.image">
+                                    <img :src="subjectImage(option)">
+                                </div>
+                                <div class="e-q-option-text">
+                                    <input type="radio" disabled="disabled">
+                                    <label v-text="option.caption" :class="{'right': option.is_right}"></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--问题展示 end-->
+
+                    <div v-show="isEditor">
+
+                        <!--富文本编辑器 start-->
+                        <div class="e-question-title">
+                            <div class="ueditor-item edui-default" id="myEditor"></div>
+                        </div>
+                        <!--富文本编辑器 end-->
+
+                        <!--选项编辑 start-->
+                        <div class="e-question-select" v-if="subjectShow.option">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>选项文字</th>
+                                    <th v-if="confOption(subjectShow, 'image')">图片</th>
+                                    <th v-if="confOption(subjectShow, 'is_right')">正确答案</th>
+                                    <th v-if="confOption(subjectShow, 'record')">分数</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(option, index) in subjectShow.option">
+                                    <td>
+                                        <input type="text" class="q-option-text"
+                                               v-model="option.caption">
+                                    </td>
+                                    <td v-if="confOption(subjectShow, 'image')">
+                                    <span class="q-option-img">
+                                        <div class="q-option-img-select"
+                                             v-show="!option.image"
+                                             @click="selectImage(option, index)">选择图片</div>
+                                    </span>
+                                        <span class="q-option-img-del"
+                                              v-if="option.image"
+                                              @click="delImage(option, index)">删除</span>
+                                    </td>
+                                    <td v-if="confOption(subjectShow, 'is_right')">
+                                        <input name="radio"
+                                               :type="inputTypeOption(subjectShow)"
+                                               @change="changeRightOpiton(option, index)"
+                                               :checked="option.is_right">
+                                    </td>
+                                    <td v-if="confOption(subjectShow, 'record')">
+                                        <select v-model="option.record">
+                                            <option v-for="record in conf.recordType"
+                                                    :value="record"
+                                                    v-text="record"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span class="e-q-option-ctl p-t-add"
+                                              @click="addOption(option, index)"></span>
+                                        <span class="e-q-option-ctl p-t-up"
+                                              @click="upOption(option, index)"></span>
+                                        <span class="e-q-option-ctl p-t-down"
+                                              @click="downOption(option, index)"></span>
+                                        <span class="e-q-option-ctl p-t-del"
+                                              @click="delOption(option, index)"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--选项编辑 end-->
+
+                        <!--配置信息 start-->
+                        <div class="e-question-config">
+                            <!--添加选项-->
+                            <div v-if="subjectShow.option">
+                                <button class="e-q-add-select c-button"
+                                        @click="addOption(subjectShow)">添加选项</button>
+                            </div>
+                            <!--题型-->
+                            <span class="e-q-row">
+                                <label>当前题型: </label>
+                                <span class="e-q-display-type"
+                                      v-text="subjectTypeHandler(subjectShow.type)"></span>
+                            </span>
+                            <!--<div>
+                                <label>是否必填: </label>
+                                <input type="checkbox"
+                                       value="是否必填"
+                                       v-model="subjectShow.required"
+                                       class="e-question-required">
+                            </div>-->
+                            <!--题目分值-->
+                            <span class="e-q-row"
+                                  v-show="subjectShow.record">
+                                <label>分值: </label>
+                                <select v-model="subjectShow.record">
+                                    <option v-for="record in conf.recordType" :value="record" v-text="record"></option>
+                                </select>
+                            </span>
+                            <!--判断题答案-->
+                            <span class="e-q-row"
+                                  v-show="subjectShow.type === 'truefalse-question'">
+                                <label>答案: </label>
+                                <label class="correct">正确<input type="radio"
+                                                v-model="subjectShow.answer"
+                                                :value="true"/></label>
+                                <label class="error">错误<input type="radio"
+                                                v-model="subjectShow.answer"
+                                                :value="false"/></label>
+                            </span>
+                            <!--题目解析-->
+                            <span class="e-q-row"
+                                  v-show="subjectShow.analysis">
+                                <label>答案解析: </label>
+                                <a class="analysis" @click="analysisEditOpen">设置答案解析</a>
+                            </span>
+                        </div>
+                        <!--配置信息 end-->
+
+                        <!--保存按钮 start-->
+                        <div class="e-question-submit">
+                            <button class="q-submit-btn c-button"
+                                    @click="saveSubject">完成编辑</button>
+                        </div>
+                        <!--保存按钮 end-->
+
+                    </div>
+                    <div class="e-question-submit" v-show="!isEditor">
+                        <button class="q-submit-btn c-button"
+                                @click="editorSubject">编辑</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="webuploader" style="display: none"></div>
+    <modal-dialog ref="dialog"
+                :title="'题目解析'"
+                @cancel-close="analysisEditCancel">
+        <template slot="body">
+            <textarea v-model="analysis"></textarea>
+        </template>
+        <template slot="footer">
+            <button class="c-button" @click="analysisEditSave">确定</button>
+        </template>
+    </modal-dialog>
+
+    <modal-dialog ref="dialogImg"
+                  :title="'选择图片'"
+                  @cancel-close="analysisEditCancel">
+        <template slot="body">
+            <form id="form-add"
+                  method="post"
+                  enctype="multipart/form-data"
+                  target="fra-submit">
+                <input type="hidden" name="tenant_id" v-model="tenant_id">
+                <input type="hidden" name="category" v-model="category">
+                <input type="hidden" name="name" id="fileName">
+                <input type="file"
+                       id="file-add" name="file"
+                       data-language="zh"
+                       data-show-preview="false"
+                       data-show-upload="false"
+                       @change="chkimg" style="display: none;">
+                <a class="q-option-img-select" @click="selectImageToggle">选择图片</a>
+                <span class="q-select-img-text">请选择图片</span>
+                <button type="button" class="c-button" id="btn-add-submit" @click="submitImage">上传文件</button>
+            </form>
+        </template>
+    </modal-dialog>
+
+    <modal-alert ref="alert"></modal-alert>
+    <modal-confirm ref="confirm"></modal-confirm>
+
+</div>
+
+
+<script type="text/javascript">
+    Exam.init();
+</script>
+</body>
+</html>
+

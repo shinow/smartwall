@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对话框</title>
+    <link rel="stylesheet" href="../../../css/examination.css">
+    <link rel="stylesheet" href="../css/dialog_box.css">
+    <script type="text/javascript" src="../../lib/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../lib/vue/vue.js"></script>
+    <script type="text/javascript" src="../dialog_box.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <modal-dialog ref="dialog"
+                    :width="width"
+                    :height="height"
+                    @cancel-close="cancelDialog">
+            <template slot="body">
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+                <div>12222222222222222222222</div>
+            </template>
+        </modal-dialog>
+
+        <modal-alert ref="alert"
+                     :title="'123'"
+                     :value="alertValue"></modal-alert>
+
+        <modal-confirm ref="confirm"
+                       :title="'123'"
+                       :value="confirmValue"
+                       :cb="callback"></modal-confirm>
+
+        <button @click="showDialog">弹出对话框</button>
+
+        <button @click="showAlert">弹出alert</button>
+
+        <button @click="showConfirm">弹出confirm</button>
+    </div>
+    <script type="text/javascript">
+        vm = new Vue({
+            el: "#app",
+            data: {
+                width: 300,
+                height: 200,
+                alertValue: "",
+                confirmValue: "",
+            },
+            methods: {
+                showDialog: function (){
+                    vm.$refs.dialog.open();
+                },
+                showAlert: function (){
+                    vm.$refs.alert.value = "123";
+                },
+                showConfirm: function (){
+                    vm.$refs.confirm.value = "123";
+                },
+                cancelDialog: function (){
+                    alert(1);
+                },
+                callback: function (result){
+                    console.log(result);
+                }
+            },
+            computed: {}
+        });
+        vm.$nextTick(function (){});
+    </script>
+</body>
+</html>

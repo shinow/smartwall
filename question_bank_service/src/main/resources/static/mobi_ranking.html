@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>考试答题</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--CSS-->
+    <link rel="stylesheet" href="js/lib/mui/css/mui.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/mobi_ranking.css">
+    <!--JS-->
+    <script type="text/javascript" src="js/lib/zepto/zepto-1.2.0.js"></script>
+    <script type="text/javascript" src="js/lib/vue/vue.min.js"></script>
+    <script type="text/javascript" src="js/lib/mui/js/mui.min.js" ></script>
+    <script type="text/javascript" src="js/lib/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="js/lib/pub/tool.js"></script>
+    <script type="text/javascript" src="js/code/mobi_ranking.js"></script>
+</head>
+<body>
+<div id="app" v-show="isShow" style="display: none">
+    <div class="mui-content">
+        <div class="mui-input-group">
+            <div class="mui-input-row">
+                <span class="ranking-back" @click="back">.</span>
+                <span class="ranking-title">云测试</span>
+            </div>
+            <div class="mui-input-row">
+                <span class="ranking-score" v-text="score"></span>
+                <span class="ranking-backtopx" @click="backtopx">返回能力培训</span>
+            </div>
+            <div class="ranking-info">
+                <div class="ranking-info-left">
+                    <div class="stars"></div>
+                    <div class="ranking"
+                         v-text="'第' + (myRanking.ranknum + 1) + '名'"></div>
+                </div>
+                <div class="ranking-info-right">
+                    <div class="avatar" :style="avatarHandler"></div>
+                    <div class="info">
+                        <div class="name"
+                             v-text="userInfo.userName"></div>
+                        <div class="score"
+                             v-text="'得分总计: ' + myRanking.score"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ranking-list">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <table>
+                        <colgroup>
+                            <col width="15%">
+                            <col width="20%">
+                            <col width="45%">
+                            <col width="20%">
+                        </colgroup>
+                        <tbody>
+                        <tr v-for="(item, index) in rankingList">
+                            <td class="ranking"
+                                v-text="rankingHandler(index)"></td>
+                            <td class="name"
+                                v-text="item.emp_name"></td>
+                            <td class="company"
+                                v-text="item.tenant_name"></td>
+                            <td class="score"
+                                v-text="item.choice_score + '分'"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    Y.init();
+    function goback(){
+        mobile.dismiss();
+    }
+</script>
+</body>
+</html>
