@@ -2,16 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.itekchina.cloud</groupId>
-    <artifactId>exam-service</artifactId>
+    <artifactId>question-bank-service</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
-    <name>exam-service</name>
+    <name>question-bank-service</name>
     <url>http://www.itek-china.com</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>1.5.8.RELEASE</version>
         <relativePath/>
     </parent>
     <properties>
@@ -107,11 +107,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.36</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.1</version>
         </dependency>
     </dependencies>
     <build>
