@@ -160,54 +160,6 @@ define(function(require) {
                 func: ''
             }]
         }, {
-            name: '专业管理',
-            children: [{
-                name: '专业分类管理',
-                func: ''
-            }, {
-                name: '专业管理',
-                func: ''
-            }, {
-                name: '专业排名',
-                func: ''
-            }, {
-                name: '专业经验',
-                func: ''
-            }, {
-                name: '专业书籍',
-                func: ''
-            }]
-        }, {
-            name: '院校管理',
-            children: [{
-                name: '基本信息',
-                func: ''
-            }, {
-                name: '专业介绍',
-                func: ''
-            }, {
-                name: '招生信息',
-                func: ''
-            }, {
-                name: '报录分析',
-                func: ''
-            }, {
-                name: '分数线',
-                func: ''
-            }, {
-                name: '成绩查询',
-                func: ''
-            }, {
-                name: '导师信息',
-                func: ''
-            }, {
-                name: '学校资讯',
-                func: ''
-            }, {
-                name: '复试调剂',
-                func: ''
-            }]
-        }, {
             name: '论坛管理',
             children: [{
                 name: '论坛设置',
@@ -245,24 +197,27 @@ define(function(require) {
             }, {
                 name: '数学一题库',
                 func: 'grid/show/3CE5976B6C8643B7B7B87CAB73DA586F.mvc'
-            },{
+            }, {
                 name: '数学二题库',
                 func: 'grid/show/2D036D6946F24CC98CF5DD06F5719839.mvc'
-            },{
+            }, {
                 name: '数学三题库',
                 func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
             }]
         }, {
-            name: '订单管理',
+            name: '基础信息',
             children: [{
-                name: '新订单处理',
-                func: ''
+                name: '考试种类',
+                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
             }, {
-                name: '已发货订单跟踪',
-                func: ''
+                name: '考试类别',
+                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
             }, {
-                name: '订单退货管理',
-                func: ''
+                name: '考试科目',
+                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
+            }, {
+                name: '科目章节',
+                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
             }]
         }];
 

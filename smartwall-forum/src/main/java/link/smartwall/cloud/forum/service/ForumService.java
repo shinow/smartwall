@@ -22,7 +22,7 @@ public class ForumService {
 		fbe.setTenantId(0);
 		fbe.setDataTime(new Date());
 
-		dao.getDao().insert(fbe);
+		dao.insert(fbe);
 
 		return fbe.getGuid();
 	}
@@ -32,11 +32,11 @@ public class ForumService {
 		fbe.setTenantId(0);
 		fbe.setDataTime(new Date());
 
-		dao.getDao().insert(fbe);
+		dao.insert(fbe);
 
 		return fbe.getGuid();
 	}
-	
+
 	private String getGuid() {
 		return UUID.randomUUID().toString().toUpperCase().replace("-", "");
 	}

@@ -13,3 +13,6 @@
 /smartwall-forum/.classpath
 /smartwall-forum/.project
 /smartwall-forum/src/main/resources/application.yml
+/question_bank_service/.project
+/question_bank_service/target
+/question_bank_service/.classpath
