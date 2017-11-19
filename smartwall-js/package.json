@@ -1,0 +1,36 @@
+{
+  "name": "smartwall",
+  "version": "1.0.0",
+  "description": "kao ti",
+  "main": "index.js",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "axios": "^0.17.1",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.5",
+    "font-awesome": "^4.7.0",
+    "font-awesome-webpack": "0.0.5-beta.2",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "url-loader": "^0.6.2",
+    "vue": "^2.5.5",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.5"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --config ./build/webpack.config.js --progress --colors --hot --inline",
+    "watch": "webpack --config ./build/designer.config.js -w -d",
+    "build": "webpack --config ./build/webpack.config.js -p"
+  },
+  "author": "",
+  "license": "ISC"
+}
