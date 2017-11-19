@@ -207,17 +207,11 @@ define(function(require) {
         }, {
             name: '基础信息',
             children: [{
-                name: '考试种类',
-                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
+                name: '基础信息',
+                func: '/question-bank/base_info'
             }, {
-                name: '考试类别',
-                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
-            }, {
-                name: '考试科目',
-                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
-            }, {
-                name: '科目章节',
-                func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
+                name: '题库',
+                func: '/question-bank/designer'
             }]
         }];
 

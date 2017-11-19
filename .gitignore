@@ -16,3 +16,8 @@
 /question_bank_service/.project
 /question_bank_service/target
 /question_bank_service/.classpath
+/smartwall-question_bank/.project
+/smartwall-question_bank/target
+/smartwall-question_bank/.classpath
+/smartwall-question_bank/.settings
+/smartwall-js/node_modules
