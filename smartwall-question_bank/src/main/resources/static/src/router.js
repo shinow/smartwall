@@ -1,36 +1,25 @@
-import Category from './views/report/Category.vue';
-import Reports from './views/report/Reports.vue';
+import Chapter from './views/Chapter.vue';
+import Exam from './views/Exam.vue';
 
-export const categoryRouter = {
-	path: '/category',
-	name: 'category',
+export const chapterRouter = {
+	path: '/Chapter',
+	name: 'Chapter',
 	meta: {
-		title: '报表分类'
+		title: '章节'
 	},
-	component: Category
+	component: Chapter
 };
 
-export const defaultRouter = {
-	path: '/',
-	name: 'category',
+export const examRouter = {
+	path: '/Exam',
+	name: 'Exam',
 	meta: {
-		title: '报表分类'
+		title: '考试'
 	},
-	component: Category
+	component: Exam
 };
 
-export const reportsRouter = {
-	path: '/Reports',
-	name: 'reports',
-	meta: {
-		title: '报表详细'
-	},
-	component: Reports
-};
-
-// 所有上面定义的路由都要写在下面的routers里
 export const routers = [
-	defaultRouter,
-	categoryRouter,
-	reportsRouter
+	chapterRouter,
+	examRouter
 ];

@@ -10,7 +10,7 @@ function resolve(dir) {
 module.exports = {
     entry: {
         app_main: './src/main',
-        app_vendros: './src/vendors'
+        app_vendors: './src/vendors'
     },
     output: {
         path: resolve('../dist'),
@@ -74,8 +74,8 @@ module.exports = {
     plugins: [
         new Webpack.BannerPlugin("..lexloo.."),
         new Webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',
-            filename: 'vendors.js'
+            name: 'app_vendors',
+            filename: 'app_vendors.js'
         }),
         new ExtractTextPlugin("main.css"),
     ],
