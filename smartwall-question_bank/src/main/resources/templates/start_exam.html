@@ -11,12 +11,19 @@
     <body>
     	<div id="app">
     		<div class="aui-header">
-    			<h4>{{category}}</h4>
+    			<h4></h4>
     		</div>
-    		<div class="aui-nav">
-    			<a v-for="subject in subjects" data-guid="" class="aui-tab-item"  :class="{'aui-tab-item-active': subject.active}"  @click="selectSubject(subject)">{{subject.name}}</a>
+    		<div class="question-type">
+    			<span>{{current.type}}</span>
     		</div>
-    		<div><Chapters v-for="chapter in chapters" :chapter="chapter"></Chapters></div>
+    		<div>{{current.text}}</div>
+            <div>
+                <div @click="select('A')"><span :class="{'selected': current.select == 'A'}">A</span>{{current.opt_A}}</div>
+                <div @click="select('B')"><span :class="{'selected': current.select == 'B'}">B</span>{{current.opt_B}}</div>
+                <div @click="select('C')"><span :class="{'selected': current.select == 'C'}">C</span>{{current.opt_C}}</div>
+                <div @click="select('D')"><span :class="{'selected': current.select == 'D'}">D</span>{{current.opt_D}}</div>
+                <div @click="select('E')"><span :class="{'selected': current.select == 'E'}">E</span>{{current.opt_E}}</div>
+            </div>
     	</div>
     	<script type="text/javascript" src="./libs/vue.min.js"></script>
     	<script type="text/javascript" src="./libs/axios.min.js"></script>

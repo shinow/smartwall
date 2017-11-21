@@ -28,6 +28,12 @@ public class WebController {
 		return "/base_info";
 	}
 
+	@ApiOperation(value = "选择章节")
+	@RequestMapping(value = "select_chapter", method = RequestMethod.GET)
+	public String selectChapter(Map<String, Object> map) {
+		return "/select_chapter";
+	}
+
 	@ApiOperation(value = "开始考试")
 	@RequestMapping(value = "start_exam", method = RequestMethod.GET)
 	public String startExam(Map<String, Object> map) {

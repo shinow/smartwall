@@ -98,7 +98,7 @@ public class QuestionBankControll {
 		return 0;
 	}
 
-	@ApiOperation(value = "保存Chapter试卷")
+	@ApiOperation(value = "获取Chapter试卷")
 	@RequestMapping(value = "/question/chapter/get", method = RequestMethod.POST)
 	public Object getChapterQesution(@RequestParam("chapter_guid") String chapterGuid) {
 		return questionBankService.getChapterQuestion(chapterGuid);

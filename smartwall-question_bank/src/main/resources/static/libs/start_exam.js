@@ -20,64 +20,56 @@ axios.interceptors.request.use((config) => {
 	alert(error);
 });
 
-function addProperty(arr, prop, value) {
-	for (i = 0, len = arr.length; i < len; i++) {
-		arr[i][prop] = value;
-	}
-};
-
-Vue.component('Chapters', {
-	props: ['chapter'],
-	template: '<div class="chapter">{{chapter.name}}</div>'
-});
-
 new Vue({
 	el: '#app',
 	data: {
-		category: 'XXXXX',
-		subjects: null,
-		chapters: null
+		questions: null,
+		current: {},
+		no: 0;
 	},
+	compute: {
+		count: function() {
+			return this.questions.length;
+		}
+	},
+
 	created: function() {
-		this.loadSubjects('5DCA16610870507BE050840A06394546');
+		this.loadQeustions('5DCA16610870507BE050840A06394546');
 	},
 	methods: {
-		loadSubjects: function(categoryGuid) {
+		loadQeustions: function(chapterGuid) {
 			var that = this;
-			axios.post("v1/list/subject", {
-					'category_guid': categoryGuid
+			axios.post("v1/question/chapter/get", {
+					'chapter_guid': chapterGuid
 				})
 				.then(function(req, err) {
-					that.subjects = req.data;
-					addProperty(that.subjects, 'active', false);
-					that.selectSubject(that.subjects[0]);
+					that.questions = req.data;
+
+					that.no = 0;
+					that.current = that.questions[0];
 				})
 				.catch(function(error) {
 					console.log(error);
 				});
 		},
-		loadChapters: function(subjectGuid){
-			var that = this;
-			axios.post("v1/list/chapter", {
-					'subject_guid': subjectGuid
-				})
-				.then(function(req, err) {
-					that.chapters = req.data;
-				})
-				.catch(function(error) {
-					console.log(error);
-				});
+		select: function(answer) {
+			this.current.select = answer;
 		},
-		clearActive: function() {
-			for (i = 0, len = this.subjects.length; i < len; i++) {
-				this.subjects[i].active = false;
+		next: function() {
+			if (this.no == this.count() - 1) {
+				alert('已经最后');
+			} else {
+				this.no++;
+				this.current = this.questions[this.no];
 			}
 		},
-		selectSubject: function(subject) {
-			this.clearActive();
-
-			subject.active = true;
-			this.loadChapters(subject.guid);
+		prev: function() {
+			if (this.no == 0) {
+				alert('已经最前');
+			} else {
+				this.no--;
+				this.current = this.questions[this.no];
+			}
 		}
 	}
 });

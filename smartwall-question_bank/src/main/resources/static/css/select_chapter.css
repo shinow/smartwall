@@ -1,0 +1,53 @@
+*{
+	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-family:Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif;
+}
+
+body,html {
+	padding:0;
+	margin:0;
+	height:100%;
+	width:100%
+}
+
+.aui-header {
+    z-index: 10;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-bottom: 0;
+    background-color: #f7f7f7;
+    font-size: 14px;
+}
+
+.aui-nav {
+	height: 32px;
+	line-height: 32px;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.aui-tab-item {
+	font-size: 14px;
+	padding: 4px;
+	color: #666;
+}
+
+.aui-tab-item-active {
+	color: #04be02  !important;;
+    border-bottom: 3px solid #04be02  !important;;
+}
+
+.chapter {
+	height: 40px;
+	line-height: 40px;
+	padding-left:20px;
+	font-size: 14px;
+}

@@ -151,11 +151,11 @@
                     </div>
                     <div id="options">
                         <div>选项:</div>
-                        <div><span class="no">A.</span><div class="opt"><input v-model="current.opts.opt_1"></input></div></div>
-                        <div><span class="no">B.</span><div class="opt"><input v-model="current.opts.opt_2"></input></div></div>
-                        <div><span class="no">E.</span><div class="opt"><input v-model="current.opts.opt_3"></input></div></div>
-                        <div><span class="no">D.</span><div class="opt"><input v-model="current.opts.opt_4"></input></div></div>
-                        <div><span class="no">E.</span><div class="opt"><input v-model="current.opts.opt_5"></input></div></div>
+                        <div><span class="no">A.</span><div class="opt"><input v-model="current.opt_A"></input></div></div>
+                        <div><span class="no">B.</span><div class="opt"><input v-model="current.opt_B"></input></div></div>
+                        <div><span class="no">E.</span><div class="opt"><input v-model="current.opt_C"></input></div></div>
+                        <div><span class="no">D.</span><div class="opt"><input v-model="current.opt_D"></input></div></div>
+                        <div><span class="no">E.</span><div class="opt"><input v-model="current.opt_E"></input></div></div>
                     </div>
                     <div id="answer">
                         <span>答案:</span>
@@ -189,8 +189,7 @@
                 items: [],
                 chapterGuid: '',
                 current: {
-                    answer: 'B',
-                    opts: {}
+                    answer: 'A'
                 }
             };
         },
