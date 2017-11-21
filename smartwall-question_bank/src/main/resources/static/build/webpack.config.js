@@ -1,5 +1,6 @@
 const Path = require('path');
-const Webpack = require("webpack");
+const Webpack = require('webpack');
+const vuxLoader = require('vux-loader');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 function resolve(dir) {
@@ -7,7 +8,7 @@ function resolve(dir) {
 }
 
 
-module.exports = {
+originalConfig = {
     entry: {
         app_main: './src/main',
         app_vendors: './src/vendors'
@@ -85,4 +86,9 @@ module.exports = {
             '@': resolve('../src')
         }
     }
-}
+};
+
+const webpackConfig = originalConfig;
+module.exports = vuxLoader.merge(webpackConfig, {
+    plugins: ['vux-ui']
+});
