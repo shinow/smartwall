@@ -22,9 +22,15 @@ public class WebController {
 		return "/designer";
 	}
 
-	@ApiOperation(value = "设计器")
+	@ApiOperation(value = "基本信息")
 	@RequestMapping(value = "base_info", method = RequestMethod.GET)
-	public String tenant(Map<String, Object> map) {
+	public String baseInfo(Map<String, Object> map) {
 		return "/base_info";
+	}
+
+	@ApiOperation(value = "开始考试")
+	@RequestMapping(value = "start_exam", method = RequestMethod.GET)
+	public String startExam(Map<String, Object> map) {
+		return "/start_exam";
 	}
 }
