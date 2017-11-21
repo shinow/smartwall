@@ -20,6 +20,10 @@ axios.interceptors.request.use((config) => {
 	alert(error);
 });
 
+function getUrlKey(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+};
+
 function addProperty(arr, prop, value) {
 	for (i = 0, len = arr.length; i < len; i++) {
 		arr[i][prop] = value;
@@ -28,13 +32,18 @@ function addProperty(arr, prop, value) {
 
 Vue.component('Chapters', {
 	props: ['chapter'],
-	template: '<div class="chapter">{{chapter.name}}</div>'
+	template: '<div class="chapter" @click="selectChapter(chapter.guid)">{{chapter.name}}</div>',
+	methods: {
+		selectChapter: function(chapterGuid){
+			alert(chapterGuid);
+		}
+	}
 });
 
 new Vue({
 	el: '#app',
 	data: {
-		category: 'XXXXX',
+		category: '医疗执业医生',
 		subjects: null,
 		chapters: null
 	},
@@ -56,7 +65,7 @@ new Vue({
 					console.log(error);
 				});
 		},
-		loadChapters: function(subjectGuid){
+		loadChapters: function(subjectGuid) {
 			var that = this;
 			axios.post("v1/list/chapter", {
 					'subject_guid': subjectGuid
