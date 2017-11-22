@@ -1,22 +1,30 @@
-<style lang="less">
+<style scoped lang="less">
+    .tab-item {
+        white-space: nowrap;
+        padding: 0 4px;
+    }
 </style>
 
 <template>
-    <div class="chapter" style="padding: 20px">
-        <div class="aui-header">
-            <h4>{{category}}</h4>
-        </div>
-        <div class="aui-nav">
-            <a v-for="subject in subjects" data-guid="" class="aui-tab-item"  :class="{'aui-tab-item-active': subject.active}"  @click="selectSubject(subject)">{{subject.name}}</a>
-        </div>
-        <div v-for="chapter in chapters">
-            <div class="chapter" @click="selectChapter(chapter.guid)">{{chapter.name}}</div>
-        </div>
+    <div class="chapter">
+        <view-box ref="viewBox">
+            <x-header :left-options="{showBack: false}">{{category}}</x-header>
+            <div style="width: 100%;overflow:scroll;-webkit-overflow-scrolling:touch;">
+                <tab :animate="false">
+                    <tab-item class="tab-item" v-for="subject in subjects" :key="subject.guid" @on-item-click="selectSubject(subject)">{{subject.name}}</tab-item>
+                </tab>
+            </div>
+            <group>
+                <cell class="cell" :title="chapter.name"v-for="chapter in chapters" :key="chapter.guid" @click="selectChapter(chapter.guid)" is-link></cell>
+            </group>
+        </view-box>
+   </view-box>
     </div>        
 </template>
 
 <script>
     import examData from '../data/exam_data';
+    import { Cell, Group, Tab, TabItem, ViewBox, XHeader } from 'vux';
 
     export default {
         name: 'Chapter',
@@ -28,6 +36,14 @@
             };
         },
         props: {},
+        components: {
+            Cell,
+            Group,
+            Tab,
+            TabItem,
+            ViewBox,
+            XHeader
+        },
         computed: {},
         methods: {
             loadSubjects: function(categoryGuid) {

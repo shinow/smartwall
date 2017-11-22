@@ -5,6 +5,11 @@
         padding: 0;
         margin: 0;
     }
+
+    p {
+        margin: 0;
+        font-size: 14px;
+    }
 </style>
 
 <template>
