@@ -58,7 +58,7 @@
         },
         created() {
             let that = this;
-            this.chapterGuid = this.$route.query.chapter_guid;
+            this.chapterGuid = this.$route.params.chapter;
             examData.loadQeustions(this.chapterGuid)
                 .then(function(req) {
                     that.questions = req;

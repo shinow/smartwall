@@ -11,11 +11,11 @@
             <x-header :left-options="{showBack: false}">{{category}}</x-header>
             <div style="width: 100%;overflow:scroll;-webkit-overflow-scrolling:touch;">
                 <tab :animate="false">
-                    <tab-item class="tab-item" v-for="subject in subjects" :key="subject.guid" @on-item-click="selectSubject(subject)">{{subject.name}}</tab-item>
+                    <tab-item class="tab-item" :selected="index === subjectIndex" v-for="(subject, index) in subjects" :key="subject.guid" @on-item-click="selectSubject(index, subject)">{{subject.name}}</tab-item>
                 </tab>
             </div>
             <group>
-                <cell class="cell" :title="chapter.name"v-for="chapter in chapters" :key="chapter.guid" @click="selectChapter(chapter.guid)" is-link></cell>
+                <cell class="cell" :title="chapter.name" v-for="chapter in chapters" :key="chapter.guid" :link="'/Exam/' + chapter.guid" is-link></cell>
             </group>
         </view-box>
    </view-box>
@@ -32,7 +32,8 @@
             return {
                 category: '医疗执业医生',
                 subjects: null,
-                chapters: null
+                chapters: null,
+                subjectIndex: 0
             };
         },
         props: {},
@@ -52,8 +53,7 @@
                 examData.loadSubjects(categoryGuid)
                     .then(function(req) {
                         that.subjects = req;
-                        // addProperty(that.subjects, 'active', false);
-                        that.selectSubject(that.subjects[0]);
+                        that.selectSubject(0, that.subjects[0]);
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -70,24 +70,11 @@
                         console.log(error);
                     });
             },
-            clearActive: function() {
-                for (let subject of this.subjects) {
-                    subject.active = false;
-                }
-            },
-            selectSubject: function(subject) {
-                this.clearActive();
 
-                subject.active = true;
+            selectSubject: function(index, subject) {
+                this.subjectIndex  = index;
+
                 this.loadChapters(subject.guid);
-            },
-            selectChapter: function(chapterGuid) {
-                this.$router.push({
-                    name: 'Exam',
-                    query: {
-                        chapter_guid: chapterGuid
-                    }
-                });
             }
         },
         created() {
