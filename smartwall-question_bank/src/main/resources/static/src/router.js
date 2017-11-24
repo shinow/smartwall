@@ -16,7 +16,17 @@ export const examRouter = {
 	meta: {
 		title: '考试'
 	},
-	component: Exam
+	component: Exam,
+	children: [{
+		path: '/',
+		component: 
+	}, {
+		path: 'info',
+		component: userInfo
+	}, {
+		path: 'love',
+		component: userLove
+	}],
 };
 
 export const routers = [
