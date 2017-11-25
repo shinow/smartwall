@@ -11,26 +11,26 @@
 
 <template>
     <div class="panel-question">
-        <x-header>{{$store.state.currNo}}</x-header>
+        <x-header>{{currNo}}</x-header>
         <div id="question-type">
-            <span id="type">{{$store.state.currQ.type}}</span>
+            <span id="type">{{currQ.type}}</span>
         </div>
-        <div id="stem">{{$store.state.currQ.text}}</div>
+        <div id="stem">{{currQ.text}}</div>
         <div id="options">
             <div @click="select('A')">
-                <span class="option" :class="{'selected': $store.state.currQ.select == 'A'}">A</span>{{$store.state.currQ.opt_A}}
+                <span class="option" :class="{'selected': currQ.select == 'A'}">A</span>{{currQ.opt_A}}
             </div>
             <div @click="select('B')">
-                <span class="option" :class="{'selected': $store.state.currQ.select == 'B'}">B</span>{{$store.state.currQ.opt_B}}
+                <span class="option" :class="{'selected': currQ.select == 'B'}">B</span>{{currQ.opt_B}}
             </div>
             <div @click="select('C')">
-                <span class="option" :class="{'selected': $store.state.currQ.select == 'C'}">C</span>{{$store.state.currQ.opt_C}}
+                <span class="option" :class="{'selected': currQ.select == 'C'}">C</span>{{currQ.opt_C}}
             </div>
             <div @click="select('D')">
-                <span class="option" :class="{'selected': $store.state.currQ.select == 'D'}">D</span>{{$store.state.currQ.opt_D}}
+                <span class="option" :class="{'selected': currQ.select == 'D'}">D</span>{{currQ.opt_D}}
             </div>
             <div @click="select('E')">
-                <span class="option" :class="{'selected': $store.state.currQ.select == 'E'}">E</span>{{$store.state.currQ.opt_E}}
+                <span class="option" :class="{'selected': currQ.select == 'E'}">E</span>{{currQ.opt_E}}
             </div>
         </div>
     </div>        
@@ -38,30 +38,30 @@
 
 <script>
     import { XHeader } from 'vux';
+    import { mapState } from "vuex";
 
     export default {
         name: 'Question',
         data() {
-            return {
-            }
+            return {}
         },
         props: {},
         computed: {
-            count() {
-                return this.$store.state.questions.length;
-            }
+            ...mapState(['currNo', 'currQ', 'length']),
         },
         components: {
             XHeader
         },
         methods: {
             select(answer) {
-                this.$store.state.currQ.select = answer;
+                this.currQ.select = answer;
 
                 //this.next();
             },
         },
         created() {
+            console.log(this.currQ);
+            console.log(this.$store.state.currQ);
         }
     };
 </script>

@@ -7,13 +7,15 @@ const store = new Vuex.Store({
 	state: {
 		currNo: 0,
 		currQ: {},
+		length: 0,
 		questions: []
 	},
 	mutations: {
-		setQuestions(state, questions){
+		setQuestions(state, questions) {
 			state.questions = questions;
 
-			if(questions.length) {
+			state.length = questions.length;
+			if (state.length > 0) {
 				state.currQ = questions[0];
 			}
 		},
@@ -28,7 +30,19 @@ const store = new Vuex.Store({
 			state.currQ = state.questions[--state.currNo];
 		}
 	},
-	actions: {}
+
+	getters: {
+		isLast: state => {
+			return state.currNo == state.length - 1;
+		},
+
+		isFirst: state => {
+			return state.currNo == 0;
+		}
+	},
+	actions: {},
+
 });
 
+console.log("init store");
 export default store;

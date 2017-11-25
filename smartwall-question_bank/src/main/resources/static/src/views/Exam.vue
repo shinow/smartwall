@@ -76,6 +76,7 @@
 <script>
     import Vue from 'vue';
     import examData from '../data/exam_data';
+    import { mapGetters } from 'vuex';
 
     var VueTouch = require('vue-touch')
     Vue.use(VueTouch, {
@@ -90,17 +91,25 @@
             };
         },
         props: {},
-        computed: {},
+        computed: {
+            ...mapGetters(['isFirst', 'isLast'])
+        },
         components: {},
         methods: {
             onSwipeLeft() {
-                //this.transitionName = 'slide-forward';
+                if(this.isLast){
+                    alert("isLast");
+                    return;
+                }
                 this.$store.commit('next');
                 
                 this.q();
             },
             onSwipeRight() {
-                //this.transitionName = 'slide-back';
+                if(this.isFirst){
+                    alert("isFirst");
+                    return;
+                }
                 this.$store.commit('prev');
                 
                 this.q();
@@ -109,13 +118,16 @@
              * 到下一个页面
              */
             q() {
-                var t = new Date();
+                var t = new Date().getTime();
                 let url = `${this.pathParent}/q?t=${t}`;
                 this.$router.push(url);
-            }
+            },
 
+            count() {
+                return this.$store.state.questions.length;
+            }
         },
-        created() {
+        mounted() {
             let chapter = this.$route.params.chapter;
             this.$store.commit('reset');
             this.pathParent = `/Exam/${chapter}`;
