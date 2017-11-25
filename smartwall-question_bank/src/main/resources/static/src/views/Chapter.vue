@@ -15,7 +15,7 @@
                 </tab>
             </div>
             <group>
-                <cell class="cell" :title="chapter.name" v-for="chapter in chapters" :key="chapter.guid" :link="'/Exam/' + chapter.guid" is-link></cell>
+                <cell class="cell" :title="chapter.name" v-for="chapter in chapters" :key="chapter.guid" :link="getChapterLink(chapter)" is-link></cell>
             </group>
         </view-box>
    </view-box>
@@ -75,6 +75,9 @@
                 this.subjectIndex  = index;
 
                 this.loadChapters(subject.guid);
+            },
+            getChapterLink(chapter) {
+                return `/Exam/${chapter.guid}/q`;
             }
         },
         created() {

@@ -1,7 +1,6 @@
 import Chapter from './views/Chapter.vue';
 import Exam from './views/Exam.vue';
-import First from './views/First.vue';
-import Second from './views/Second.vue';
+import Question from './views/Question.vue';
 
 export const chapterRouter = {
 	path: '/Chapter',
@@ -13,20 +12,14 @@ export const chapterRouter = {
 };
 
 export const examRouter = {
-	path: '/Exam',
+	path: '/Exam/:chapter',
 	meta: {
 		title: '考试'
 	},
 	component: Exam,
 	children: [{
-		path: '/',
-		component: First
-	},{
-		path: 'first',
-		component: First
-	}, {
-		path: 'second',
-		component: Second
+		path: 'q',
+		component: Question
 	}],
 };
 
