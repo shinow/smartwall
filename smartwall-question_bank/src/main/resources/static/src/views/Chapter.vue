@@ -15,7 +15,7 @@
                 </tab>
             </div>
             <group>
-                <cell class="cell" :title="chapter.name" v-for="chapter in chapters" :key="chapter.guid" :link="getChapterLink(chapter)" is-link></cell>
+                <cell class="cell" :title="chapter.name" v-for="chapter in chapters" :key="chapter.guid" @click.native="onSelectChapter(chapter.guid)" is-link></cell>
             </group>
         </view-box>
    </view-box>
@@ -25,7 +25,7 @@
 <script>
     import examData from '../data/exam_data';
     import { Cell, Group, Tab, TabItem, ViewBox, XHeader } from 'vux';
-
+    import { mapState, mapActions } from "vuex";
     export default {
         name: 'Chapter',
         data() {
@@ -45,8 +45,11 @@
             ViewBox,
             XHeader
         },
-        computed: {},
+        computed: {
+            ...mapState(['chapter'])
+        },
         methods: {
+            ...mapActions(['setChapter','setQuestions', 'reset']),
             loadSubjects: function(categoryGuid) {
                 var that = this;
 
@@ -70,14 +73,24 @@
                         console.log(error);
                     });
             },
-
             selectSubject: function(index, subject) {
                 this.subjectIndex  = index;
 
                 this.loadChapters(subject.guid);
             },
-            getChapterLink(chapter) {
-                return `/Exam/${chapter.guid}/q`;
+            onSelectChapter: function(chapterGuid) {
+                this.setChapter(chapterGuid);
+                
+                //清空试题数据
+                this.reset();
+                let that = this;
+                
+                examData.loadQeustions(this.chapter)
+                    .then(function(req) {
+                        that.setQuestions(req);
+
+                        that.$router.push('/Exam/q');
+                });
             }
         },
         created() {

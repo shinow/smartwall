@@ -12,7 +12,7 @@ export const chapterRouter = {
 };
 
 export const examRouter = {
-	path: '/Exam/:chapter',
+	path: '/Exam',
 	meta: {
 		title: '考试'
 	},

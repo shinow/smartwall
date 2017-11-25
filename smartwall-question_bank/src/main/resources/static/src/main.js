@@ -16,7 +16,7 @@ const RouterConfig = {
 };
 
 const router = new VueRouter(RouterConfig);
-console.log("---->" + store.state.currQ);
+
 new Vue({
 	el: '#app',
 	router,

@@ -1,17 +1,16 @@
 <style  lang="less">
     .panel-question {
         position: absolute;
-        top: 140px;
-        width: 99%;
+        top: 0;
+        width: 100%;
         height: auto;
         bottom: 0;
-        border: 1px solid red;
     }
 </style>
 
 <template>
     <div class="panel-question">
-        <x-header>{{currNo}}</x-header>
+        <x-header :left-options="{preventGoBack: true}" @on-click-back="backToChapter">{{currNo}}</x-header>
         <div id="question-type">
             <span id="type">{{currQ.type}}</span>
         </div>
@@ -43,7 +42,9 @@
     export default {
         name: 'Question',
         data() {
-            return {}
+            return {
+                current: {}
+            }
         },
         props: {},
         computed: {
@@ -55,11 +56,14 @@
         methods: {
             select(answer) {
                 this.currQ.select = answer;
-
-                //this.next();
             },
+
+            backToChapter() {
+                this.$router.push('/Chapter');
+            }
         },
         created() {
+            console.log(this.currQ);
         }
     };
 </script>

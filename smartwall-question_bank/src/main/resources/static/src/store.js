@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
+		chapter: '',
 		currNo: 0,
 		currQ: {},
 		length: 0,
@@ -29,6 +30,9 @@ const store = new Vuex.Store({
 		},
 		PREV(state) {
 			state.currQ = state.questions[--state.currNo];
+		},
+		SET_CHAPTER(state, chapter) {
+			state.chapter = chapter;
 		}
 	},
 	actions: {
@@ -51,6 +55,12 @@ const store = new Vuex.Store({
 			commit
 		}) {
 			commit('PREV');
+		},
+
+		setChapter({
+			commit
+		}, chapter) {
+			commit('SET_CHAPTER', chapter);
 		}
 	},
 	getters: {
