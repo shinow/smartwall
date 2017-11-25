@@ -76,7 +76,7 @@
 <script>
     import Vue from 'vue';
     import examData from '../data/exam_data';
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
 
     var VueTouch = require('vue-touch')
     Vue.use(VueTouch, {
@@ -96,22 +96,23 @@
         },
         components: {},
         methods: {
+            ...mapActions(['setQuestions', 'reset', 'next', 'prev']),
             onSwipeLeft() {
-                if(this.isLast){
+                if (this.isLast) {
                     alert("isLast");
                     return;
                 }
-                this.$store.commit('next');
                 
+                this.next();
                 this.q();
             },
             onSwipeRight() {
-                if(this.isFirst){
+                if (this.isFirst) {
                     alert("isFirst");
                     return;
                 }
-                this.$store.commit('prev');
-                
+
+                this.prev();
                 this.q();
             },
             /**
@@ -121,29 +122,18 @@
                 var t = new Date().getTime();
                 let url = `${this.pathParent}/q?t=${t}`;
                 this.$router.push(url);
-            },
-
-            count() {
-                return this.$store.state.questions.length;
             }
         },
         mounted() {
             let chapter = this.$route.params.chapter;
-            this.$store.commit('reset');
+            this.reset();
             this.pathParent = `/Exam/${chapter}`;
 
             let that = this;
             examData.loadQeustions(chapter)
                 .then(function(req) {
-                    console.log(req);
-                    that.$store.commit('setQuestions', req);
+                    that.setQuestions(req);
                 });
-
-            console.log("Exam init");
         }
-        // watch: {
-        //     '$route' (to, from) {
-        //     }
-        // }
     };
 </script>

@@ -60,8 +60,6 @@
             },
         },
         created() {
-            console.log(this.currQ);
-            console.log(this.$store.state.currQ);
         }
     };
 </script>
