@@ -67,7 +67,7 @@
 
 <template>
     <v-touch class="exam" @swipeleft="onSwipeLeft" @swiperight="onSwipeRight">
-        <transition name="transitionName">
+        <transition name="slide-forward">
             <router-view></router-view>
         </transition>   
     </v-touch>        
@@ -109,7 +109,8 @@
              * 到下一个页面
              */
             q() {
-                let url = `${this.pathParent}/q`;
+                var t = new Date();
+                let url = `${this.pathParent}/q?t=${t}`;
                 this.$router.push(url);
             }
 
