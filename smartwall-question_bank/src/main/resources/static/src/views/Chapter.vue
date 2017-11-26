@@ -86,7 +86,7 @@
                 this.reset();
                 let that = this;
                 
-                examData.loadQeustions(this.chapter)
+                examData.loadQuestions(this.chapter)
                     .then(function(req) {
                         that.setQuestions(req);
 

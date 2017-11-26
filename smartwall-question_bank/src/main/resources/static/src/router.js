@@ -3,6 +3,7 @@ import Exam from './views/Exam.vue';
 import Question from './views/Question.vue';
 import Options from './views/Option/Options.vue';
 import SelectExam from './views/Option/SelectExam.vue';
+import AnswerSheet from './views/Exam/AnswerSheet.vue';
 
 export const chapterRouter = {
 	path: '/Chapter',
@@ -35,9 +36,15 @@ export const selectExamRouter = {
 	component: SelectExam
 };
 
+export const answerSheetRouter = {
+	path: '/AnswerSheet',
+	component: AnswerSheet
+};
+
 export const routers = [
 	chapterRouter,
 	examRouter,
 	optionsRouter,
-	selectExamRouter
+	selectExamRouter,
+	answerSheetRouter
 ];

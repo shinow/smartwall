@@ -104,7 +104,7 @@
         },
         methods: {
             showCard() {
-                alert('答题卡');
+                this.$router.push('/AnswerSheet');
             },
             showSubmit() {
                 alert('提交');

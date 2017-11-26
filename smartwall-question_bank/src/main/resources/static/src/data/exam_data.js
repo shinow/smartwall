@@ -27,7 +27,7 @@ export default {
         });
     },
 
-    loadQeustions(chapterGuid) {
+    loadQuestions(chapterGuid) {
         return fetch("v1/question/chapter/get", {
             'chapter_guid': chapterGuid
         });
