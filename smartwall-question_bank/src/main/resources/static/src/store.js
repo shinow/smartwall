@@ -20,6 +20,9 @@ const store = new Vuex.Store({
 			if (state.length > 0) {
 				state.currQ = questions[0];
 			}
+			for(let item of questions) {
+				item.select = false;
+			}
 		},
 		RESET(state) {
 			state.currNo = 0;

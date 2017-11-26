@@ -33,18 +33,45 @@
         margin-left: 4px;
         margin-right: 4px;
     }
+
+    #sheet {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .circle {
+        text-align: center;
+        border: 1px solid #ddd;
+        height: 24px;
+        width: 24px;
+        display: inline-block;
+        line-height: 24px;
+        border-radius: 12px;
+        margin-left: 8px;
+    }
+
+    .done {
+        border: 1px solid #04be02 !important;
+    }
 </style>
 
 <template>
     <div class="answer-sheet">
-        <x-header :left-options="{preventGoBack: true}" @on-click-back="backToExam" title="答题卡"></x-header>
+        <x-header :left-options="{preventGoBack: true}" @on-click-back="backToExam" title="答题卡">
+            <div slot="right">
+                <a @click="showSubmit">交卷</a>
+            </div>
+        </x-header>
         <div id="summary">
             <span>未做&nbsp{{undoCount()}}</span>
             <span class="undoCircle">&nbsp</span>
             <span>已做&nbsp{{haveDoneCount()}}</span>
             <span class="haveDoneCircle">&nbsp</span>
         </div>
-    </div>        
+        <div id="sheet">
+            <span v-for='(item, index) in questions' class="circle" :class="{done: item.select}">{{index}}</span>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -54,9 +81,6 @@
         name: 'AnswerSheet',
         data() {
             return {
-                // subjects: null,
-                // chapters: null,
-                // subjectIndex: 0
             };
         },
         props: {},
@@ -73,7 +97,7 @@
             undoCount() {
                 let c = 0;
                 for (let item of this.questions) {
-                    if(!item.selectVal) {
+                    if(!item.select) {
                         c++;
                     }
                 }
@@ -83,7 +107,7 @@
             haveDoneCount() {
                 let c = 0;
                 for (let item of this.questions) {
-                    if(item.selectVal) {
+                    if(item.select) {
                         c++;
                     }
                 }
@@ -92,6 +116,10 @@
             },
             backToExam() {
                 this.$router.push('/Exam/q');
+            },
+
+            showSubmit() {
+                this.$router.push('/Result');
             }
         },
         created() {}
