@@ -21,7 +21,8 @@
         data() {
             return {
                 categoryList: [],
-                category: ['医疗执业医生'],
+                category: [],
+                user: '5EE331015D332A99E050840A06390D03'
                 // subjects: null,
                 // chapters: null,
                 // subjectIndex: 0
@@ -38,64 +39,17 @@
         computed: {
         },
         methods: {
-            onChangeImage() {
-                alert('change iamge');
-            },
-
-            onChangeExam() {
-                this.$router.push('/Options/SelectExam');
-            },
-
             backToChapter() {
                 this.$router.push('/Options');
             },
 
             save() {
-                alert(this.category);
+                var that = this;
+                examData.saveUserCategory(this.user, this.category[0])
+                .then(function(req) {
+                    that.$router.push('/Options');
+                });
             }
-            // ...mapActions(['setChapter','setQuestions', 'reset']),
-            // loadSubjects: function(categoryGuid) {
-            //     var that = this;
-
-            //     examData.loadSubjects(categoryGuid)
-            //         .then(function(req) {
-            //             that.subjects = req;
-            //             that.selectSubject(0, that.subjects[0]);
-            //         })
-            //         .catch(function(error) {
-            //             console.log(error);
-            //         });
-            // },
-            // loadChapters: function(subjectGuid) {
-            //     var that = this;
-
-            //     examData.loadChapters(subjectGuid)
-            //         .then(function(req) {
-            //             that.chapters = req;
-            //         })
-            //         .catch(function(error) {
-            //             console.log(error);
-            //         });
-            // },
-            // selectSubject: function(index, subject) {
-            //     this.subjectIndex  = index;
-
-            //     this.loadChapters(subject.guid);
-            // },
-            // onSelectChapter: function(chapterGuid) {
-            //     this.setChapter(chapterGuid);
-                
-            //     //清空试题数据
-            //     this.reset();
-            //     let that = this;
-                
-            //     examData.loadQeustions(this.chapter)
-            //         .then(function(req) {
-            //             that.setQuestions(req);
-
-            //             that.$router.push('/Exam/q');
-            //     });
-            // }
         },
         created() {
             var that = this;
@@ -107,6 +61,10 @@
                             value: item['name']
                         });
                     }
+                });
+            examData.getUserCategory(this.user)
+                .then(function(req) {
+                    that.category = [req];
                 });
         }
     };

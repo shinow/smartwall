@@ -183,12 +183,16 @@ public class QuestionBankService {
 			userCategory = new UserCategory();
 			userCategory.setUserGuid(userGuid);
 			userCategory.setCategoryGuid(categoryGuid);
-			userCategory.setModifyFlag(2);
+			userCategory.setModifyFlag(1);
 			userCategory.setModifyTime(new Date());
+			
+			dao.insert(userCategory);
 		} else {
 			userCategory.setCategoryGuid(categoryGuid);
 			userCategory.setModifyFlag(2);
 			userCategory.setModifyTime(new Date());
+			
+			dao.update(userCategory);
 		}
 
 		return "success";

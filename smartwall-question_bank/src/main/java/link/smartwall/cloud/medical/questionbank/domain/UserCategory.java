@@ -3,6 +3,7 @@ package link.smartwall.cloud.medical.questionbank.domain;
 import java.util.Date;
 
 import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 
 /**
@@ -12,6 +13,7 @@ import org.nutz.dao.entity.annotation.Table;
  */
 @Table(value = "exam_medical_user_category")
 public class UserCategory {
+	@Name
 	@Column(value = "user_guid")
 	private String userGuid;
 

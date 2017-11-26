@@ -33,7 +33,8 @@
                 category: '医疗执业医生',
                 subjects: null,
                 chapters: null,
-                subjectIndex: 0
+                subjectIndex: 0,
+                user: '5EE331015D332A99E050840A06390D03'
             };
         },
         props: {},
@@ -94,7 +95,11 @@
             }
         },
         created() {
-            this.loadSubjects('5DCA16610870507BE050840A06394546');
+            var that = this;
+            examData.getUserCategory(this.user)
+                .then(function(req) {
+                    that.loadSubjects(req);
+                });
         }
     };
 </script>

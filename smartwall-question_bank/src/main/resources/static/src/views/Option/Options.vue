@@ -55,7 +55,6 @@
             },
 
             onChangeExam() {
-
                 this.$router.push('/SelectExam');
             }
             // ...mapActions(['setChapter','setQuestions', 'reset']),
