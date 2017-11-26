@@ -29,6 +29,12 @@ public class QuestionBankControll {
 		return questionBankService.getCategorys(kindGuid);
 	}
 
+	@ApiOperation(value = "获取所有种类")
+	@RequestMapping(value = "/list/all_catagory", method = RequestMethod.POST)
+	public Object callCategory() {
+		return questionBankService.getAllCategorys();
+	}
+
 	@ApiOperation(value = "根据种类获取科目")
 	@RequestMapping(value = "/list/subject", method = RequestMethod.POST)
 	public Object subject(@RequestParam("category_guid") String categoryGuid) {

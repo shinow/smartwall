@@ -4,9 +4,15 @@ import {
 
 export default {
     /**
-     * 获取分类
+     * 获取所有Category
      */
-    loadSubjects(categoryGuid) {
+    loadAllCategory() {
+        return fetch('/v1/list/all_catagory');
+        },
+        /**
+         * 获取分类
+         */
+        loadSubjects(categoryGuid) {
             return fetch('/v1/list/subject', {
                 'category_guid': categoryGuid
             });

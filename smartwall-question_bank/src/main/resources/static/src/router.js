@@ -1,6 +1,8 @@
 import Chapter from './views/Chapter.vue';
 import Exam from './views/Exam.vue';
 import Question from './views/Question.vue';
+import Options from './views/Option/Options.vue';
+import SelectExam from './views/Option/SelectExam.vue';
 
 export const chapterRouter = {
 	path: '/Chapter',
@@ -23,7 +25,19 @@ export const examRouter = {
 	}],
 };
 
+export const optionsRouter = {
+	path: '/Options',
+	component: Options
+};
+
+export const selectExamRouter = {
+	path: '/SelectExam',
+	component: SelectExam
+};
+
 export const routers = [
 	chapterRouter,
-	examRouter
+	examRouter,
+	optionsRouter,
+	selectExamRouter
 ];
