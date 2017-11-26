@@ -69,7 +69,7 @@
             <span class="haveDoneCircle">&nbsp</span>
         </div>
         <div id="sheet">
-            <span v-for='(item, index) in questions' class="circle" :class="{done: item.select}">{{index}}</span>
+            <span v-for='(item, index) in questions' class="circle" :class="{done: item.select}">{{index + 1}}</span>
         </div>
     </div>
 </template>

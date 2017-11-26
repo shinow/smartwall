@@ -54,11 +54,7 @@
 
 <template>
     <div class="panel-question">
-        <x-header :left-options="{preventGoBack: true}" @on-click-back="backToChapter">
-            <div slot="right">
-                <a @click="showCard">答题卡</a>
-                <a @click="showSubmit">交卷</a>
-            </div>
+        <x-header title="结果解析" :left-options="{preventGoBack: true}" @on-click-back="backToChapter">
         </x-header>
         <div id="question-type">
             <span id="type">{{currQ.type}}</span><span id="info">{{currNo + 1}}/{{length}}</span>
@@ -89,7 +85,7 @@
     import { mapState } from "vuex";
 
     export default {
-        name: 'Question',
+        name: 'QuestionWithAnalysis',
         data() {
             return {
                 current: {}

@@ -1,9 +1,12 @@
 import Chapter from './views/Chapter.vue';
 import Exam from './views/Exam.vue';
+import Exama from './views/Exama.vue';
 import Question from './views/Question.vue';
 import Options from './views/Option/Options.vue';
 import SelectExam from './views/Option/SelectExam.vue';
 import AnswerSheet from './views/Exam/AnswerSheet.vue';
+import Result from './views/Exam/Result.vue';
+import QuestionWithAnalysis from './views/Exam/QuestionWithAnalysis.vue';
 
 export const chapterRouter = {
 	path: '/Chapter',
@@ -26,6 +29,18 @@ export const examRouter = {
 	}],
 };
 
+export const examaRouter = {
+	path: '/Exama',
+	meta: {
+		title: '考试'
+	},
+	component: Exam,
+	children: [{
+		path: 'q',
+		component: QuestionWithAnalysis
+	}],
+};
+
 export const optionsRouter = {
 	path: '/Options',
 	component: Options
@@ -41,10 +56,18 @@ export const answerSheetRouter = {
 	component: AnswerSheet
 };
 
+export const resultRouter = {
+	path: '/Result',
+	component: Result
+};
+
+
 export const routers = [
 	chapterRouter,
 	examRouter,
+	examaRouter,
 	optionsRouter,
 	selectExamRouter,
-	answerSheetRouter
+	answerSheetRouter,
+	resultRouter
 ];
