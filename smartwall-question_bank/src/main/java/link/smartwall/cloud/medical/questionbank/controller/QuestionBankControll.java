@@ -124,4 +124,17 @@ public class QuestionBankControll {
 	public Object getSubjectQesution(@RequestParam("subject_guid") String subjectGuid) {
 		return questionBankService.getSubjectQuestion(subjectGuid);
 	}
+
+	@ApiOperation(value = "获取用户关注考试")
+	@RequestMapping(value = "/user/category/get", method = RequestMethod.POST)
+	public Object getUserCategory(@RequestParam("user_guid") String userGuid) {
+		return questionBankService.getUserCategory(userGuid);
+	}
+
+	@ApiOperation(value = "保存用户关注考试")
+	@RequestMapping(value = "/user/category/set", method = RequestMethod.POST)
+	public Object setUserCategory(@RequestParam("user_guid") String userGuid,
+			@RequestParam("category_guid") String categoryGuid) {
+		return questionBankService.setUserCategory(userGuid, categoryGuid);
+	}
 }

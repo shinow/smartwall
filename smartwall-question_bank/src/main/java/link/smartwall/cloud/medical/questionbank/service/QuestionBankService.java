@@ -18,6 +18,7 @@ import link.smartwall.cloud.medical.questionbank.domain.ChapterQuestion;
 import link.smartwall.cloud.medical.questionbank.domain.Kind;
 import link.smartwall.cloud.medical.questionbank.domain.Subject;
 import link.smartwall.cloud.medical.questionbank.domain.SubjectQuestion;
+import link.smartwall.cloud.medical.questionbank.domain.UserCategory;
 
 @Service
 public class QuestionBankService {
@@ -163,5 +164,33 @@ public class QuestionBankService {
 		}
 
 		return null;
+	}
+
+	public String getUserCategory(String userGuid) {
+		UserCategory userCategory = dao.fetch(UserCategory.class, Cnd.where(Exps.eq("userGuid", userGuid)));
+
+		if (userCategory == null) {
+			return null;
+		} else {
+			return userCategory.getCategoryGuid();
+		}
+	}
+
+	// TODO 加了同步，需要注意
+	public synchronized String setUserCategory(String userGuid, String categoryGuid) {
+		UserCategory userCategory = dao.fetch(UserCategory.class, Cnd.where(Exps.eq("userGuid", userGuid)));
+		if (userCategory == null) {
+			userCategory = new UserCategory();
+			userCategory.setUserGuid(userGuid);
+			userCategory.setCategoryGuid(categoryGuid);
+			userCategory.setModifyFlag(2);
+			userCategory.setModifyTime(new Date());
+		} else {
+			userCategory.setCategoryGuid(categoryGuid);
+			userCategory.setModifyFlag(2);
+			userCategory.setModifyTime(new Date());
+		}
+
+		return "success";
 	}
 }
