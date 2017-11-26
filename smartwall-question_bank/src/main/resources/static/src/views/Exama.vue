@@ -47,7 +47,7 @@
     })
 
     export default {
-        name: 'Examr',
+        name: 'Exama',
         data() {
             return {
                 transitionName: null,

@@ -34,7 +34,7 @@ export const examaRouter = {
 	meta: {
 		title: '考试'
 	},
-	component: Exam,
+	component: Exama,
 	children: [{
 		path: 'q',
 		component: QuestionWithAnalysis

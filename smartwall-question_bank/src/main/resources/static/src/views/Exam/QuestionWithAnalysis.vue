@@ -61,19 +61,19 @@
         </div>
         <div id="stem">{{currQ.text}}</div>
         <div id="options">
-            <div @click="select('A')">
+            <div>
                 <span class="option" :class="{'selected': currQ.select == 'A'}">A</span>{{currQ.opt_A}}
             </div>
-            <div @click="select('B')">
+            <div>
                 <span class="option" :class="{'selected': currQ.select == 'B'}">B</span>{{currQ.opt_B}}
             </div>
-            <div @click="select('C')">
+            <div>
                 <span class="option" :class="{'selected': currQ.select == 'C'}">C</span>{{currQ.opt_C}}
             </div>
-            <div @click="select('D')">
+            <div>
                 <span class="option" :class="{'selected': currQ.select == 'D'}">D</span>{{currQ.opt_D}}
             </div>
-            <div @click="select('E')">
+            <div>
                 <span class="option" :class="{'selected': currQ.select == 'E'}">E</span>{{currQ.opt_E}}
             </div>
         </div>
@@ -99,16 +99,6 @@
             XHeader
         },
         methods: {
-            showCard() {
-                this.$router.push('/AnswerSheet');
-            },
-            showSubmit() {
-                this.$router.push('/Result');
-            },
-            select(answer) {
-                this.currQ.select = answer;
-            },
-
             backToChapter() {
                 this.$router.push('/Chapter');
             }

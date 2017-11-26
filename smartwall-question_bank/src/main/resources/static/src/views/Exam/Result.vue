@@ -85,6 +85,7 @@
             },
         },
         methods: {
+            ...mapActions(['reset']),
             rightPercent() {
                 let c = 0;
                 for (let item of this.questions) {
@@ -100,6 +101,7 @@
             },
 
             showAnalysis() {
+                this.reset();
                 this.$router.push('/Exama/q');
             }
         },
