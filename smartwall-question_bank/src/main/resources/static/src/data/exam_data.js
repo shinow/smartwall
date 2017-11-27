@@ -42,5 +42,10 @@ export default {
         return fetch("v1/user/category/get", {
             'user_guid': userGuid
         });
+    },
+    getUserCategoryObject(userGuid) {
+        return fetch("v1/user/categoryObject/get", {
+            'user_guid': userGuid
+        });
     }
 };

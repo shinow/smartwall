@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
+		user: '5EE331015D332A99E050840A06390D03',
 		chapter: '',
 		currNo: 0,
 		currQ: {},

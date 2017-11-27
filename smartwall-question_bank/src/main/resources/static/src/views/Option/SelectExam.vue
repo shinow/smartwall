@@ -15,17 +15,13 @@
 <script>
     import examData from '../../data/exam_data';
     import { Cell, Checklist, Group, ViewBox, XHeader } from 'vux';
-    import { mapState, mapActions } from "vuex";
+    import { mapState } from "vuex";
     export default {
         name: 'SelectExam',
         data() {
             return {
                 categoryList: [],
-                category: [],
-                user: '5EE331015D332A99E050840A06390D03'
-                // subjects: null,
-                // chapters: null,
-                // subjectIndex: 0
+                category: []
             };
         },
         props: {},
@@ -37,6 +33,7 @@
             XHeader
         },
         computed: {
+            ...mapState(['user'])
         },
         methods: {
             backToChapter() {

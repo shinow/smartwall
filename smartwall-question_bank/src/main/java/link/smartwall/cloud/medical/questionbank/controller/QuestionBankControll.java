@@ -131,6 +131,12 @@ public class QuestionBankControll {
 		return questionBankService.getUserCategory(userGuid);
 	}
 
+	@ApiOperation(value = "获取用户关注考试")
+	@RequestMapping(value = "/user/categoryObject/get", method = RequestMethod.POST)
+	public Object getUserCategoryObject(@RequestParam("user_guid") String userGuid) {
+		return questionBankService.getUserCategoryObject(userGuid);
+	}
+
 	@ApiOperation(value = "保存用户关注考试")
 	@RequestMapping(value = "/user/category/set", method = RequestMethod.POST)
 	public Object setUserCategory(@RequestParam("user_guid") String userGuid,

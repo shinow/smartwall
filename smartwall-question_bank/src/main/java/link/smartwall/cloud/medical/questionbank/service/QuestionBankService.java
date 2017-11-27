@@ -176,6 +176,16 @@ public class QuestionBankService {
 		}
 	}
 
+	public Category getUserCategoryObject(String userGuid) {
+		UserCategory userCategory = dao.fetch(UserCategory.class, Cnd.where(Exps.eq("userGuid", userGuid)));
+
+		if (userCategory == null) {
+			return null;
+		} else {
+			return dao.fetch(Category.class, userCategory.getCategoryGuid());
+		}
+	}
+
 	// TODO 加了同步，需要注意
 	public synchronized String setUserCategory(String userGuid, String categoryGuid) {
 		UserCategory userCategory = dao.fetch(UserCategory.class, Cnd.where(Exps.eq("userGuid", userGuid)));
@@ -185,13 +195,13 @@ public class QuestionBankService {
 			userCategory.setCategoryGuid(categoryGuid);
 			userCategory.setModifyFlag(1);
 			userCategory.setModifyTime(new Date());
-			
+
 			dao.insert(userCategory);
 		} else {
 			userCategory.setCategoryGuid(categoryGuid);
 			userCategory.setModifyFlag(2);
 			userCategory.setModifyTime(new Date());
-			
+
 			dao.update(userCategory);
 		}
 

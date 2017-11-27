@@ -30,11 +30,10 @@
         name: 'Chapter',
         data() {
             return {
-                category: '医疗执业医生',
+                category: '',
                 subjects: null,
                 chapters: null,
                 subjectIndex: 0,
-                user: '5EE331015D332A99E050840A06390D03'
             };
         },
         props: {},
@@ -47,7 +46,7 @@
             XHeader
         },
         computed: {
-            ...mapState(['chapter'])
+            ...mapState(['chapter', 'user'])
         },
         methods: {
             ...mapActions(['setChapter','setQuestions', 'reset']),
