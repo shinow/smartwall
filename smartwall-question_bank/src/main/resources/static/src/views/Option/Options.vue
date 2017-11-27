@@ -7,7 +7,7 @@
 <template>
     <div class="options">
         <view-box ref="viewBox">
-            <x-header title="设置"></x-header>
+            <x-header title="设置" :left-options="{showBack: false}"></x-header>
             <group>
                 <cell title="lexloo" value="修改图像" @click.native="onChangeImage" is-link></cell>
             </group>

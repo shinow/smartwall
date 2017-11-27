@@ -14,6 +14,7 @@
                     <tab-item class="tab-item" :selected="index === subjectIndex" v-for="(subject, index) in subjects" :key="subject.guid" @on-item-click="selectSubject(index, subject)">{{subject.name}}</tab-item>
                 </tab>
             </div>
+            <loading :show="show" text=""></loading>
             <group>
                 <cell class="cell" :title="chapter.name" v-for="chapter in chapters" :key="chapter.guid" @click.native="onSelectChapter(chapter.guid)" is-link></cell>
             </group>
@@ -24,7 +25,7 @@
 
 <script>
     import examData from '../data/exam_data';
-    import { Cell, Group, Tab, TabItem, ViewBox, XHeader } from 'vux';
+    import { Loading, Cell, Group, Tab, TabItem, ViewBox, XHeader } from 'vux';
     import { mapState, mapActions } from "vuex";
     export default {
         name: 'Chapter',
@@ -34,6 +35,7 @@
                 subjects: null,
                 chapters: null,
                 subjectIndex: 0,
+                show: true
             };
         },
         props: {},
@@ -43,7 +45,8 @@
             Tab,
             TabItem,
             ViewBox,
-            XHeader
+            XHeader,
+            Loading
         },
         computed: {
             ...mapState(['chapter', 'user'])
@@ -68,6 +71,7 @@
                 examData.loadChapters(subjectGuid)
                     .then(function(req) {
                         that.chapters = req;
+                        that.show = false;
                     })
                     .catch(function(error) {
                         console.log(error);
