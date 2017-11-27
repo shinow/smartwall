@@ -32,11 +32,11 @@
     #stem {
         height: 32px;
         line-height: 32px;
-        margin-left: 20px;
+        padding-left: 20px;
     }
 
     #options {
-        margin-left: 20px;
+        padding-left: 20px;
     }
     
     .option {

@@ -36,7 +36,7 @@
     }
 
     #options {
-        margin-left: 20px;
+        padding-left: 20px;
         border-bottom: 1px solid #ddd;
     }
     
@@ -50,6 +50,29 @@
         line-height: 24px;
         text-align: center;
         border-radius: 12px;
+    }
+
+    .answer-info {
+    	border-bottom: 1px solid #ddd;
+    	height: 26px;
+    	line-height: 26px;
+    	padding-left: 20px;
+
+    	.right-answer {
+    		color: #04be02;
+    	}
+
+    	.you-answer {
+    		margin-left:20px;
+    	}
+
+    	.error-answer {
+    		color: #f00;
+    	}
+    }
+
+    .answer-analysis {
+    	padding-left: 20px;
     }
 </style>
 
@@ -80,9 +103,9 @@
         </div>
         <div class="answer-info">
             <span class="right-answer">【正确答案】{{currQ.answer}}</span>
-            <span>您的答案:{{currQ.select}}</span>
+            <span class="you-answer" :class="{'error-answer': isErrorAnswer}">您的答案:{{currQ.select}}</span>
         </div>
-        <div>
+        <div class="answer-analysis">
             <div>答案解析</div>
             <div>{{currQ.analysis}}</div>
         </div>
@@ -103,6 +126,9 @@
         props: {},
         computed: {
             ...mapState(['currNo', 'currQ', 'length']),
+            isErrorAnswer() {
+            	return this.currQ.select && (this.currQ.answer != this.currQ.selected)
+            }
         },
         components: {
             XHeader
