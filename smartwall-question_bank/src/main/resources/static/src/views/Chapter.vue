@@ -95,9 +95,10 @@
         },
         created() {
             var that = this;
-            examData.getUserCategory(this.user)
+            examData.getUserCategoryObject(this.user)
                 .then(function(req) {
-                    that.loadSubjects(req);
+                    that.category = req.name;
+                    that.loadSubjects(req.guid);
                 });
         }
     };
