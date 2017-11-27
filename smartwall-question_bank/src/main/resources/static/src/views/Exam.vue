@@ -32,12 +32,14 @@
     <v-touch class="exam" @swipeleft="onSwipeLeft" @swiperight="onSwipeRight">
         <transition name="slide-forward">
             <router-view></router-view>
-        </transition>   
+        </transition>
+        <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="toastText" position="middle"></toast>
     </v-touch>        
 </template>
 
 <script>
     import Vue from 'vue';
+    import { Toast } from 'vux';
     import examData from '../data/exam_data';
     import { mapState, mapGetters, mapActions } from 'vuex';
 
@@ -51,6 +53,8 @@
         data() {
             return {
                 transitionName: null,
+                showPositionValue: false,
+                toastText: ''
             };
         },
         props: {},
@@ -63,7 +67,7 @@
             ...mapActions(['next', 'prev']),
             onSwipeLeft() {
                 if (this.isLast) {
-                    alert("isLast");
+                    showToast("已经是最后一题了");
                     return;
                 }
                 
@@ -72,12 +76,17 @@
             },
             onSwipeRight() {
                 if (this.isFirst) {
-                    alert("isFirst");
+                    showToast("已经到第一题了");
                     return;
                 }
 
                 this.prev();
                 this.q();
+            },
+
+            showToast(text) {
+                this.toastText = text;
+                this.showPositionValue = true;
             },
             /**
              * 到下一个页面

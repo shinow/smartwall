@@ -103,7 +103,7 @@
         </div>
         <div class="answer-info">
             <span class="right-answer">【正确答案】{{currQ.answer}}</span>
-            <span class="you-answer" :class="{'error-answer': isErrorAnswer}">您的答案:{{currQ.select}}</span>
+            <span class="you-answer" :class="{'error-answer': isErrorAnswer}" v-show="currQ.select">您的答案:{{currQ.select}}</span>
         </div>
         <div class="answer-analysis">
             <div>答案解析</div>
@@ -127,7 +127,7 @@
         computed: {
             ...mapState(['currNo', 'currQ', 'length']),
             isErrorAnswer() {
-            	return this.currQ.select && (this.currQ.answer != this.currQ.selected)
+            	return this.currQ.select && (this.currQ.answer != this.currQ.select)
             }
         },
         components: {
