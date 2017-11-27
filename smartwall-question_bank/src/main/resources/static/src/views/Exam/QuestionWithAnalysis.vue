@@ -32,11 +32,12 @@
     #stem {
         height: 32px;
         line-height: 32px;
-        margin-left: 20px;
+        padding-left: 20px;
     }
 
     #options {
         margin-left: 20px;
+        border-bottom: 1px solid #ddd;
     }
     
     .option {
@@ -76,6 +77,14 @@
             <div>
                 <span class="option" :class="{'selected': currQ.select == 'E'}">E</span>{{currQ.opt_E}}
             </div>
+        </div>
+        <div class="answer-info">
+            <span class="right-answer">【正确答案】{{currQ.answer}}</span>
+            <span>您的答案:{{currQ.select}}</span>
+        </div>
+        <div>
+            <div>答案解析</div>
+            <div>{{currQ.analysis}}</div>
         </div>
     </div>        
 </template>
