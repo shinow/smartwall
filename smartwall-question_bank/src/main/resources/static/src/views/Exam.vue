@@ -33,7 +33,7 @@
         <transition name="slide-forward">
             <router-view></router-view>
         </transition>
-        <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="toastText" position="middle"></toast>
+        <toast v-model="showPositionValue" width="12em" type="text" :time="800" is-show-mask :text="toastText" position="middle"></toast>
     </v-touch>        
 </template>
 
@@ -62,12 +62,14 @@
             ...mapGetters(['isFirst', 'isLast']),
             ...mapState(['chapter'])
         },
-        components: {},
+        components: {
+            Toast
+        },
         methods: {
             ...mapActions(['next', 'prev']),
             onSwipeLeft() {
                 if (this.isLast) {
-                    showToast("已经是最后一题了");
+                    this.showToast("已经到最后一题了");
                     return;
                 }
                 
@@ -76,7 +78,7 @@
             },
             onSwipeRight() {
                 if (this.isFirst) {
-                    showToast("已经到第一题了");
+                    this.showToast("已经到第一题了");
                     return;
                 }
 
