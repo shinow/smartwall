@@ -10,20 +10,22 @@ const store = new Vuex.Store({
 		currNo: 0,
 		currQ: {},
 		length: 0,
-		questions: []
+		questions: [{}]
 	},
 
 	mutations: {
 		SET_QUESTIONS(state, questions) {
+			for(let item of questions) {
+				item.select = 'M';
+			}
 			state.questions = questions;
 
 			state.length = questions.length;
 			if (state.length > 0) {
 				state.currQ = questions[0];
 			}
-			for(let item of questions) {
-				item.select = false;
-			}
+
+			console.log(questions);
 		},
 		RESET(state) {
 			state.currNo = 0;

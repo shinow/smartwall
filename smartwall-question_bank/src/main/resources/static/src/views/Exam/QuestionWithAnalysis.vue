@@ -30,8 +30,7 @@
     }
 
     #stem {
-        height: 32px;
-        line-height: 32px;
+        line-height: 24px;
         padding-left: 20px;
     }
 
