@@ -6,11 +6,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import link.smartwall.controls.fragment.NvWebViewFragment;
 
 public class KygjActivity extends AppCompatActivity {
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private MenuItem prevMenuItem;
     BottomNavigationView navigationView;
 
@@ -20,20 +22,17 @@ public class KygjActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_question_bank:
                     viewPager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_university:
+                case R.id.navigation_course:
                     viewPager.setCurrentItem(1);
                     return true;
-                case R.id.navigation_forum:
+                case R.id.navigation_store:
                     viewPager.setCurrentItem(2);
                     return true;
-                case R.id.navigation_question_bank:
+                case R.id.navigation_me:
                     viewPager.setCurrentItem(3);
-                    return true;
-                case R.id.navigation_my_option:
-                    viewPager.setCurrentItem(4);
                     return true;
             }
             return false;
@@ -46,9 +45,9 @@ public class KygjActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kygj);
 
-        viewPager = (ViewPager) this.findViewById(R.id.viewpager);
+        viewPager = (CustomViewPager) this.findViewById(R.id.viewpager);
         navigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉
+//        默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉
         BottomNavigationViewHelper.disableShiftMode(navigationView);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -70,17 +69,16 @@ public class KygjActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
 
         // 如果想禁止滑动，可以把下面的代码取消注释
-//        viewPager.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return true;
-//            }
-//        });
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         setupViewPager(viewPager);
     }
@@ -88,11 +86,11 @@ public class KygjActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(this.createBase("首页"));
-        adapter.addFragment(this.createBase("院校"));
-        adapter.addFragment(this.createBase("论坛"));
-        adapter.addFragment(this.createQuestionBankFragment("题库"));
-        adapter.addFragment(this.createBase("我的"));
+        adapter.addFragment(this.createBase("题库"));
+        adapter.addFragment(this.createBase("课程"));
+        adapter.addFragment(this.createBase("商城"));
+//        adapter.addFragment(this.createQuestionBankFragment("题库"));
+        adapter.addFragment(this.createOptionsFragment("我"));
         viewPager.setAdapter(adapter);
     }
 
@@ -108,7 +106,16 @@ public class KygjActivity extends AppCompatActivity {
     private NvWebViewFragment createQuestionBankFragment(String info) {
         Bundle args = new Bundle();
         NvWebViewFragment fragment = new NvWebViewFragment();
-        args.putString("url", "http://121.43.96.235:8787/sfa/mobi/exam/question_bank.html");
+        args.putString("url", "http://121.43.96.235/question-bank/app#/Chapter");
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    private NvWebViewFragment createOptionsFragment(String info) {
+        Bundle args = new Bundle();
+        NvWebViewFragment fragment = new NvWebViewFragment();
+        args.putString("url", "http://121.43.96.235/question-bank/app#/Options");
         fragment.setArguments(args);
 
         return fragment;
