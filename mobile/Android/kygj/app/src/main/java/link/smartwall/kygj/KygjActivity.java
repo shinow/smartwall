@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import link.smartwall.controls.fragment.NvWebViewFragment;
+import link.smartwall.kygj.questionbank.QuestionBankFragment;
 
 public class KygjActivity extends AppCompatActivity {
     private CustomViewPager viewPager;
@@ -86,7 +87,7 @@ public class KygjActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(this.createBase("题库"));
+        adapter.addFragment(QuestionBankFragment.newInstance());
         adapter.addFragment(this.createBase("课程"));
         adapter.addFragment(this.createBase("商城"));
 //        adapter.addFragment(this.createQuestionBankFragment("题库"));
