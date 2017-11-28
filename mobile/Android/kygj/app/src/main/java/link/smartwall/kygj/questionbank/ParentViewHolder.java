@@ -17,7 +17,6 @@ import link.smartwall.kygj.R;
  */
 
 public class ParentViewHolder extends BaseViewHolder {
-
     private Context mContext;
     private View view;
     private RelativeLayout containerLayout;
@@ -25,6 +24,7 @@ public class ParentViewHolder extends BaseViewHolder {
     private TextView parentRightView;
     private ImageView expand;
     private View parentDashedView;
+    private ItemData itemData;
 
     public ParentViewHolder(Context context, View itemView) {
         super(itemView);
@@ -32,7 +32,7 @@ public class ParentViewHolder extends BaseViewHolder {
         this.view = itemView;
     }
 
-    public void bindView(final Chapter dataBean, final int pos, final ItemClickListener listener) {
+    public void bindView(final Chapter dataBean, final int pos, final ItemClickListener listener){
 
         containerLayout = (RelativeLayout) view.findViewById(R.id.container);
         parentLeftView = (TextView) view.findViewById(R.id.parent_left_text);
@@ -58,16 +58,30 @@ public class ParentViewHolder extends BaseViewHolder {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
+                    itemData = new ItemData();
+                    if (EncapsulationItem.lastBeanList.size() > 0 && !EncapsulationItem.lastBeanList.get(0).getDataBean().getID().equals(dataBean.getID())) {
+                        //如果有展开的item，先关闭
+                        listener.onHideChildren(EncapsulationItem.lastBeanList.get(0).getDataBean());
+                        EncapsulationItem.lastBeanList.get(0).getView().findViewById(R.id.parent_dashed_view).setVisibility(View.VISIBLE);
+                        EncapsulationItem.lastBeanList.get(0).getDataBean().setExpand(false);
+                        rotationExpandIcon(90, 0, EncapsulationItem.lastBeanList.get(0).getView().findViewById(R.id.expend));
+                        EncapsulationItem.cleraListBeanData();//清空集合
+                    }
+
                     if (dataBean.isExpand()) {
                         listener.onHideChildren(dataBean);
                         parentDashedView.setVisibility(View.VISIBLE);
+                        EncapsulationItem.cleraListBeanData();
                         dataBean.setExpand(false);
-                        rotationExpandIcon(90, 0);
+                        rotationExpandIcon(90, 0, expand);
                     } else {
                         listener.onExpandChildren(dataBean);
+                        itemData.setDataBean(dataBean);
+                        itemData.setView(view);
+                        EncapsulationItem.addLastBeanData(itemData);
                         parentDashedView.setVisibility(View.INVISIBLE);
                         dataBean.setExpand(true);
-                        rotationExpandIcon(0, 90);
+                        rotationExpandIcon(0, 90, expand);
                     }
                 }
             }
@@ -75,7 +89,7 @@ public class ParentViewHolder extends BaseViewHolder {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void rotationExpandIcon(float from, float to) {
+    private void rotationExpandIcon(float from, float to, final View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);//属性动画
             valueAnimator.setDuration(500);
@@ -84,7 +98,7 @@ public class ParentViewHolder extends BaseViewHolder {
 
                 @Override
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    expand.setRotation((Float) valueAnimator.getAnimatedValue());
+                    view.setRotation((Float) valueAnimator.getAnimatedValue());
                 }
             });
             valueAnimator.start();

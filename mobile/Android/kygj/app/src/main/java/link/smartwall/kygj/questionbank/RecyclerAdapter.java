@@ -81,7 +81,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
             add(children, position + 1);//在当前的item下方插入
             if (position == dataBeanList.size() - 2 && mOnScrollListener != null) { //如果点击的item为最后一个
-                mOnScrollListener.scrollTo(position + 1);//向下滚动，使子布局能够完全展示
+//                mOnScrollListener.scrollTo(position + 1);//向下滚动，使子布局能够完全展示
             }
         }
 
@@ -94,7 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
             remove(position + 1);//删除
             if (mOnScrollListener != null) {
-                mOnScrollListener.scrollTo(position);
+//                mOnScrollListener.scrollTo(position);
             }
         }
     };
