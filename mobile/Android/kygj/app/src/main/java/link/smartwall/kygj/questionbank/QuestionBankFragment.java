@@ -49,23 +49,18 @@ public class QuestionBankFragment extends Fragment {
         titleView = (TitleView) view.findViewById(R.id.question_bank_titleview);
 
         initEvents();
-//        initData();
+        initData();
     }
 
     private void initEvents() {
         this.titleView.getLeftBackTextTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "点击返回，可在此处调用left()", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
             }
         });
 
-        this.titleView.getRightTextTv().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "点击返回，可在此处调用right()", Toast.LENGTH_LONG).show();
-            }
-        });
+//        this.titleView.getRightTextTv().setOnClickListener(new );
     }
 
     private void initData() {
