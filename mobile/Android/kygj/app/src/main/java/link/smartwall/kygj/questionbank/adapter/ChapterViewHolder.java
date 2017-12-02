@@ -1,4 +1,4 @@
-package link.smartwall.kygj.questionbank;
+package link.smartwall.kygj.questionbank.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -7,28 +7,27 @@ import android.widget.TextView;
 import link.smartwall.kygj.R;
 
 /**
- * Created by LEXLEK on 2017/11/28.
+ * 章节
  */
 
-public class ChildViewHolder extends BaseViewHolder {
+public class ChapterViewHolder extends BaseViewHolder {
 
     private Context mContext;
     private View view;
     private TextView childLeftText;
     private TextView childRightText;
 
-    public ChildViewHolder(Context context, View itemView) {
+    public ChapterViewHolder(Context context, View itemView) {
         super(itemView);
         this.mContext = context;
         this.view = itemView;
     }
 
-    public void bindView(final Chapter dataBean, final int pos) {
-
+    public void bindView(final Chapter chapter, final int pos) {
         childLeftText = (TextView) view.findViewById(R.id.child_left_text);
         childRightText = (TextView) view.findViewById(R.id.child_right_text);
-        childLeftText.setText(dataBean.getChildLeftTxt());
-        childRightText.setText(dataBean.getChildRightTxt());
 
+        childLeftText.setText(chapter.getGuid());
+        childRightText.setText(chapter.getName());
     }
 }

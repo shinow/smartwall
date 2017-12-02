@@ -16,11 +16,15 @@ import java.util.List;
 
 import link.smartwall.controls.view.TitleView;
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.adapter.BaseItem;
+import link.smartwall.kygj.questionbank.adapter.Chapter;
+import link.smartwall.kygj.questionbank.adapter.Subject;
+import link.smartwall.kygj.questionbank.adapter.SubjectChapterAdapter;
 
 public class QuestionBankFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private List<Chapter> dataBeanList;
-    private RecyclerAdapter mAdapter;
+    private List<BaseItem> itemList;
+    private SubjectChapterAdapter mAdapter;
     private TitleView titleView;
 
     public QuestionBankFragment() {
@@ -60,31 +64,37 @@ public class QuestionBankFragment extends Fragment {
             }
         });
 
-//        this.titleView.getRightTextTv().setOnClickListener(new );
+        this.titleView.getRightTextTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "点击返回(Right)", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initData() {
-        dataBeanList = new ArrayList<>();
+        itemList = new ArrayList<>();
         for (int i = 1; i <= 50; i++) {
-            Chapter dataBean = new Chapter();
-            dataBean.setID(i + "");
-            dataBean.setType(0);
-            dataBean.setParentLeftTxt("父--" + i);
-            dataBean.setParentRightTxt("父内容--" + i);
-            dataBean.setChildLeftTxt("子--" + i);
-            dataBean.setChildRightTxt("子内容--" + i);
-            dataBean.setChildBean(dataBean);
-            dataBeanList.add(dataBean);
+            Subject subject = new Subject();
+            subject.setGuid("GUID" + i);
+            subject.setName("Name" + i);
+
+            Chapter chapter = new Chapter();
+            chapter.setGuid("Child Guid" + i);
+            chapter.setName("Child Name" + i);
+            subject.setChapter(chapter);
+
+            itemList.add(subject);
         }
         setData();
     }
 
     private void setData() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        mAdapter = new RecyclerAdapter(this.getContext(), dataBeanList);
+        mAdapter = new SubjectChapterAdapter(this.getContext(), itemList);
         mRecyclerView.setAdapter(mAdapter);
         //滚动监听
-        mAdapter.setOnScrollListener(new RecyclerAdapter.OnScrollListener() {
+        mAdapter.setOnScrollListener(new SubjectChapterAdapter.OnScrollListener() {
             @Override
             public void scrollTo(int pos) {
                 mRecyclerView.scrollToPosition(pos);

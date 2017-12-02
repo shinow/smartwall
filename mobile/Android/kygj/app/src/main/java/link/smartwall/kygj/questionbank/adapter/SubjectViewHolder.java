@@ -1,4 +1,4 @@
-package link.smartwall.kygj.questionbank;
+package link.smartwall.kygj.questionbank.adapter;
 
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
@@ -16,7 +16,7 @@ import link.smartwall.kygj.R;
  * Created by LEXLEK on 2017/11/28.
  */
 
-public class ParentViewHolder extends BaseViewHolder {
+public class SubjectViewHolder extends BaseViewHolder {
     private Context mContext;
     private View view;
     private RelativeLayout containerLayout;
@@ -24,15 +24,15 @@ public class ParentViewHolder extends BaseViewHolder {
     private TextView parentRightView;
     private ImageView expand;
     private View parentDashedView;
-    private ItemData itemData;
+//    private ItemData itemData;
 
-    public ParentViewHolder(Context context, View itemView) {
+    public SubjectViewHolder(Context context, View itemView) {
         super(itemView);
         this.mContext = context;
         this.view = itemView;
     }
 
-    public void bindView(final Chapter dataBean, final int pos, final ItemClickListener listener){
+    public void bindView(final Subject subject, final int pos, final ItemClickListener listener){
 
         containerLayout = (RelativeLayout) view.findViewById(R.id.container);
         parentLeftView = (TextView) view.findViewById(R.id.parent_left_text);
@@ -42,10 +42,10 @@ public class ParentViewHolder extends BaseViewHolder {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) expand
                 .getLayoutParams();
         expand.setLayoutParams(params);
-        parentLeftView.setText(dataBean.getParentLeftTxt());
-        parentRightView.setText(dataBean.getParentRightTxt());
+        parentLeftView.setText(subject.getGuid());
+        parentRightView.setText(subject.getName());
 
-        if (dataBean.isExpand()) {
+        if (subject.isExpand()) {
             expand.setRotation(90);
             parentDashedView.setVisibility(View.INVISIBLE);
         } else {
@@ -58,29 +58,33 @@ public class ParentViewHolder extends BaseViewHolder {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
-                    itemData = new ItemData();
-                    if (EncapsulationItem.lastBeanList.size() > 0 && !EncapsulationItem.lastBeanList.get(0).getDataBean().getID().equals(dataBean.getID())) {
-                        //如果有展开的item，先关闭
-                        listener.onHideChildren(EncapsulationItem.lastBeanList.get(0).getDataBean());
-                        EncapsulationItem.lastBeanList.get(0).getView().findViewById(R.id.parent_dashed_view).setVisibility(View.VISIBLE);
-                        EncapsulationItem.lastBeanList.get(0).getDataBean().setExpand(false);
-                        rotationExpandIcon(90, 0, EncapsulationItem.lastBeanList.get(0).getView().findViewById(R.id.expend));
-                        EncapsulationItem.cleraListBeanData();//清空集合
+//                    itemData = new ItemData();
+                    ItemData itemData = EncapsulationItem.itemData;
+                    if(itemData != null && !subject.getGuid().equals(itemData.getSubject().getGuid())) {
+                        //如果有展开的Subject，先关闭
+                        listener.onHideChildren(itemData.getSubject());
+                        itemData.getView().findViewById(R.id.parent_dashed_view).setVisibility(View.VISIBLE);
+                        itemData.getSubject().setExpand(false);
+
+                        rotationExpandIcon(90, 0, itemData.getView().findViewById(R.id.expend));
+                        EncapsulationItem.itemData = null;
                     }
 
-                    if (dataBean.isExpand()) {
-                        listener.onHideChildren(dataBean);
+                    if (subject.isExpand()) {
+                        listener.onHideChildren(subject);
                         parentDashedView.setVisibility(View.VISIBLE);
-                        EncapsulationItem.cleraListBeanData();
-                        dataBean.setExpand(false);
+                        EncapsulationItem.itemData = null;
+                        subject.setExpand(false);
                         rotationExpandIcon(90, 0, expand);
                     } else {
-                        listener.onExpandChildren(dataBean);
-                        itemData.setDataBean(dataBean);
-                        itemData.setView(view);
-                        EncapsulationItem.addLastBeanData(itemData);
+                        listener.onExpandChildren(subject);
+
+                        ItemData newItemData = new ItemData();
+                        newItemData.setSubject(subject);
+                        newItemData.setView(view);
+                        EncapsulationItem.itemData = newItemData;
                         parentDashedView.setVisibility(View.INVISIBLE);
-                        dataBean.setExpand(true);
+                        subject.setExpand(true);
                         rotationExpandIcon(0, 90, expand);
                     }
                 }
