@@ -1,16 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="link.smartwall.kygj.questionbank.QuestionBankFragment">
-
+    android:orientation="vertical"
+    xmlns:title="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+    <link.smartwall.controls.view.TitleView android:id="@+id/title_main"
+        android:layout_width="match_parent"
+        android:background="#0093fe"
+        title:title_name="题库"
+        title:right_text="消息"
+        title:title_text_color="@android:color/white"
+        title:title_text_size="20sp"
+        title:small_text_size="15sp"
+        title:left_text="筛选"
+        android:layout_height="50dp">
+    </link.smartwall.controls.view.TitleView>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:background="@color/white"
         android:paddingTop="5dp">
     </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+</LinearLayout>
