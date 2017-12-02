@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import link.smartwall.controls.view.TitleView;
 import link.smartwall.kygj.R;
@@ -79,10 +80,14 @@ public class QuestionBankFragment extends Fragment {
             subject.setGuid("GUID" + i);
             subject.setName("Name" + i);
 
-            Chapter chapter = new Chapter();
-            chapter.setGuid("Child Guid" + i);
-            chapter.setName("Child Name" + i);
-            subject.setChapter(chapter);
+            List<Chapter> chapters = new ArrayList<>();
+            for (int j = 0, size = new Random().nextInt(10); j < size; j++) {
+                Chapter chapter = new Chapter();
+                chapter.setGuid("Child Guid" + i + " " + j);
+                chapter.setName("Child Name" + i + " " + j);
+                chapters.add(chapter);
+            }
+            subject.setChapters(chapters);
 
             itemList.add(subject);
         }

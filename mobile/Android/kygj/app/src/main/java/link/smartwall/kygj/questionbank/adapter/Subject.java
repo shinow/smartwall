@@ -1,5 +1,6 @@
 package link.smartwall.kygj.questionbank.adapter;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,18 +15,8 @@ public class Subject extends BaseItem {
 
     private List<Chapter> chapters;
 
-    private Chapter chapter;
-
-    public Chapter getChapter() {
-        return chapter;
-    }
-
-    public void setChapter(Chapter chapter) {
-        this.chapter = chapter;
-    }
-
     public List<Chapter> getChapters() {
-        return chapters;
+        return chapters == null ? Collections.EMPTY_LIST: chapters;
     }
 
     public void setChapters(List<Chapter> chapters) {

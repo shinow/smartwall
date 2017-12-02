@@ -76,13 +76,13 @@ public class SubjectChapterAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         @Override
         public void onExpandChildren(Subject subject) {
             int position = getCurrentPosition(subject.getGuid());
-            Chapter children = subject.getChapter();
-            if (children == null) {
+            List<Chapter> chapters = subject.getChapters();
+            if (chapters.isEmpty()) {
                 return;
             }
 
-            add(children, position + 1);
-            if ( mOnScrollListener != null) {
+            add(chapters, position + 1);
+            if (mOnScrollListener != null) {
                 mOnScrollListener.scrollTo(position + 1);
             }
         }
@@ -90,11 +90,11 @@ public class SubjectChapterAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         @Override
         public void onHideChildren(Subject subject) {
             int position = getCurrentPosition(subject.getGuid());
-            Chapter children = subject.getChapter();
-            if (children == null) {
+            List<Chapter> chapters = subject.getChapters();
+            if (chapters.isEmpty()) {
                 return;
             }
-            remove(position + 1);//删除
+            remove(position + 1, chapters.size());//删除
             if (mOnScrollListener != null) {
                 mOnScrollListener.scrollTo(position);
             }
@@ -104,22 +104,26 @@ public class SubjectChapterAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     /**
      * 插入章节
      *
-     * @param chapter  章节
+     * @param chapters 章节
      * @param position 位置
      */
-    public void add(Chapter chapter, int position) {
-        itemList.add(position, chapter);
-        notifyItemInserted(position);
+    public void add(List<Chapter> chapters, int position) {
+        itemList.addAll(position, chapters);
+        notifyItemRangeInserted(position, chapters.size());
     }
 
     /**
      * 移除章节
      *
      * @param position 位置
+     * @param length   长度
      */
-    protected void remove(int position) {
-        itemList.remove(position);
-        notifyItemRemoved(position);
+    protected void remove(int position, int length) {
+        for (int i = length - 1; i > -1; i--) {
+            itemList.remove(position + i);
+        }
+
+        notifyItemRangeRemoved(position, length);
     }
 
 
