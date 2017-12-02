@@ -19,6 +19,7 @@ import link.smartwall.controls.view.TitleView;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.adapter.BaseItem;
 import link.smartwall.kygj.questionbank.adapter.Chapter;
+import link.smartwall.kygj.questionbank.adapter.EndlessRecyclerOnScrollListener;
 import link.smartwall.kygj.questionbank.adapter.Subject;
 import link.smartwall.kygj.questionbank.adapter.SubjectChapterAdapter;
 
@@ -95,7 +96,8 @@ public class QuestionBankFragment extends Fragment {
     }
 
     private void setData() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        LinearLayoutManager lm = new LinearLayoutManager(this.getContext());
+        mRecyclerView.setLayoutManager(lm);
         mAdapter = new SubjectChapterAdapter(this.getContext(), itemList);
         mRecyclerView.setAdapter(mAdapter);
         //滚动监听
@@ -103,6 +105,12 @@ public class QuestionBankFragment extends Fragment {
             @Override
             public void scrollTo(int pos) {
                 mRecyclerView.scrollToPosition(pos);
+            }
+        });
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                Toast.makeText(getContext(), "loadMore", Toast.LENGTH_SHORT).show();
             }
         });
     }
