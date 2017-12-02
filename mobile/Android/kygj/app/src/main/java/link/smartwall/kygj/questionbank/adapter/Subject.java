@@ -1,12 +1,14 @@
 package link.smartwall.kygj.questionbank.adapter;
 
+import org.xutils.db.annotation.Table;
+
 import java.util.Collections;
 import java.util.List;
 
 /**
  * 考试科目
  */
-
+@Table(name = "exam_subject")
 public class Subject extends BaseItem {
     @Override
     public int getType() {

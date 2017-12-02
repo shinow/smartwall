@@ -1,11 +1,16 @@
 package link.smartwall.kygj.questionbank.adapter;
 
+import org.xutils.db.annotation.Column;
+
 /**
  * 基础对象
  */
 
 public abstract class BaseItem {
+    @Column(name = "guid", isId = true)
     private String guid;
+
+    @Column(name = "name")
     private String name;
 
     /**
