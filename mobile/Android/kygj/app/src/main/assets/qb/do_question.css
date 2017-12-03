@@ -19,6 +19,81 @@ body {
     font-size: 17px;
     line-height: 21px;
     color: #000;
-    background-color: #efeff4;
     -webkit-overflow-scrolling: touch;
+}
+
+.title {
+    padding-left: 20px;
+    line-height: 24px;
+    height: 24px;
+    font-size: 12px;
+}
+
+.options {
+    padding-left: 20px;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.option {
+    margin: 4px 8px;
+    color: #04be02;
+    border: 1px solid #04be02;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.selected {
+    color: #fff!important;
+    background-color: #04be02;
+}
+
+#tools {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+
+#submitAnswer {
+    background-color: transparent;
+    display: inline-block;
+    margin-bottom: 0px;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    user-select: none;
+    font-size: 12px;
+    color: rgb(73, 80, 96);
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    padding: 8px 15px;
+    transition: color 0.2s linear, background-color 0.2s linear, border 0.2s linear;
+    border-color: rgb(221, 222, 225);
+    outline: 0px;
+    border-radius: 4px;
+}
+
+#submitAnswer:hover {
+    color: rgb(87, 163, 243);
+    background-color: transparent;
+    border-color: rgb(87, 163, 243);
+}
+
+#comment-info {
+    height: 14px;
+}
+
+#comment-info span{
+    margin-right: 20px;
+    float: right;
 }

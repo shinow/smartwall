@@ -3,14 +3,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>全国排名</title>
+    <title>做题</title>
     <link rel="stylesheet" type="text/css" href="./do_question.css">
     <script type="text/javascript" src="../libs/vue.min.js"></script>
 </head>
 <body>
 <div id ="app">
-    <div>{{no}}</div>
-    <div>{{question}}</div>
+    <div class="title">{{no + 1}}.{{question.text}}</div>
+    <div class="options">
+        <div @click="select('A')">
+            <span class="option" :class="{'selected': question.select == 'A'}">A</span>{{question.opt_A}}
+        </div>
+        <div @click="select('B')">
+            <span class="option" :class="{'selected': question.select == 'B'}">B</span>{{question.opt_B}}
+        </div>
+        <div @click="select('C')">
+            <span class="option" :class="{'selected': question.select == 'C'}">C</span>{{question.opt_C}}
+        </div>
+        <div @click="select('D')">
+            <span class="option" :class="{'selected': question.select == 'D'}">D</span>{{question.opt_D}}
+        </div>
+        <div @click="select('E')">
+            <span class="option" :class="{'selected': question.select == 'E'}">E</span>{{question.opt_E}}
+        </div>
+        <div id="comment-info">
+            <span>评论数</span>
+        </div>
+    </div>
+    <div id="tools"><button id="submitAnswer" @click="submit">提交答案</button></div>
 </div>
 <script type="text/javascript" src="./do_question.js"></script>
 </body>
