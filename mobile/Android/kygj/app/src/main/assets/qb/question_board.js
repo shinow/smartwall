@@ -1,20 +1,23 @@
 new Vue({
 	el: '#app',
 	data: {
-		length: 0
+		length: 0,
 	},
 	computed: {
 		title: function() {
-			return getUrlKey('chapterName');
+			return this.chapterName;
 		}
 	},
 	methods: {
 		doQuestion: function(index) {
-			__Native__.startDoQuestion();
+			__Native__.startDoQuestion(this.subjectName, this.chapterGuid, this.chapterName);
 		}
 	},
 	created: function() {
-		this.length = __Native__.getChapterQuestionLength(getUrlKey('chapterGuid'));
+		this.chapterGuid = getUrlKey('chapterGuid');
+		this.chapterName = getUrlKey('chapterName');
+		this.subjectName = getUrlKey('subjectName');
+		this.length = __Native__.getChapterQuestionLength(this.chapterGuid);
 	}
 });
 

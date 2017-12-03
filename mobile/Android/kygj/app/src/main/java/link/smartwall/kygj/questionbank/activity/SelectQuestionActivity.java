@@ -34,6 +34,8 @@ public class SelectQuestionActivity extends AppCompatActivity {
         mWebView = (NativeWebView) this.findViewById(R.id.web_view);
         String chapterName = bundle.getString("chapterName");
         String chapterGuid = bundle.getString("chapterGuid");
-        mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapterName=" + chapterName + "&chapterGuid=" + chapterGuid);
+        String subjectName = bundle.getString("subjectName");
+
+        mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapterName=" + chapterName + "&chapterGuid=" + chapterGuid + "&subjectName=" + subjectName);
     }
 }

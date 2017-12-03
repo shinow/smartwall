@@ -56,13 +56,14 @@ public class JSNativeClass {
     }
 
     @JavascriptInterface
-    public void startDoQuestion() {
+    public void startDoQuestion(String subjectName, String chapterGuid, String chapterName) {
         Context context = this.webView.getContext();
         Intent startIntent = new Intent(context, DoQuestionActivity.class);
         Bundle argBundle = new Bundle();
-//        argBundle.putString("subjectName", chapter.getSubjectName());
-//        argBundle.putString("chapterName", chapter.getName());
-//        argBundle.putString("chapterGuid", chapter.getGuid());
+
+        argBundle.putString("subjectName", subjectName);
+        argBundle.putString("chapterName", chapterGuid);
+        argBundle.putString("chapterGuid", chapterName);
 
         startIntent.putExtras(argBundle);
         context.startActivity(startIntent);
