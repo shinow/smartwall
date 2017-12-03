@@ -3,6 +3,7 @@ package link.smartwall.controls.webview.support;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.fastjson.JSON;
@@ -67,5 +68,11 @@ public class JSNativeClass {
 
         startIntent.putExtras(argBundle);
         context.startActivity(startIntent);
+    }
+
+    @JavascriptInterface
+    public String getDoQuestion(int no) {
+        Log.i("question:", JSON.toJSONString(DoQuestionActivity.questions.get(no)));
+        return JSON.toJSONString(DoQuestionActivity.questions.get(no));
     }
 }

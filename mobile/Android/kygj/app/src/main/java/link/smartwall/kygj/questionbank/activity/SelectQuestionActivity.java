@@ -18,6 +18,7 @@ public class SelectQuestionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_select_question);
 
         Bundle bundle = this.getIntent().getExtras();

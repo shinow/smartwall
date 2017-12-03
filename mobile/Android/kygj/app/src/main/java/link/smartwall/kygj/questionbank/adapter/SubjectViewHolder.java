@@ -21,12 +21,9 @@ import link.smartwall.kygj.questionbank.http.LocalDataReader;
 public class SubjectViewHolder extends BaseViewHolder {
     private Context mContext;
     private View view;
-    private RelativeLayout containerLayout;
     private TextView parentLeftView;
     private TextView parentRightView;
     private ImageView expand;
-    private View parentDashedView;
-//    private ItemData itemData;
 
     public SubjectViewHolder(Context context, View itemView) {
         super(itemView);
@@ -35,28 +32,23 @@ public class SubjectViewHolder extends BaseViewHolder {
     }
 
     public void bindView(final Subject subject, final int pos, final ItemClickListener listener) {
-
-        containerLayout = (RelativeLayout) view.findViewById(R.id.container);
         parentLeftView = (TextView) view.findViewById(R.id.parent_left_text);
-        parentRightView = (TextView) view.findViewById(R.id.parent_right_text);
+//        parentRightView = (TextView) view.findViewById(R.id.parent_right_text);
         expand = (ImageView) view.findViewById(R.id.expend);
-        parentDashedView = view.findViewById(R.id.parent_dashed_view);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) expand
                 .getLayoutParams();
         expand.setLayoutParams(params);
-        parentLeftView.setText(subject.getGuid());
-        parentRightView.setText(subject.getName());
+        parentLeftView.setText(subject.getName());
+//        parentRightView.setText(subject.getName());
 
         if (subject.isExpand()) {
             expand.setRotation(90);
-            parentDashedView.setVisibility(View.INVISIBLE);
         } else {
             expand.setRotation(0);
-            parentDashedView.setVisibility(View.VISIBLE);
         }
 
         //父布局OnClick监听
-        containerLayout.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
@@ -78,7 +70,6 @@ public class SubjectViewHolder extends BaseViewHolder {
 
                     if (subject.isExpand()) {
                         listener.onHideChildren(subject);
-                        parentDashedView.setVisibility(View.VISIBLE);
                         EncapsulationItem.itemData = null;
                         subject.setExpand(false);
                         rotationExpandIcon(90, 0, expand);
@@ -89,7 +80,6 @@ public class SubjectViewHolder extends BaseViewHolder {
                         newItemData.setSubject(subject);
                         newItemData.setView(view);
                         EncapsulationItem.itemData = newItemData;
-                        parentDashedView.setVisibility(View.INVISIBLE);
                         subject.setExpand(true);
                         rotationExpandIcon(0, 90, expand);
                     }

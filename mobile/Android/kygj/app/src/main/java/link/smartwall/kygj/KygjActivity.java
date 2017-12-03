@@ -6,8 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 
 import link.smartwall.controls.fragment.NvWebViewFragment;
 import link.smartwall.kygj.questionbank.control.BottomNavigationViewHelper;
@@ -73,14 +71,6 @@ public class KygjActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-            }
-        });
-
-        // 如果想禁止滑动，可以把下面的代码取消注释
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
             }
         });
 

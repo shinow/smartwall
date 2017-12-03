@@ -77,8 +77,8 @@
             title:srcCompat="@drawable/ic_navigation_forum_black_24dp" />
     </LinearLayout>
 
-    <link.smartwall.controls.webview.NativeWebView
-        android:id="@+id/web_view"
+    <link.smartwall.kygj.questionbank.control.QuestionsViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="367dp"
         android:layout_alignParentLeft="true"
@@ -88,6 +88,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
-    </link.smartwall.controls.webview.NativeWebView>
+    </link.smartwall.kygj.questionbank.control.QuestionsViewPager>
 
 </RelativeLayout>
