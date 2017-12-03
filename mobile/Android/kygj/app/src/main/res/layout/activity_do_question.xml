@@ -39,54 +39,23 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <LinearLayout
-        android:id="@+id/pnl_comment"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_x="-2dp"
-        android:layout_y="-1dp"
-        android:orientation="horizontal"
+    <include
+        layout="@layout/view_comment_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            title:srcCompat="@drawable/ic_navigation_forum_black_24dp" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            title:srcCompat="@drawable/ic_navigation_forum_black_24dp" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            title:srcCompat="@drawable/ic_navigation_forum_black_24dp" />
-    </LinearLayout>
-
+        android:layout_alignParentStart="true"
+        android:visibility="visible"
+        android:id="@+id/include" />
     <link.smartwall.kygj.questionbank.control.QuestionsViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="367dp"
+        android:layout_below="@+id/lbl_chapter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/lbl_chapter"
-        android:layout_above="@+id/pnl_comment"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_above="@+id/include">
 
     </link.smartwall.kygj.questionbank.control.QuestionsViewPager>
 
