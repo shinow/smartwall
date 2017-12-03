@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.domain.BaseItem;
+import link.smartwall.kygj.questionbank.domain.Chapter;
+import link.smartwall.kygj.questionbank.domain.Subject;
+import link.smartwall.kygj.questionbank.domain.Types;
 
 
 /**

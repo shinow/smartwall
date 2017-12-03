@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.domain.Subject;
+import link.smartwall.kygj.questionbank.http.LocalDataReader;
 
 /**
  * Created by LEXLEK on 2017/11/28.
@@ -32,7 +34,7 @@ public class SubjectViewHolder extends BaseViewHolder {
         this.view = itemView;
     }
 
-    public void bindView(final Subject subject, final int pos, final ItemClickListener listener){
+    public void bindView(final Subject subject, final int pos, final ItemClickListener listener) {
 
         containerLayout = (RelativeLayout) view.findViewById(R.id.container);
         parentLeftView = (TextView) view.findViewById(R.id.parent_left_text);
@@ -58,9 +60,13 @@ public class SubjectViewHolder extends BaseViewHolder {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
-//                    itemData = new ItemData();
+                    if (!subject.isChildLoaded()) {
+                        subject.setChildLoaded(true);
+                        subject.setChapters(LocalDataReader.readChapters(subject.getGuid()));
+                    }
+
                     ItemData itemData = EncapsulationItem.itemData;
-                    if(itemData != null && !subject.getGuid().equals(itemData.getSubject().getGuid())) {
+                    if (itemData != null && !subject.getGuid().equals(itemData.getSubject().getGuid())) {
                         //如果有展开的Subject，先关闭
                         listener.onHideChildren(itemData.getSubject());
                         itemData.getView().findViewById(R.id.parent_dashed_view).setVisibility(View.VISIBLE);

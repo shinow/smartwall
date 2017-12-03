@@ -1,5 +1,6 @@
 package link.smartwall.kygj.questionbank.domain;
 
+import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 import org.xutils.http.annotation.HttpResponse;
 
@@ -14,5 +15,16 @@ public class Chapter extends BaseItem {
     @Override
     public int getType() {
         return Types.TYPE_CHAPTER;
+    }
+
+    @Column(name = "subjectGuid")
+    private String subjectGuid;
+
+    public String getSubjectGuid() {
+        return subjectGuid;
+    }
+
+    public void setSubjectGuid(String subjectGuid) {
+        this.subjectGuid = subjectGuid;
     }
 }

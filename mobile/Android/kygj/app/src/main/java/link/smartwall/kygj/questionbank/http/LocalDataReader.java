@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import link.smartwall.kygj.QuestionBankAppplication;
+import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.Subject;
 
 /**
@@ -15,8 +16,6 @@ import link.smartwall.kygj.questionbank.domain.Subject;
  */
 
 public class LocalDataReader {
-    private static final String URL_PREFIX = "http://192.168.1.8:7001/question-bank/v1/";
-
     /**
      * 获取科目
      *
@@ -28,6 +27,24 @@ public class LocalDataReader {
 
         try {
             return db.selector(Subject.class).where("categoryGuid","=",categoryGuid).findAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.EMPTY_LIST;
+    }
+
+    /**
+     * 获取章节
+     *
+     * @param subjectGuid 科目
+     *
+     */
+    public static List<Chapter> readChapters(String subjectGuid) {
+        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        try {
+            return db.selector(Chapter.class).where("subjectGuid","=",subjectGuid).findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }

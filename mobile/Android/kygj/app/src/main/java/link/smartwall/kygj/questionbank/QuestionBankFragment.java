@@ -11,23 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import org.xutils.DbManager;
-import org.xutils.x;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import link.smartwall.controls.view.TitleView;
-import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
-import link.smartwall.kygj.questionbank.adapter.BaseItem;
 import link.smartwall.kygj.questionbank.adapter.EndlessRecyclerOnScrollListener;
-import link.smartwall.kygj.questionbank.adapter.Subject;
 import link.smartwall.kygj.questionbank.adapter.SubjectChapterAdapter;
+import link.smartwall.kygj.questionbank.domain.BaseItem;
+import link.smartwall.kygj.questionbank.domain.Subject;
+import link.smartwall.kygj.questionbank.http.LocalDataReader;
+import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class QuestionBankFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private List<BaseItem> itemList;
+    private List<BaseItem> itemList = new ArrayList<>();
     private SubjectChapterAdapter mAdapter;
     private TitleView titleView;
 
@@ -57,7 +55,8 @@ public class QuestionBankFragment extends Fragment {
         titleView = (TitleView) view.findViewById(R.id.question_bank_titleview);
 
         initEvents();
-        initData();
+
+        initSubjects();
     }
 
     private void initEvents() {
@@ -76,37 +75,15 @@ public class QuestionBankFragment extends Fragment {
         });
     }
 
-    private void initData() {
-        itemList = new ArrayList<>();
-        try {
-            DbManager db =  x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
-            List<Subject> item = db.selector(Subject.class).findAll();
-            itemList.addAll(item);
+    /*
+     * 初始化科目
+     */
+    private void initSubjects() {
+        List<Subject> subjects = LocalDataReader.readSubjects("5DCA16610870507BE050840A06394546");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        for (int i = 1; i <= 50; i++) {
-//            Subject subject = new Subject();
-//            subject.setGuid("GUID" + i);
-//            subject.setName("Name" + i);
-//
-//            List<Chapter> chapters = new ArrayList<>();
-//            for (int j = 0, size = new Random().nextInt(10); j < size; j++) {
-//                Chapter chapter = new Chapter();
-//                chapter.setGuid("Child Guid" + i + " " + j);
-//                chapter.setName("Child Name" + i + " " + j);
-//                chapters.add(chapter);
-//            }
-//            subject.setChapters(chapters);
-//
-//            try {
-//                x.getDb(QuestionBankAppplication.getInstance().getDaoConfig()).save(subject);
-//            } catch (DbException e) {
-//                e.printStackTrace();
-//            }
-//            itemList.add(subject);
-//        }
+        itemList.clear();
+        itemList.addAll(subjects);
+
         setData();
     }
 

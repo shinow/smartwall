@@ -1,5 +1,7 @@
 package link.smartwall.kygj.questionbank.adapter;
 
+import link.smartwall.kygj.questionbank.domain.Subject;
+
 /**
  * 单击项
  */

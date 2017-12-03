@@ -2,6 +2,8 @@ package link.smartwall.kygj.questionbank.adapter;
 
 import android.view.View;
 
+import link.smartwall.kygj.questionbank.domain.Subject;
+
 /**
  * Created by LEXLEK on 2017/11/28.
  */

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.domain.Chapter;
 
 /**
  * 章节

@@ -9,6 +9,7 @@ import org.xutils.x;
 import java.util.List;
 
 import link.smartwall.kygj.QuestionBankAppplication;
+import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.Subject;
 
 /**
@@ -33,6 +34,45 @@ public class RemoteDataReader {
                 try {
                     for (Subject s : subjectList) {
                         db.saveOrUpdate(s);
+                    }
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                cex.printStackTrace();
+            }
+
+            @Override
+            public void onFinished() {
+                System.out.println("finished");
+            }
+        });
+    }
+
+    /**
+     * 加载科目下所有章节
+     *
+     * @param subjectGuid 科目
+     */
+    public static void readChapters(String subjectGuid) {
+        RequestParams params = new RequestParams(URL_PREFIX + "list/chapter");
+        params.addQueryStringParameter("subject_guid", subjectGuid);
+        final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        x.http().post(params, new Callback.CommonCallback<List<Chapter>>() {
+            @Override
+            public void onSuccess(List<Chapter> chapterList) {
+                try {
+                    for (Chapter c : chapterList) {
+                        db.saveOrUpdate(c);
                     }
                 } catch (DbException e) {
                     e.printStackTrace();
