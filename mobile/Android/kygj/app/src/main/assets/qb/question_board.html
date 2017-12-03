@@ -3,23 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>全国排名</title>
+    <title>选择试题</title>
     <link rel="stylesheet" type="text/css" href="./question_board.css">
     <script type="text/javascript" src="../libs/vue.min.js"></script>
-    <style type="text/css">
-    	.item {
-    		height: 50px;
-    		width: 50px;
-    		display: inline-block;
-    		border: 1px solid #ddd;
-    	}
-    </style>
 </head>
 <body>
 <div id ="app">
-    <div>{{title}}</div>
-    <div v-for="i in length">
-    	<span class="item" @click="doQuestion(i)">{{i}}</span>
+    <div class="title">{{title}}</div>
+    <div class="items">
+    	<span v-for="i in length" class="item" @click="doQuestion(i)">{{i}}</span>
     </div>
 </div>
 <script type="text/javascript" src="./question_board.js"></script>

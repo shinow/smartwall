@@ -71,7 +71,7 @@ public class NativeWebView extends WebView implements INatvieWebViewAware {
         //开启 database storage API 功能
         ws.setDatabaseEnabled(true);
         //开启 Application Caches 功能
-        ws.setAppCacheEnabled(true);
+        ws.setAppCacheEnabled(false);
 
         // Add Javascript support
         this.addJavascriptInterface(new JSNativeClass(this), "__Native__");

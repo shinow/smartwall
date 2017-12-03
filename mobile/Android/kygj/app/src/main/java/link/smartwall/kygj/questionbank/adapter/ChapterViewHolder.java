@@ -31,8 +31,8 @@ public class ChapterViewHolder extends BaseViewHolder {
         childLeftText = (TextView) view.findViewById(R.id.child_left_text);
         childRightText = (TextView) view.findViewById(R.id.child_right_text);
 
-        childLeftText.setText(chapter.getGuid());
-        childRightText.setText(chapter.getName());
+        childLeftText.setText(chapter.getName());
+//        childRightText.setText(chapter.getName());
 
         this.view.setOnClickListener(new View.OnClickListener() {
             @Override
