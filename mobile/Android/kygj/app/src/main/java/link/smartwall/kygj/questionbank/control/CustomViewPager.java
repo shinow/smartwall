@@ -1,4 +1,4 @@
-package link.smartwall.kygj;
+package link.smartwall.kygj.questionbank.control;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

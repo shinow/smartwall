@@ -62,7 +62,7 @@ public class SubjectViewHolder extends BaseViewHolder {
                 if (listener != null) {
                     if (!subject.isChildLoaded()) {
                         subject.setChildLoaded(true);
-                        subject.setChapters(LocalDataReader.readChapters(subject.getGuid()));
+                        subject.setChapters(LocalDataReader.readChapters(subject));
                     }
 
                     ItemData itemData = EncapsulationItem.itemData;

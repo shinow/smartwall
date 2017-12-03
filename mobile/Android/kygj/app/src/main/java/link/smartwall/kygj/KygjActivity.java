@@ -10,7 +10,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import link.smartwall.controls.fragment.NvWebViewFragment;
-import link.smartwall.kygj.questionbank.QuestionBankFragment;
+import link.smartwall.kygj.questionbank.control.BottomNavigationViewHelper;
+import link.smartwall.kygj.questionbank.control.CustomViewPager;
+import link.smartwall.kygj.questionbank.control.ViewPagerAdapter;
+import link.smartwall.kygj.questionbank.frgment.QuestionBankFragment;
 
 public class KygjActivity extends AppCompatActivity {
     private CustomViewPager viewPager;

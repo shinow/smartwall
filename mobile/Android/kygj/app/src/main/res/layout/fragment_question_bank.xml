@@ -17,7 +17,7 @@
         title:small_text_size="15sp"
         title:title_name="题库"
         title:title_text_color="@android:color/white"
-        title:title_text_size="20sp"></link.smartwall.controls.view.TitleView>
+        title:title_text_size="20sp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"

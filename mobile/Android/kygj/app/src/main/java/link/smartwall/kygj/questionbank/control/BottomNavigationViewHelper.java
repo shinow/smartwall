@@ -1,4 +1,4 @@
-package link.smartwall.kygj;
+package link.smartwall.kygj.questionbank.control;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

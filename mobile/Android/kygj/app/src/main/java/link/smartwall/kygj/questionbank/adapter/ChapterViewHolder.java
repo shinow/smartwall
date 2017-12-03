@@ -1,11 +1,13 @@
 package link.smartwall.kygj.questionbank.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.activity.SelectQuestionActivity;
 import link.smartwall.kygj.questionbank.domain.Chapter;
 
 /**
@@ -35,7 +37,13 @@ public class ChapterViewHolder extends BaseViewHolder {
         this.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, chapter.getGuid(), Toast.LENGTH_SHORT).show();
+                Intent startIntent = new Intent(mContext, SelectQuestionActivity.class);
+                Bundle argBundle = new Bundle();
+                argBundle.putString("subjectName", chapter.getSubjectName());
+                argBundle.putString("chapterName", chapter.getName());
+
+                startIntent.putExtras(argBundle);
+                mContext.startActivity(startIntent);
             }
         });
     }

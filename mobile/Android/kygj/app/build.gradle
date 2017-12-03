@@ -34,5 +34,6 @@ dependencies {
     compile 'com.marshalchen.ultimaterecyclerview:library:0.7.3'
     compile 'com.alibaba:fastjson:1.2.31'
     compile 'org.xutils:xutils:3.5.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

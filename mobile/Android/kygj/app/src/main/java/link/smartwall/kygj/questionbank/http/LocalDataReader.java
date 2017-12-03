@@ -16,17 +16,18 @@ import link.smartwall.kygj.questionbank.domain.Subject;
  */
 
 public class LocalDataReader {
+    private List<Chapter> chapters;
+
     /**
      * 获取科目
      *
      * @param categoryGuid 分类
-     *
      */
     public static List<Subject> readSubjects(String categoryGuid) {
         DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 
         try {
-            return db.selector(Subject.class).where("categoryGuid","=",categoryGuid).findAll();
+            return db.selector(Subject.class).where("categoryGuid", "=", categoryGuid).findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -37,14 +38,18 @@ public class LocalDataReader {
     /**
      * 获取章节
      *
-     * @param subjectGuid 科目
-     *
+     * @param subject 科目
      */
-    public static List<Chapter> readChapters(String subjectGuid) {
+    public static List<Chapter> readChapters(Subject subject) {
         DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 
         try {
-            return db.selector(Chapter.class).where("subjectGuid","=",subjectGuid).findAll();
+            List<Chapter> chapters = db.selector(Chapter.class).where("subjectGuid", "=", subject.getGuid()).findAll();
+            for (Chapter c : chapters) {
+                c.setSubjectName(subject.getName());
+            }
+
+            return chapters;
         } catch (DbException e) {
             e.printStackTrace();
         }

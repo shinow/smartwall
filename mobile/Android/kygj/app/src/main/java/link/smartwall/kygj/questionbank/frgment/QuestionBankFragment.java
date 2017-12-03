@@ -1,4 +1,4 @@
-package link.smartwall.kygj.questionbank;
+package link.smartwall.kygj.questionbank.frgment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,7 +21,6 @@ import link.smartwall.kygj.questionbank.adapter.SubjectChapterAdapter;
 import link.smartwall.kygj.questionbank.domain.BaseItem;
 import link.smartwall.kygj.questionbank.domain.Subject;
 import link.smartwall.kygj.questionbank.http.LocalDataReader;
-import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class QuestionBankFragment extends Fragment {
     private RecyclerView mRecyclerView;

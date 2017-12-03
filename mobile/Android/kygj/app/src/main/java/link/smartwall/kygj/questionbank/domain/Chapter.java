@@ -20,11 +20,21 @@ public class Chapter extends BaseItem {
     @Column(name = "subjectGuid")
     private String subjectGuid;
 
+    private String subjectName;
+
     public String getSubjectGuid() {
         return subjectGuid;
     }
 
     public void setSubjectGuid(String subjectGuid) {
         this.subjectGuid = subjectGuid;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 }

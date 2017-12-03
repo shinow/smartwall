@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:title="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="link.smartwall.kygj.questionbank.activity.SelectQuestionActivity"
+    android:weightSum="1">
+    <link.smartwall.controls.view.TitleView
+        android:id="@+id/question_bank_titleview"
+        title:left_text_drawable_left="@mipmap/back_normal"
+        title:left_text="返回"
+        title:right_text="重做"
+        title:small_text_size="15sp"
+        title:title_name="科目"
+        title:title_text_color="@android:color/white"
+        title:title_text_size="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#0093fe"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_weight="0.03" />
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
