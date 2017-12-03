@@ -62,8 +62,8 @@ public class JSNativeClass {
         Bundle argBundle = new Bundle();
 
         argBundle.putString("subjectName", subjectName);
-        argBundle.putString("chapterName", chapterGuid);
-        argBundle.putString("chapterGuid", chapterName);
+        argBundle.putString("chapterName", chapterName);
+        argBundle.putString("chapterGuid", chapterGuid);
 
         startIntent.putExtras(argBundle);
         context.startActivity(startIntent);

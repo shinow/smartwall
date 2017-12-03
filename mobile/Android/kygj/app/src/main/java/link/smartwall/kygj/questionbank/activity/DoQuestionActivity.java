@@ -3,6 +3,7 @@ package link.smartwall.kygj.questionbank.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import link.smartwall.controls.view.TitleView;
 import link.smartwall.controls.webview.NativeWebView;
@@ -26,5 +27,8 @@ public class DoQuestionActivity extends AppCompatActivity {
                 DoQuestionActivity.this.finish();
             }
         });
+
+        TextView chapterTv = (TextView)this.findViewById(R.id.lbl_chapter);
+        chapterTv.setText(bundle.getString("chapterName"));
     }
 }
