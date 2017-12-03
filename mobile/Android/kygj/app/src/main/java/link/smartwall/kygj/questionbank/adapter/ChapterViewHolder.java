@@ -3,6 +3,7 @@ package link.smartwall.kygj.questionbank.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.domain.Chapter;
@@ -30,5 +31,12 @@ public class ChapterViewHolder extends BaseViewHolder {
 
         childLeftText.setText(chapter.getGuid());
         childRightText.setText(chapter.getName());
+
+        this.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, chapter.getGuid(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
