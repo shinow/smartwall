@@ -41,6 +41,7 @@ public class ChapterViewHolder extends BaseViewHolder {
                 Bundle argBundle = new Bundle();
                 argBundle.putString("subjectName", chapter.getSubjectName());
                 argBundle.putString("chapterName", chapter.getName());
+                argBundle.putString("chapterGuid", chapter.getGuid());
 
                 startIntent.putExtras(argBundle);
                 mContext.startActivity(startIntent);

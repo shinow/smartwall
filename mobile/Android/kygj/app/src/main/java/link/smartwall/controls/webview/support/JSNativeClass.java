@@ -9,8 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import link.smartwall.controls.activity.NvWebViewActivity;
 import link.smartwall.controls.webview.NativeWebView;
-
-import static android.R.attr.x;
+import link.smartwall.kygj.questionbank.http.LocalDataReader;
 
 public class JSNativeClass {
     private NativeWebView webView;
@@ -47,5 +46,10 @@ public class JSNativeClass {
 
     public JSNativeClass(NativeWebView webView) {
         this.webView = webView;
+    }
+
+    @JavascriptInterface
+    public int getChapterQuestionLength(String chapterGuid) {
+        return LocalDataReader.readQuestionsLength(chapterGuid);
     }
 }

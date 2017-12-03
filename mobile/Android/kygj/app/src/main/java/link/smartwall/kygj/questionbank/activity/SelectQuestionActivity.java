@@ -22,7 +22,7 @@ public class SelectQuestionActivity extends AppCompatActivity {
 
         Bundle bundle = this.getIntent().getExtras();
 
-        mTitleView = (TitleView)this.findViewById(R.id.question_bank_titleview);
+        mTitleView = (TitleView) this.findViewById(R.id.question_bank_titleview);
         mTitleView.getTitleTv().setText(bundle.getString("subjectName"));
         mTitleView.getLeftBackTextTv().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,8 +31,9 @@ public class SelectQuestionActivity extends AppCompatActivity {
             }
         });
 
-        mWebView = (NativeWebView)this.findViewById(R.id.web_view);
+        mWebView = (NativeWebView) this.findViewById(R.id.web_view);
         String chapterName = bundle.getString("chapterName");
-        mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapter=" + chapterName);
+        String chapterGuid = bundle.getString("chapterGuid");
+        mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapterName=" + chapterName + "&chapterGuid=" + chapterGuid);
     }
 }

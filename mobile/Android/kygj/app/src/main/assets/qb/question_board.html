@@ -6,10 +6,21 @@
     <title>全国排名</title>
     <link rel="stylesheet" type="text/css" href="./question_board.css">
     <script type="text/javascript" src="../libs/vue.min.js"></script>
+    <style type="text/css">
+    	.item {
+    		height: 50px;
+    		width: 50px;
+    		display: inline-block;
+    		border: 1px solid #ddd;
+    	}
+    </style>
 </head>
 <body>
 <div id ="app">
     <div>{{title}}</div>
+    <div v-for="i in length">
+    	<span class="item" @click="doQuestion(i)">{{i}}</span>
+    </div>
 </div>
 <script type="text/javascript" src="./question_board.js"></script>
 </body>

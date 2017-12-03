@@ -1,12 +1,20 @@
 new Vue({
 	el: '#app',
 	data: {
-
+		length: 0
 	},
 	computed: {
 		title: function() {
-			return getUrlKey('chapter');
+			return getUrlKey('chapterName');
 		}
+	},
+	methods: {
+		doQuestion: function(index) {
+			alert(index);
+		}
+	},
+	created: function() {
+		this.length = __Native__.getChapterQuestionLength(getUrlKey('chapterGuid'));
 	}
 });
 
