@@ -1,4 +1,4 @@
-package link.smartwall.kygj.questionbank.adapter;
+package link.smartwall.kygj.questionbank.domain;
 
 import org.xutils.db.annotation.Column;
 
