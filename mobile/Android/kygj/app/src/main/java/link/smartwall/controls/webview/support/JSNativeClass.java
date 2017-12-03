@@ -2,6 +2,7 @@ package link.smartwall.controls.webview.support;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.fastjson.JSON;
@@ -9,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import link.smartwall.controls.activity.NvWebViewActivity;
 import link.smartwall.controls.webview.NativeWebView;
+import link.smartwall.kygj.questionbank.activity.DoQuestionActivity;
 import link.smartwall.kygj.questionbank.http.LocalDataReader;
 
 public class JSNativeClass {
@@ -18,7 +20,7 @@ public class JSNativeClass {
     /**
      * invoke
      *
-     * @param params params
+     * @param module module
      */
     @JavascriptInterface
     public void invoke(String module, String funcName, String data) {
@@ -51,5 +53,18 @@ public class JSNativeClass {
     @JavascriptInterface
     public int getChapterQuestionLength(String chapterGuid) {
         return LocalDataReader.readQuestionsLength(chapterGuid);
+    }
+
+    @JavascriptInterface
+    public void startDoQuestion() {
+        Context context = this.webView.getContext();
+        Intent startIntent = new Intent(context, DoQuestionActivity.class);
+        Bundle argBundle = new Bundle();
+//        argBundle.putString("subjectName", chapter.getSubjectName());
+//        argBundle.putString("chapterName", chapter.getName());
+//        argBundle.putString("chapterGuid", chapter.getGuid());
+
+        startIntent.putExtras(argBundle);
+        context.startActivity(startIntent);
     }
 }

@@ -47,8 +47,9 @@
         </activity>
         <activity
             android:name="link.smartwall.controls.activity.NvWebViewActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".questionbank.activity.SelectQuestionActivity"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".questionbank.activity.SelectQuestionActivity" />
+        <activity android:name=".questionbank.activity.DoQuestionActivity"></activity>
     </application>
 
 </manifest>

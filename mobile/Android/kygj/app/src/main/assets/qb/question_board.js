@@ -10,7 +10,7 @@ new Vue({
 	},
 	methods: {
 		doQuestion: function(index) {
-			alert(index);
+			__Native__.startDoQuestion();
 		}
 	},
 	created: function() {
