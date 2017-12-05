@@ -81,7 +81,9 @@ public class QuestionBankFragment extends Fragment {
         List<Subject> subjects = LocalDataReader.readSubjects("5DCA16610870507BE050840A06394546");
 
         itemList.clear();
-        itemList.addAll(subjects);
+        if(subjects != null) {
+            itemList.addAll(subjects);
+        }
 
         setData();
     }

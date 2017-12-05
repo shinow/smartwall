@@ -37,6 +37,8 @@ public class RemoteDataReader {
                 try {
                     for (Subject s : subjectList) {
                         db.saveOrUpdate(s);
+                        //TODO 更新算法需要考虑
+                        RemoteDataReader.readChapters(s.getGuid());
                     }
                 } catch (DbException e) {
                     e.printStackTrace();
