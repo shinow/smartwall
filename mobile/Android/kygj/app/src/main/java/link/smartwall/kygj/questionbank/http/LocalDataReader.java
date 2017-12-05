@@ -114,5 +114,40 @@ public class LocalDataReader {
         return Collections.emptyList();
     }
 
+    /**
+     * 获取单题答题状态
+     *
+     * @param questionGuid 题目gguid
+     */
+    public static ChapterQuestionDo getQuestionDo(String questionGuid) {
+        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        try {
+            ChapterQuestionDo chapterQuestionDo = db.findById(ChapterQuestionDo.class, questionGuid);
+
+            return chapterQuestionDo;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static void saveDoQuestion(String questionGuid, String chapterGuid, String answer, int result) {
+        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        try {
+            ChapterQuestionDo chapterQuestionDo = new ChapterQuestionDo();
+            chapterQuestionDo.setQuestionGuid(questionGuid);
+            chapterQuestionDo.setChapterGuid(chapterGuid);
+            chapterQuestionDo.setAnswer(answer);
+            chapterQuestionDo.setResult(result);
+
+            db.saveOrUpdate(chapterQuestionDo);
+
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

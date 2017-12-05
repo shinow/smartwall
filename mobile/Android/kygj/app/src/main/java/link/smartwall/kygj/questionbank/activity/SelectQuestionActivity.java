@@ -36,7 +36,15 @@ public class SelectQuestionActivity extends AppCompatActivity {
         String chapterName = bundle.getString("chapterName");
         String chapterGuid = bundle.getString("chapterGuid");
         String subjectName = bundle.getString("subjectName");
+        this.onResume();
 
         mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapterName=" + chapterName + "&chapterGuid=" + chapterGuid + "&subjectName=" + subjectName);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mWebView.reload();
     }
 }

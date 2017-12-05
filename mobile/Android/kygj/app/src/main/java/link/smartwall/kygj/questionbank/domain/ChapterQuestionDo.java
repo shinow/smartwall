@@ -18,6 +18,9 @@ public class ChapterQuestionDo {
     @Column(name = "chapterGuid")
     private String chapterGuid;
 
+    @Column(name = "answer")
+    private String answer;
+
     @Column(name = "result")
     private int result;
 
@@ -37,6 +40,13 @@ public class ChapterQuestionDo {
         this.chapterGuid = chapterGuid;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
     public int getResult() {
         return result;
     }

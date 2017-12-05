@@ -99,6 +99,24 @@ public class JSNativeClass {
 
     @JavascriptInterface
     public String getDoQuestion(int no) {
-        return JSON.toJSONString(questions.get(no - 1));
+        JSONObject o = (JSONObject) questions.get(no - 1);
+        ChapterQuestionDo chapterQuestionDo = LocalDataReader.getQuestionDo(o.getString("guid"));
+
+        if (chapterQuestionDo != null) {
+            o.put("status", chapterQuestionDo.getResult());
+            o.put("select", chapterQuestionDo.getAnswer());
+        } else {
+            o.put("status", 0);
+        }
+
+        return o.toJSONString();
     }
+
+    @JavascriptInterface
+    public String saveDoQuestion(String questionGuid, String chapterGuid, String answer, int result) {
+        LocalDataReader.saveDoQuestion(questionGuid, chapterGuid, answer, result);
+        return "SUCCESS";
+    }
+
+
 }

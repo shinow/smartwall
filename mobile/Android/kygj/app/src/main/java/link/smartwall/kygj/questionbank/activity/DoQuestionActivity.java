@@ -19,6 +19,7 @@ public class DoQuestionActivity extends AppCompatActivity {
     private QuestionsViewPager viewPager;
     private TitleView mTitleView;
     public static JSONArray questions;
+    private String chapterGuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +68,18 @@ public class DoQuestionActivity extends AppCompatActivity {
         int length = questions.size();
 
         for (int i = 1; i <= length; i++) {
-            adapter.addFragment(this.createQuestionFragment(i));
+            adapter.addFragment(this.createQuestionFragment(i, chapterGuid));
         }
 
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(index - 1);
     }
 
-    private NvWebViewFragment createQuestionFragment(int no) {
+    private NvWebViewFragment createQuestionFragment(int no, String chapterGuid) {
         NvWebViewFragment fragment = new NvWebViewFragment();
 
         Bundle args = new Bundle();
-        args.putString("url", "file:///android_asset/qb/do_question.html?no=" + no);
+        args.putString("url", "file:///android_asset/qb/do_question.html?no=" + no + "&chapter_guid=" + chapterGuid);
         fragment.setArguments(args);
 
         return fragment;

@@ -50,3 +50,11 @@ body {
     text-align: center;
     border-radius: 4px;
 }
+
+.error {
+    background-color: #f00;
+}
+
+.right {
+    background-color: #0f0;
+}
