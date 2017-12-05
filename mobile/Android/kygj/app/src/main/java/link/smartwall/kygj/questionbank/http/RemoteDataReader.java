@@ -20,7 +20,7 @@ import link.smartwall.kygj.questionbank.domain.Subject;
  */
 
 public class RemoteDataReader {
-    private static final String URL_PREFIX = "http://192.168.1.8:7001/question-bank/v1/";
+    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
 
     /**
      * 加载科目
