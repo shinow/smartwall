@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">KYGJ</string>
     <string name="navigation_question_bank">题库</string>
-    <string name="navigation_course">课程</string>
-    <string name="navigation_store">商城</string>
+    <string name="navigation_share">分享</string>
+    <string name="navigation_live_streaming">直播</string>
+    <string name="navigation_big_v">大V</string>
     <string name="navigation_me">我</string>
 
     <string name="fa_angle_left">&#xf104;</string>

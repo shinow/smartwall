@@ -27,14 +27,17 @@ public class KygjActivity extends AppCompatActivity {
                 case R.id.navigation_question_bank:
                     viewPager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_course:
+                case R.id.navigation_share:
                     viewPager.setCurrentItem(1);
                     return true;
-                case R.id.navigation_store:
+                case R.id.navigation_live_streaming:
                     viewPager.setCurrentItem(2);
                     return true;
-                case R.id.navigation_me:
+                case R.id.navigation_big_v:
                     viewPager.setCurrentItem(3);
+                    return true;
+                case R.id.navigation_me:
+                    viewPager.setCurrentItem(4);
                     return true;
             }
             return false;
@@ -81,9 +84,9 @@ public class KygjActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(QuestionBankFragment.newInstance());
-        adapter.addFragment(this.createBase("课程"));
-        adapter.addFragment(this.createBase("商城"));
-//        adapter.addFragment(this.createQuestionBankFragment("题库"));
+        adapter.addFragment(this.createBase("分享"));
+        adapter.addFragment(this.createBase("直播"));
+        adapter.addFragment(this.createBase("大V"));
         adapter.addFragment(this.createOptionsFragment("我"));
         viewPager.setAdapter(adapter);
     }

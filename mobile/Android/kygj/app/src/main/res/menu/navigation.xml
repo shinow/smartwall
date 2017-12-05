@@ -7,14 +7,19 @@
         android:title="@string/navigation_question_bank"/>
 
     <item
-        android:id="@+id/navigation_course"
+        android:id="@+id/navigation_share"
         android:icon="@drawable/ic_navigation_university_black_24dp"
-        android:title="@string/navigation_course"/>
+        android:title="@string/navigation_share"/>
 
     <item
-        android:id="@+id/navigation_store"
+        android:id="@+id/navigation_live_streaming"
         android:icon="@drawable/ic_navigation_forum_black_24dp"
-        android:title="@string/navigation_store"/>
+        android:title="@string/navigation_live_streaming"/>
+
+    <item
+        android:id="@+id/navigation_big_v"
+        android:icon="@drawable/ic_navigation_forum_black_24dp"
+        android:title="@string/navigation_big_v"/>
 
     <item
         android:id="@+id/navigation_me"
