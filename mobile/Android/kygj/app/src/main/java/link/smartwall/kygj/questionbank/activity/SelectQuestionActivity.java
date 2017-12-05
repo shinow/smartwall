@@ -7,6 +7,7 @@ import android.view.View;
 import link.smartwall.controls.view.TitleView;
 import link.smartwall.controls.webview.NativeWebView;
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.http.LocalDataReader;
 
 /**
  * 选择题目
@@ -14,11 +15,12 @@ import link.smartwall.kygj.R;
 public class SelectQuestionActivity extends AppCompatActivity {
     private NativeWebView mWebView;
     private TitleView mTitleView;
+    private String subjectName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.activity_select_question);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -32,12 +34,18 @@ public class SelectQuestionActivity extends AppCompatActivity {
             }
         });
 
-        mWebView = (NativeWebView) this.findViewById(R.id.web_view);
-        String chapterName = bundle.getString("chapterName");
-        String chapterGuid = bundle.getString("chapterGuid");
-        String subjectName = bundle.getString("subjectName");
-        this.onResume();
+        final String chapterName = bundle.getString("chapterName");
+        final String chapterGuid = bundle.getString("chapterGuid");
+        final String subjectName = bundle.getString("subjectName");
+        mTitleView.getRightTextTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocalDataReader.deleteChapterQuestionDo(chapterGuid);
+                mWebView.reload();
+            }
+        });
 
+        mWebView = (NativeWebView) this.findViewById(R.id.web_view);
         mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapterName=" + chapterName + "&chapterGuid=" + chapterGuid + "&subjectName=" + subjectName);
     }
 

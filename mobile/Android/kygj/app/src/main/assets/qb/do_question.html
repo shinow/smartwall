@@ -12,19 +12,19 @@
     <div class="title">{{no}}.{{question.text}}</div>
     <div class="options">
         <div @click="select('A')">
-            <span class="option" :class="{'selected': question.select == 'A'}">A</span>{{question.opt_A}}
+            <span class="option" :class="{'selected': check('A'), 'error': checkError('A')}">A</span>{{question.opt_A}}
         </div>
         <div @click="select('B')">
-            <span class="option" :class="{'selected': question.select == 'B'}">B</span>{{question.opt_B}}
+            <span class="option" :class="{'selected': check('B'), 'error': checkError('B')}">B</span>{{question.opt_B}}
         </div>
         <div @click="select('C')">
-            <span class="option" :class="{'selected': question.select == 'C'}">C</span>{{question.opt_C}}
+            <span class="option" :class="{'selected': check('C'), 'error': checkError('C')}">C</span>{{question.opt_C}}
         </div>
         <div @click="select('D')">
-            <span class="option" :class="{'selected': question.select == 'D'}">D</span>{{question.opt_D}}
+            <span class="option" :class="{'selected': check('D'), 'error': checkError('D')}">D</span>{{question.opt_D}}
         </div>
         <div @click="select('E')">
-            <span class="option" :class="{'selected': question.select == 'E'}">E</span>{{question.opt_E}}
+            <span class="option" :class="{'selected': check('E'), 'error': checkError('E')}">E</span>{{question.opt_E}}
         </div>
         <div id="comment-info">
             <span>评论数</span>
@@ -32,12 +32,12 @@
     </div>
     <div v-if="isNotDo" id="tools"><button id="submitAnswer" @click="submit">提交答案</button></div>
     <div v-if="isRight || isError">
-        <div><span>难度:</span></div>
-        <div><span>统计:</span></div>
+        <div><span>难度:</span>{{question.degree}}</div>
+        <div><span>统计:</span>{{question.stat}}</div>
         <div><span>正确答案:</span>{{question.answer}}</div>
-        <div><span>大纲考点:</span></div>
-        <div><span>考点还原:</span></div>
-        <div><span>答案解析:</span></div>
+        <div><span>大纲考点:</span>{{question.outline}}</div>
+        <div><span>考点还原:</span>{{question.test}}</div>
+        <div><span>答案解析:</span>{{question.analysis}}</div>
     </div>
 </div>
 <script type="text/javascript" src="./do_question.js"></script>

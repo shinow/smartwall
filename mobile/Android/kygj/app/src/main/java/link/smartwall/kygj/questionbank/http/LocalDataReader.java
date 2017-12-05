@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
 import org.xutils.DbManager;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
@@ -112,6 +113,21 @@ public class LocalDataReader {
         }
 
         return Collections.emptyList();
+    }
+
+    /**
+     * 获取章节试题答题情况
+     *
+     * @param chapterGuid 章节
+     */
+    public static void deleteChapterQuestionDo(String chapterGuid) {
+        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        try {
+            db.delete(ChapterQuestionDo.class, WhereBuilder.b("chapterGuid", "=", chapterGuid));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

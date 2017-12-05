@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KYGJ</string>
+    <string name="app_name">医考之家</string>
     <string name="navigation_question_bank">题库</string>
     <string name="navigation_share">分享</string>
     <string name="navigation_live_streaming">直播</string>

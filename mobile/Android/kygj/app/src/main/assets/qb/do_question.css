@@ -53,6 +53,12 @@ body {
     background-color: #04be02;
 }
 
+.error {
+    color: #fff!important;
+    background-color: #f00;
+    border: 1px solid #f00!important;
+}
+
 #tools {
     text-align: center;
     height: 40px;

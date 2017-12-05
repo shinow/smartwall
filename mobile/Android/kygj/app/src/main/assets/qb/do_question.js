@@ -16,7 +16,23 @@ new Vue({
 	},
 	methods: {
 		select: function(answer) {
-			this.question.select = answer;
+			if (this.isNotDo) {
+				this.question.select = answer;
+			}
+
+		},
+		check: function(value) {
+			if (this.isNotDo || this.isRight) {
+				return this.question.select == value;
+			} else {
+				return this.question.answer == value;
+			}
+		},
+
+		checkError: function(value) {
+			if (this.isError) {
+				return this.question.select == value;
+			}
 		},
 
 		submit: function() {
