@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id ="app">
-    <div class="title">{{no + 1}}.{{question.text}}</div>
+    <div class="title">{{no}}.{{question.text}}</div>
     <div class="options">
         <div @click="select('A')">
             <span class="option" :class="{'selected': question.select == 'A'}">A</span>{{question.opt_A}}

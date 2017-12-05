@@ -11,7 +11,7 @@
 <div id ="app">
     <div class="title">{{title}}</div>
     <div class="items">
-    	<span v-for="i in length" class="item" @click="doQuestion(i)">{{i}}</span>
+    	<span v-for="q in questions" class="item" @click="doQuestion(q.no, q.guid)">{{q.no}}</span>
     </div>
 </div>
 <script type="text/javascript" src="./question_board.js"></script>

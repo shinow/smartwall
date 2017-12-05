@@ -1,7 +1,7 @@
 new Vue({
 	el: '#app',
 	data: {
-		length: 0,
+		questions: null
 	},
 	computed: {
 		title: function() {
@@ -9,15 +9,15 @@ new Vue({
 		}
 	},
 	methods: {
-		doQuestion: function(index) {
-			__Native__.startDoQuestion(this.subjectName, this.chapterGuid, this.chapterName);
+		doQuestion: function(index, guid) {
+			__Native__.startDoQuestion(index, this.subjectName, this.chapterGuid, this.chapterName);
 		}
 	},
 	created: function() {
 		this.chapterGuid = getUrlKey('chapterGuid');
 		this.chapterName = getUrlKey('chapterName');
 		this.subjectName = getUrlKey('subjectName');
-		this.length = __Native__.getChapterQuestionLength(this.chapterGuid);
+		this.questions = JSON.parse(__Native__.getChapterQuestion(this.chapterGuid));
 	}
 });
 

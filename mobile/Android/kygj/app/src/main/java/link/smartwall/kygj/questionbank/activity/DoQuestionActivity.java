@@ -55,20 +55,23 @@ public class DoQuestionActivity extends AppCompatActivity {
         });
 
         String chapterGuid = bundle.getString("chapterGuid");
-        setupViewPager(viewPager, chapterGuid);
+        int index = bundle.getInt("index");
+
+        setupViewPager(viewPager, chapterGuid, index);
     }
 
-    private void setupViewPager(ViewPager viewPager, String chapterGuid) {
+    private void setupViewPager(ViewPager viewPager, String chapterGuid, int index) {
         QuestionsViewPagerAdapter adapter = new QuestionsViewPagerAdapter(getSupportFragmentManager());
 
         questions = LocalDataReader.readQuestions(chapterGuid);
         int length = questions.size();
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 1; i <= length; i++) {
             adapter.addFragment(this.createQuestionFragment(i));
         }
 
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(index - 1);
     }
 
     private NvWebViewFragment createQuestionFragment(int no) {

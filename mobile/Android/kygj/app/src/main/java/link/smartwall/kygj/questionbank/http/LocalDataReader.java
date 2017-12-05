@@ -12,6 +12,7 @@ import java.util.List;
 
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.questionbank.domain.Chapter;
+import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.Subject;
 
@@ -20,6 +21,11 @@ import link.smartwall.kygj.questionbank.domain.Subject;
  */
 
 public class LocalDataReader {
+    /**
+     * 员工GUID
+     */
+    public static String EMP_GUID = "5DCA79B30460D1DEE050840A063947A2";
+
     /**
      * 获取科目
      *
@@ -60,30 +66,6 @@ public class LocalDataReader {
     }
 
     /**
-     * 获取章节试题长度
-     *
-     * @param chapterGuid 章节
-     */
-    public static int readQuestionsLength(String chapterGuid) {
-        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
-
-        try {
-            ChapterQuestions questions = db.selector(ChapterQuestions.class)
-                    .where("chapterGuid", "=", chapterGuid).findFirst();
-
-            if (questions != null) {
-                JSONArray arr = JSON.parseArray(questions.getData());
-
-                return arr.size();
-            }
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-    /**
      * 获取章节试题
      *
      * @param chapterGuid 章节
@@ -106,4 +88,31 @@ public class LocalDataReader {
 
         return new JSONArray();
     }
+
+
+    /**
+     * 获取章节试题答题情况
+     *
+     * @param chapterGuid 章节
+     */
+    public static List<ChapterQuestionDo> readChapterQuestionDo(String chapterGuid) {
+        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        try {
+            List<ChapterQuestionDo> chapterQuestionDo = db.selector(ChapterQuestionDo.class)
+                    .where("chapterGuid", "=", chapterGuid).findAll();
+
+            if (chapterQuestionDo == null) {
+                return Collections.emptyList();
+            } else {
+                return chapterQuestionDo;
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.emptyList();
+    }
+
+
 }
