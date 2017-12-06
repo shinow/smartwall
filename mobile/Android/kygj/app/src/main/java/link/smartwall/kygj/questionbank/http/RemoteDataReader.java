@@ -13,6 +13,7 @@ import java.util.List;
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
+import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
 import link.smartwall.kygj.questionbank.domain.Subject;
 
 /**
@@ -20,8 +21,13 @@ import link.smartwall.kygj.questionbank.domain.Subject;
  */
 
 public class RemoteDataReader {
-//    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
+    public interface IDataReader<T> {
+        void readData(T data);
+    }
+
+    //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
     private static final String URL_PREFIX = "http://192.168.1.7:7001/question-bank/v1/";
+
     /**
      * 加载科目
      *
@@ -164,6 +170,41 @@ public class RemoteDataReader {
             @Override
             public void onSuccess(String result) {
                 Log.i("question", result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                cex.printStackTrace();
+            }
+
+            @Override
+            public void onFinished() {
+                System.out.println("finished");
+            }
+        });
+    }
+
+    /**
+     * 获取问题评论
+     */
+    public static void getQuestionComments(String questionGuid, int page, final IDataReader<List<QuestionDiscuss>> dataReader) {
+        RequestParams params = new RequestParams(URL_PREFIX + "question/list_comment");
+        params.addQueryStringParameter("question_guid", questionGuid);
+        params.addQueryStringParameter("page", String.valueOf(page));
+
+        final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        x.http().post(params, new Callback.CommonCallback<List<QuestionDiscuss>>() {
+            @Override
+            public void onSuccess(List<QuestionDiscuss> result) {
+                Log.i("APPP", result.toString());
+
+                dataReader.readData(result);
             }
 
             @Override

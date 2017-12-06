@@ -1,12 +1,17 @@
 package link.smartwall.kygj.questionbank.domain;
 
+import org.xutils.http.annotation.HttpResponse;
+
 import java.util.Date;
+
+import link.smartwall.kygj.questionbank.http.JsonResponseParser;
 
 
 /**
  * 试题评论信息（Copy from 后台代码）
  *
  */
+@HttpResponse(parser = JsonResponseParser.class)
 public class QuestionDiscuss {
 	private String questionGuid;
 	private String userGuid;
