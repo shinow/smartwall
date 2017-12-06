@@ -1,10 +1,13 @@
 package link.smartwall.kygj.questionbank.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -59,6 +62,41 @@ public class DoQuestionActivity extends AppCompatActivity {
         int index = bundle.getInt("index");
 
         setupViewPager(viewPager, chapterGuid, index);
+
+
+        View view = LayoutInflater.from(this)
+                .inflate(R.layout.view_comment_input, null);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        view.findViewById(R.id.comment_input_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.comment_input_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DoQuestionActivity.this, "保存啊", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+//        dialog.show();
+//        adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position, String text) {
+//                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+//                dialog.dismiss();
+//            }
+//        });
+
+        TextView commentW = (TextView) this.findViewById(R.id.comment_w);
+        commentW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
     }
 
     private void setupViewPager(ViewPager viewPager, String chapterGuid, int index) {
