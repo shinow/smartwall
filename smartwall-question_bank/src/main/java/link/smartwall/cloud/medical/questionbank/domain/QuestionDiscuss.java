@@ -14,7 +14,7 @@ public class QuestionDiscuss {
 	private String userGuid;
 	private String userName;
 	private String comment;
-	private String commentTime;
+	private Date commentTime;
 	private String replierGuid;
 	private String replierName;
 	private String replierComment;
@@ -54,11 +54,11 @@ public class QuestionDiscuss {
 		this.comment = comment;
 	}
 
-	public String getCommentTime() {
+	public Date getCommentTime() {
 		return commentTime;
 	}
 
-	public void setCommentTime(String commentTime) {
+	public void setCommentTime(Date commentTime) {
 		this.commentTime = commentTime;
 	}
 
