@@ -6,10 +6,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import link.smartwall.controls.fragment.NvWebViewFragment;
 import link.smartwall.controls.view.TitleView;
@@ -17,10 +18,12 @@ import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.control.QuestionsViewPager;
 import link.smartwall.kygj.questionbank.control.QuestionsViewPagerAdapter;
 import link.smartwall.kygj.questionbank.http.LocalDataReader;
+import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class DoQuestionActivity extends AppCompatActivity {
     private QuestionsViewPager viewPager;
     private TitleView mTitleView;
+    private EditText mComment;
     public static JSONArray questions;
     private String chapterGuid;
 
@@ -63,11 +66,12 @@ public class DoQuestionActivity extends AppCompatActivity {
 
         setupViewPager(viewPager, chapterGuid, index);
 
-
         View view = LayoutInflater.from(this)
                 .inflate(R.layout.view_comment_input, null);
         final BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
+
+        mComment = view.findViewById(R.id.txt_comment);
         view.findViewById(R.id.comment_input_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +81,14 @@ public class DoQuestionActivity extends AppCompatActivity {
         view.findViewById(R.id.comment_input_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DoQuestionActivity.this, "保存啊", Toast.LENGTH_SHORT).show();
+                String userGuid = LocalDataReader.EMP_GUID;
+                String userName = LocalDataReader.EMP_NAME;
+                String comment = mComment.getText().toString();
+                JSONObject question = questions.getJSONObject(viewPager.getCurrentItem());
+                String questionGuid = question.getString("guid");
+
+                RemoteDataReader.saveComment(questionGuid, userGuid, userName, comment);
+
                 dialog.dismiss();
             }
         });

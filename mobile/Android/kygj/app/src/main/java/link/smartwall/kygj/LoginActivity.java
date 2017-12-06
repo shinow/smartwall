@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        imView = (ImageView) findViewById(R.id.imageView);
+//        imView = (ImageView) findViewById(R.id.imageView);
 //        RemoteDataReader.readSubjects("5DCA16610870507BE050840A06394546");
     }
 
@@ -72,11 +72,11 @@ public class LoginActivity extends AppCompatActivity {
 //        ImageSelectorUtils.openPhoto(MainActivity.this, REQUEST_CODE, false, 0);
 
 //单选并剪裁
-        ImageSelectorUtils.openPhotoAndClip(LoginActivity.this, 10);
-//        Intent intent = new Intent();
-//        intent.setClass(LoginActivity.this, KygjActivity.class);
-//
-//        startActivity(intent);
+//        ImageSelectorUtils.openPhotoAndClip(LoginActivity.this, 10);
+        Intent intent = new Intent();
+        intent.setClass(LoginActivity.this, KygjActivity.class);
+
+        startActivity(intent);
     }
 
     @Override

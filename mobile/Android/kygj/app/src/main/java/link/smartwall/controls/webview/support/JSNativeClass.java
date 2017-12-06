@@ -15,6 +15,7 @@ import java.util.Map;
 
 import link.smartwall.controls.activity.NvWebViewActivity;
 import link.smartwall.controls.webview.NativeWebView;
+import link.smartwall.kygj.questionbank.activity.CommentsActivity;
 import link.smartwall.kygj.questionbank.activity.DoQuestionActivity;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
 import link.smartwall.kygj.questionbank.http.LocalDataReader;
@@ -118,5 +119,15 @@ public class JSNativeClass {
         return "SUCCESS";
     }
 
+    @JavascriptInterface
+    public void showComments(String questionGuid) {
+        Context context = this.webView.getContext();
+        Intent startIntent = new Intent(context, CommentsActivity.class);
+        Bundle argBundle = new Bundle();
 
+        argBundle.putString("questionGuid", questionGuid);
+
+        startIntent.putExtras(argBundle);
+        context.startActivity(startIntent);
+    }
 }

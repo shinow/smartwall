@@ -5,7 +5,6 @@
     android:weightSum="1">
 
     <RelativeLayout
-        android:id="@+id/comment_input_close"
         android:layout_width="match_parent"
         android:layout_height="37dp">
 
@@ -31,9 +30,9 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txt_comment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_weight="0.33"
         android:ems="10"
         android:inputType="textMultiLine" />

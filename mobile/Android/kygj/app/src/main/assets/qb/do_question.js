@@ -45,6 +45,10 @@ new Vue({
 
 			__Native__.saveDoQuestion(this.question.guid, this.chapterGuid, this.question.select, result);
 			window.location.reload();
+		},
+
+		showComments: function() {
+			__Native__.showComments(this.question.guid);
 		}
 	},
 	created: function() {

@@ -26,6 +26,7 @@ public class LocalDataReader {
      * 员工GUID
      */
     public static String EMP_GUID = "5DCA79B30460D1DEE050840A063947A2";
+    public static String EMP_NAME = "测试用户";
 
     /**
      * 获取科目

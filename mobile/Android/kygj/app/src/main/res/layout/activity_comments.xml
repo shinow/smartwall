@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:title="http://schemas.android.com/apk/res-auto"
+    tools:context=".questionbank.activity.CommentsActivity">
+
+
+    <link.smartwall.controls.view.TitleView
+        android:id="@+id/question_bank_titleview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.03"
+        android:background="#0093fe"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        title:left_text="返回"
+        title:left_text_drawable_left="@mipmap/back_normal"
+        title:small_text_size="15sp"
+        title:title_name="考生评论"
+        title:title_text_color="@android:color/white"
+        title:title_text_size="20sp"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/white"
+        android:paddingTop="5dp"
+        android:scrollbars="vertical"
+        app:layout_constraintLeft_toLeftOf="@+id/question_bank_titleview"
+        app:layout_constraintRight_toLeftOf="@+id/question_bank_titleview"
+        app:layout_constraintTop_toTopOf="parent"
+        title:recyclerviewClipToPadding="true"
+        title:recyclerviewScrollbars="vertical"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:layout_below="@+id/question_bank_titleview" />
+</RelativeLayout>

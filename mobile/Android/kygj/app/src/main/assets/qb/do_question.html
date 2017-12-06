@@ -27,7 +27,7 @@
             <span class="option" :class="{'selected': check('E'), 'error': checkError('E')}">E</span>{{question.opt_E}}
         </div>
         <div id="comment-info">
-            <span>评论数</span>
+            <span @click="showComments">评论数</span>
         </div>
     </div>
     <div v-if="isNotDo" id="tools"><button id="submitAnswer" @click="submit">提交答案</button></div>
