@@ -1,9 +1,12 @@
 server:
     port: 7001
-    context-path: /question-bank 
+    context-path: /question-bank     
 spring:
     application:
         name: question-bank
+    data:
+        mongodb:
+            uri: mongodb://exam:iTek123456@121.43.96.235:27017/question_comments
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: oracle.jdbc.driver.OracleDriver

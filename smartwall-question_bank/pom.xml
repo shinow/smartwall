@@ -63,6 +63,10 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-freemarker</artifactId>
 	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-mongodb</artifactId>
+	</dependency>
     <dependency>
         <groupId>com.itekchina.cloud</groupId>
         <artifactId>service-common</artifactId>
