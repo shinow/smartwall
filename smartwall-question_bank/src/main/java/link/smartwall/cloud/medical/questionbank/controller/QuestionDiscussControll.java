@@ -32,6 +32,17 @@ public class QuestionDiscussControll {
 		return "SUCCESS";
 	}
 
+	@ApiOperation(value = "新建评论")
+	@RequestMapping(value = "/question/reply_comment", method = RequestMethod.POST)
+	public String replayComment(QuestionDiscuss questionDiscuss) {
+		questionDiscuss.setReplierTime(new Date());
+		questionDiscuss.setDataTime(new Date());
+
+		questionDiscussService.insertQuestionDiscuss(questionDiscuss);
+
+		return "SUCCESS";
+	}
+
 	@ApiOperation(value = "获取所有评论")
 	@RequestMapping(value = "/question/list_comment", method = RequestMethod.POST)
 	public List<QuestionDiscuss> listComment(@RequestParam("question_guid") String questionGuid,
