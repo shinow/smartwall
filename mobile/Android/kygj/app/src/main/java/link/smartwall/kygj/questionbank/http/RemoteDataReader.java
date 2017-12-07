@@ -21,12 +21,14 @@ import link.smartwall.kygj.questionbank.domain.Subject;
  */
 
 public class RemoteDataReader {
+    private String replierComment;
+
     public interface IDataReader<T> {
         void readData(T data);
     }
 
     //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
-    private static final String URL_PREFIX = "http://192.168.1.7:7001/question-bank/v1/";
+    private static final String URL_PREFIX = "http://192.168.3.28:7001/question-bank/v1/";
 
     /**
      * 加载科目
@@ -163,6 +165,51 @@ public class RemoteDataReader {
         params.addQueryStringParameter("userGuid", userGuid);
         params.addQueryStringParameter("userName", userName);
         params.addQueryStringParameter("comment", comment);
+
+        final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("question", result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                cex.printStackTrace();
+            }
+
+            @Override
+            public void onFinished() {
+                System.out.println("finished");
+            }
+        });
+    }
+
+    /**
+     * 保存评论回复
+     */
+    public static void saveReplyComment(String questionGuid,
+                                        String userGuid,
+                                        String userName,
+                                        String comment,
+                                        String replierGuid,
+                                        String replierName,
+                                        String replierComment) {
+        RequestParams params = new RequestParams(URL_PREFIX + "question/reply_comment");
+        params.addQueryStringParameter("questionGuid", questionGuid);
+        params.addQueryStringParameter("userGuid", userGuid);
+        params.addQueryStringParameter("userName", userName);
+        params.addQueryStringParameter("comment", comment);
+        //params.addQueryStringParameter("commentTime",commentTime);
+        params.addQueryStringParameter("replierGuid", replierGuid);
+        params.addQueryStringParameter("replierName", replierName);
+        params.addQueryStringParameter("replierComment", replierComment);
 
         final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 

@@ -44,7 +44,7 @@ public class CommentsActivity extends AppCompatActivity {
         });
 
         mRecyclerView = (RecyclerView) this.findViewById(R.id.recycle_view);
-        LinearLayoutManager lm = new LinearLayoutManager(this);
+        final LinearLayoutManager lm = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(lm);
         mAdapter = new QuestionDiscussAdapter(this, itemList);
         mRecyclerView.setAdapter(mAdapter);
@@ -55,16 +55,17 @@ public class CommentsActivity extends AppCompatActivity {
 //                mRecyclerView.scrollToPosition(pos);
 //            }
 //        });
-        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                Toast.makeText(CommentsActivity.this, "loadMore", Toast.LENGTH_SHORT).show();
-            }
-        });
         RemoteDataReader.getQuestionComments(questionGuid, 1, new IDataReader<List<QuestionDiscuss>>() {
             @Override
             public void readData(List<QuestionDiscuss> data) {
                 mAdapter.add(data);
+
+                mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
+                    @Override
+                    public void onLoadMore(int currentPage) {
+                        Toast.makeText(CommentsActivity.this, "loadMore", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
