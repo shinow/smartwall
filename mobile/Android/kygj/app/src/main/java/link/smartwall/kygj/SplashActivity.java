@@ -1,67 +1,57 @@
 package link.smartwall.kygj;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class SplashActivity extends Activity {
-	/**
-	 * 成功
-	 */
-	private static final int SUCCESS = 1;
-	/**
-	 * 延时时间，设置为800ms
-	 */
-	private static final int SHOW_TIME_MIN = 3000;
+    /**
+     * 延时时间，设置为3000ms
+     */
+    private static final int SHOW_TIME_MIN = 1000;
+    private final int STOP_SPLASH = 0;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    private Handler splashHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case STOP_SPLASH:
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    break;
+                default:
+                    break;
+            }
 
-		this.setContentView(R.layout.activity_splash);
-		new AsyncTask<Void, Void, Integer>() {
+            super.handleMessage(msg);
+        }
+    };
 
-			@Override
-			protected Integer doInBackground(Void... params) {
-				int result;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-				long startTime = System.currentTimeMillis();
-				result = loadingCache();
-				long loadingTime = System.currentTimeMillis() - startTime;
-				if (loadingTime < SHOW_TIME_MIN) {
-					try {
-						Thread.sleep(SHOW_TIME_MIN - loadingTime);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-				return result;
-			}
+        this.setContentView(R.layout.activity_splash);
 
-			@Override
-			protected void onPostExecute(Integer result) {
-				Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-				startActivity(intent);
-				finish();
-				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-			}
-		}.execute(new Void[] {});
-	}
 
-	private int loadingCache() {
-		return SUCCESS;
-	}
+        Message msg = new Message();
+        msg.what = STOP_SPLASH;
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
+        splashHandler.sendMessageDelayed(msg, SHOW_TIME_MIN);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
