@@ -1,4 +1,4 @@
-package link.smartwall.kygj.questionbank.http;
+package link.smartwall.kygj.questionbank.data;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -16,6 +16,7 @@ import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.Subject;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
 
 /**
  * Created by LEXLEK on 2017/12/3.
@@ -28,16 +29,28 @@ public class LocalDataReader {
     public static String EMP_GUID = "5DCA79B30460D1DEE050840A063947A2";
     public static String EMP_NAME = "测试用户";
 
+    private static DbManager getDb() {
+        return x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+    }
+
+    public static UserInfo getUserInfo(){
+        try {
+            return getDb().findFirst(UserInfo.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     /**
      * 获取科目
      *
      * @param categoryGuid 分类
      */
     public static List<Subject> readSubjects(String categoryGuid) {
-        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
-
         try {
-            return db.selector(Subject.class).where("categoryGuid", "=", categoryGuid).findAll();
+            return getDb().selector(Subject.class).where("categoryGuid", "=", categoryGuid).findAll();
         } catch (DbException e) {
             e.printStackTrace();
         }

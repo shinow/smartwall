@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.domain.Subject;
-import link.smartwall.kygj.questionbank.http.LocalDataReader;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
 
 /**
  * Created by LEXLEK on 2017/11/28.

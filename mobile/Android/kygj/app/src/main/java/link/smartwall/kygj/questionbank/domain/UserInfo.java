@@ -14,13 +14,10 @@ import link.smartwall.kygj.questionbank.http.JsonResponseParser;
 @Table(name = "exam_user")
 @HttpResponse(parser = JsonResponseParser.class)
 public abstract class UserInfo {
-    @Column(name = "guid", isId = true)
-    private String guid;
-
     /**
      * 手机号
      */
-    @Column(name = "mobile")
+    @Column(name = "mobile", isId = true)
     private String mobile;
 
     /**
@@ -52,14 +49,6 @@ public abstract class UserInfo {
      */
     @Column(name = "avator")
     private String avator;
-
-    public String getGuid() {
-        return guid;
-    }
-
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
 
     public String getMobile() {
         return mobile;

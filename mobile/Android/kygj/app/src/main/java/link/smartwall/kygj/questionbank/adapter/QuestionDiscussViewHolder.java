@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
-import link.smartwall.kygj.questionbank.http.LocalDataReader;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class QuestionDiscussViewHolder extends RecyclerView.ViewHolder {

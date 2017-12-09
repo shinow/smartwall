@@ -7,7 +7,7 @@ import android.view.View;
 import link.smartwall.controls.view.TitleView;
 import link.smartwall.controls.webview.NativeWebView;
 import link.smartwall.kygj.R;
-import link.smartwall.kygj.questionbank.http.LocalDataReader;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
 
 /**
  * 选择题目

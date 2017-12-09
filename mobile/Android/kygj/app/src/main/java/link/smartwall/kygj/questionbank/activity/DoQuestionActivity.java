@@ -17,7 +17,7 @@ import link.smartwall.controls.view.TitleView;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.control.QuestionsViewPager;
 import link.smartwall.kygj.questionbank.control.QuestionsViewPagerAdapter;
-import link.smartwall.kygj.questionbank.http.LocalDataReader;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class DoQuestionActivity extends AppCompatActivity {

@@ -18,7 +18,7 @@ import link.smartwall.controls.webview.NativeWebView;
 import link.smartwall.kygj.questionbank.activity.CommentsActivity;
 import link.smartwall.kygj.questionbank.activity.DoQuestionActivity;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
-import link.smartwall.kygj.questionbank.http.LocalDataReader;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
 
 import static link.smartwall.kygj.questionbank.activity.DoQuestionActivity.questions;
 

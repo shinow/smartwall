@@ -8,6 +8,10 @@ import android.os.Message;
 import android.view.Window;
 import android.view.WindowManager;
 
+import link.smartwall.kygj.questionbank.activity.RegisterActivity;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
+
 public class SplashActivity extends Activity {
     /**
      * 延时时间，设置为3000ms
@@ -19,8 +23,16 @@ public class SplashActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case STOP_SPLASH:
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    UserInfo userInfo = LocalDataReader.getUserInfo();
+
+                    if(userInfo == null){
+                        Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+
                     finish();
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
