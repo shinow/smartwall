@@ -1,12 +1,18 @@
 package link.smartwall.kygj.questionbank.domain;
 
 import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
+import org.xutils.http.annotation.HttpResponse;
 
 import java.util.Date;
+
+import link.smartwall.kygj.questionbank.http.JsonResponseParser;
 
 /**
  * 用户信息
  */
+@Table(name = "exam_user")
+@HttpResponse(parser = JsonResponseParser.class)
 public abstract class UserInfo {
     @Column(name = "guid", isId = true)
     private String guid;
@@ -93,5 +99,13 @@ public abstract class UserInfo {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getAvator() {
+        return avator;
+    }
+
+    public void setAvator(String avator) {
+        this.avator = avator;
     }
 }

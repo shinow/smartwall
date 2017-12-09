@@ -15,20 +15,27 @@ import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
 import link.smartwall.kygj.questionbank.domain.Subject;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
 
 /**
  * Created by LEXLEK on 2017/12/3.
  */
 
 public class RemoteDataReader {
-    private String replierComment;
-
     public interface IDataReader<T> {
         void readData(T data);
     }
 
+
     //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
     private static final String URL_PREFIX = "http://192.168.3.28:7001/question-bank/v1/";
+
+    /**
+     * @return 数据访问对象
+     */
+    private static DbManager getDb() {
+        return x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+    }
 
     /**
      * 加载科目
@@ -267,6 +274,25 @@ public class RemoteDataReader {
             @Override
             public void onFinished() {
                 System.out.println("finished");
+            }
+        });
+    }
+
+    /**
+     * 登录
+     *
+     * @param mobile   手机号
+     * @param password 密码
+     */
+    public static void login(String mobile, String password) {
+        RequestParams params = new RequestParams(URL_PREFIX + "user/login");
+        params.addQueryStringParameter("mobile", mobile);
+        params.addQueryStringParameter("password", password);
+
+        x.http().post(params, new ReadDataCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo result) {
+
             }
         });
     }
