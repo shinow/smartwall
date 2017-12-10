@@ -103,3 +103,16 @@ body {
     margin-right: 20px;
     float: right;
 }
+
+.analysis {
+    font-size: 12px;
+}
+
+.rater {
+    color: #dcdcdc;
+    font-size: 18px;
+}
+
+.red {
+    color: #f00 !important;
+}
