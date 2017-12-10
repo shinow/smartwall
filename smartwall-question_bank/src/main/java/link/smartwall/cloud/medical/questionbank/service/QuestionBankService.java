@@ -3,6 +3,7 @@ package link.smartwall.cloud.medical.questionbank.service;
 import java.util.Date;
 import java.util.List;
 
+import org.nutz.dao.Chain;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.util.cri.Exps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -248,5 +249,12 @@ public class QuestionBankService {
 		}
 
 		return u;
+	}
+
+	public String saveUserKindCategory(String guid, String kind, String category) {
+		dao.update(User.class, Chain.make("examKind", kind).add("examCategory", category),
+				Cnd.where(Exps.eq("guid", guid)));
+
+		return "SUCCESS";
 	}
 }

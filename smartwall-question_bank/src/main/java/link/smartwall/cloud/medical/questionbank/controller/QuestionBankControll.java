@@ -175,4 +175,17 @@ public class QuestionBankControll {
 			return Result.failureResult(ex.getMessage());
 		}
 	}
+
+	@ApiOperation(value = "保存用户考试类型")
+	@RequestMapping(value = "/user/kind_category", method = RequestMethod.POST)
+	public String saveUserKindCategory(@RequestParam("guid") String guid, @RequestParam("kind") String kind,
+			@RequestParam("category") String category) {
+		try {
+			return questionBankService.saveUserKindCategory(guid, kind, category);
+		} catch (ExamException ex) {
+			ex.printStackTrace();
+			
+			return null;
+		}
+	}
 }

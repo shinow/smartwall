@@ -320,4 +320,21 @@ public class RemoteDataReader {
 
         x.http().post(params, callback);
     }
+
+    /**
+     * 保存用户关注的考试
+     */
+    public static void saveUserCategory(UserInfo userInfo) {
+        RequestParams params = new RequestParams(URL_PREFIX + "user/kind_category");
+        params.addQueryStringParameter("guid", userInfo.getGuid());
+        params.addQueryStringParameter("kind", userInfo.getExamKind());
+        params.addQueryStringParameter("category", userInfo.getExamCategory());
+
+        x.http().post(params, new ReadDataCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+        });
+    }
 }
