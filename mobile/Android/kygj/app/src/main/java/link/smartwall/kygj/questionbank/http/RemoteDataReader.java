@@ -4,7 +4,6 @@ import android.util.Log;
 
 import org.xutils.DbManager;
 import org.xutils.common.Callback;
-import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -13,10 +12,14 @@ import java.util.List;
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.questionbank.domain.Category;
 import link.smartwall.kygj.questionbank.domain.Chapter;
+import link.smartwall.kygj.questionbank.domain.ChapterList;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
 import link.smartwall.kygj.questionbank.domain.Subject;
+import link.smartwall.kygj.questionbank.domain.SubjectList;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
+
+import static org.xutils.x.http;
 
 /**
  * Created by LEXLEK on 2017/12/3.
@@ -44,7 +47,7 @@ public class RemoteDataReader {
      */
     public static void readAllCategorys(ReadDataCallback<List<Category>> callback) {
         RequestParams params = new RequestParams(URL_PREFIX + "list/all_catagory");
-        x.http().post(params, callback);
+        http().post(params, callback);
     }
 
 
@@ -56,36 +59,18 @@ public class RemoteDataReader {
     public static void readSubjects(String categoryGuid) {
         RequestParams params = new RequestParams(URL_PREFIX + "list/subject");
         params.addQueryStringParameter("category_guid", categoryGuid);
-        final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
-        x.http().post(params, new Callback.CommonCallback<List<Subject>>() {
-            @Override
-            public void onSuccess(List<Subject> subjectList) {
-                try {
-                    for (Subject s : subjectList) {
-                        db.saveOrUpdate(s);
-                        //TODO 更新算法需要考虑
-                        RemoteDataReader.readChapters(s.getGuid());
-                    }
-                } catch (DbException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-            }
+        try {
+            SubjectList subjects = http().postSync(params, SubjectList.class);
 
-            @Override
-            public void onCancelled(CancelledException cex) {
-                cex.printStackTrace();
-            }
+            for (Subject s : subjects) {
+                getDb().saveOrUpdate(s);
 
-            @Override
-            public void onFinished() {
-                System.out.println("finished");
+                RemoteDataReader.readChapters(s.getGuid());
             }
-        });
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -93,40 +78,22 @@ public class RemoteDataReader {
      *
      * @param subjectGuid 科目
      */
+
     public static void readChapters(String subjectGuid) {
         RequestParams params = new RequestParams(URL_PREFIX + "list/chapter");
         params.addQueryStringParameter("subject_guid", subjectGuid);
-        final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 
-        x.http().post(params, new Callback.CommonCallback<List<Chapter>>() {
-            @Override
-            public void onSuccess(List<Chapter> chapterList) {
-                try {
-                    for (Chapter c : chapterList) {
-                        db.saveOrUpdate(c);
+        try {
+            ChapterList chapters = x.http().postSync(params, ChapterList.class);
 
-                        readQuestions(c.getGuid());
-                    }
-                } catch (DbException e) {
-                    e.printStackTrace();
-                }
+            for (Chapter c : chapters) {
+                getDb().saveOrUpdate(c);
+
+                readQuestions(c.getGuid());
             }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-                cex.printStackTrace();
-            }
-
-            @Override
-            public void onFinished() {
-                System.out.println("finished");
-            }
-        });
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -137,36 +104,16 @@ public class RemoteDataReader {
     public static void readQuestions(String chapterGuid) {
         RequestParams params = new RequestParams(URL_PREFIX + "question/chapter/get2");
         params.addQueryStringParameter("chapter_guid", chapterGuid);
-        final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 
-        x.http().post(params, new Callback.CommonCallback<ChapterQuestions>() {
-            @Override
-            public void onSuccess(ChapterQuestions chapterQuestions) {
-                try {
-                    Log.i("question", "chapterQuestions: " + chapterQuestions);
-                    if (chapterQuestions != null) {
-                        db.saveOrUpdate(chapterQuestions);
-                    }
-                } catch (DbException e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+            ChapterQuestions chapterQuestions = http().postSync(params, ChapterQuestions.class);
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
+            if (chapterQuestions != null) {
+                getDb().saveOrUpdate(chapterQuestions);
             }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-                cex.printStackTrace();
-            }
-
-            @Override
-            public void onFinished() {
-                System.out.println("finished");
-            }
-        });
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
     }
 
 
@@ -186,7 +133,7 @@ public class RemoteDataReader {
 
         final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("question", result);
@@ -231,7 +178,7 @@ public class RemoteDataReader {
 
         final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("question", result);
@@ -264,7 +211,7 @@ public class RemoteDataReader {
 
         final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
 
-        x.http().post(params, new Callback.CommonCallback<List<QuestionDiscuss>>() {
+        http().post(params, new Callback.CommonCallback<List<QuestionDiscuss>>() {
             @Override
             public void onSuccess(List<QuestionDiscuss> result) {
                 Log.i("APPP", result.toString());
@@ -304,7 +251,7 @@ public class RemoteDataReader {
         params.addQueryStringParameter("password", password);
         params.addQueryStringParameter("verifyCode", verifyCode);
 
-        x.http().post(params, callback);
+        http().post(params, callback);
     }
 
     /**
@@ -318,7 +265,7 @@ public class RemoteDataReader {
         params.addQueryStringParameter("mobile", mobile);
         params.addQueryStringParameter("password", password);
 
-        x.http().post(params, callback);
+        http().post(params, callback);
     }
 
     /**
@@ -330,7 +277,7 @@ public class RemoteDataReader {
         params.addQueryStringParameter("kind", userInfo.getExamKind());
         params.addQueryStringParameter("category", userInfo.getExamCategory());
 
-        x.http().post(params, new ReadDataCallback<String>() {
+        http().post(params, new ReadDataCallback<String>() {
             @Override
             public void onSuccess(String result) {
 

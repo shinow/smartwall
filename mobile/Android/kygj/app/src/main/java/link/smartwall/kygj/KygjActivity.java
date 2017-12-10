@@ -1,10 +1,13 @@
 package link.smartwall.kygj;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import link.smartwall.controls.fragment.NvWebViewFragment;
@@ -78,6 +81,40 @@ public class KygjActivity extends AppCompatActivity {
         });
 
         setupViewPager(viewPager);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                AlertDialog.Builder build = new AlertDialog.Builder(this);
+                build.setTitle("注意")
+                        .setMessage("确定要退出吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                finish();
+
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+
+                            }
+                        })
+                        .show();
+                break;
+
+            default:
+                break;
+        }
+        return false;
     }
 
     private void setupViewPager(ViewPager viewPager) {

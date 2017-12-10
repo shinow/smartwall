@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 
+import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
@@ -22,7 +23,10 @@ import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.domain.Category;
+import link.smartwall.kygj.questionbank.domain.Chapter;
+import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.Kind;
+import link.smartwall.kygj.questionbank.domain.Subject;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
 import link.smartwall.kygj.questionbank.http.ReadDataCallback;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
@@ -109,6 +113,8 @@ public class SelectExamCategoryActivity extends AppCompatActivity {
             loadExamInfo();
             Intent intent = new Intent(SelectExamCategoryActivity.this, KygjActivity.class);
             startActivity(intent);
+
+            finish();
         } catch (DbException ex) {
             ex.printStackTrace();
         }
@@ -118,7 +124,16 @@ public class SelectExamCategoryActivity extends AppCompatActivity {
      * 加载考试信息
      */
     private void loadExamInfo() {
+        try {
+            DbManager db = LocalDataReader.getDb();
+            db.dropTable(Subject.class);
+            db.dropTable(Chapter.class);
+            db.dropTable(ChapterQuestions.class);
 
+            RemoteDataReader.readSubjects(this.categoryGuid);
+        } catch (DbException ex) {
+
+        }
     }
 
     private void initPickView() {

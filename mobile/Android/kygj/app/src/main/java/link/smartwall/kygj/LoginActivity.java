@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
-
+                    finish();
                 } catch (DbException ex) {
                     ex.printStackTrace();
                 }

@@ -15,12 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import link.smartwall.controls.view.TitleView;
+import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.adapter.EndlessRecyclerOnScrollListener;
 import link.smartwall.kygj.questionbank.adapter.SubjectChapterAdapter;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.domain.BaseItem;
 import link.smartwall.kygj.questionbank.domain.Subject;
-import link.smartwall.kygj.questionbank.data.LocalDataReader;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
 
 public class QuestionBankFragment extends Fragment {
     private RecyclerView mRecyclerView;
@@ -62,14 +64,14 @@ public class QuestionBankFragment extends Fragment {
         this.titleView.getLeftBackTextTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
             }
         });
 
         this.titleView.getRightTextTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "点击返回(Right)", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "点击返回(Right)", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -78,16 +80,10 @@ public class QuestionBankFragment extends Fragment {
      * 初始化科目
      */
     private void initSubjects() {
-        List<Subject> subjects = LocalDataReader.readSubjects("5DCA16610870507BE050840A06394546");
-        System.out.println("-------");
-        System.out.println("-------");
-        System.out.println("-------");
-        System.out.println(subjects);
-        System.out.println("-------");
-        System.out.println("-------");
-        System.out.println("-------");
+        UserInfo userInfo = QuestionBankAppplication.getInstance().getUserInfo();
+        List<Subject> subjects = LocalDataReader.readSubjects(userInfo.getExamCategory());
         itemList.clear();
-        if(subjects != null) {
+        if (subjects != null) {
             itemList.addAll(subjects);
         }
 
