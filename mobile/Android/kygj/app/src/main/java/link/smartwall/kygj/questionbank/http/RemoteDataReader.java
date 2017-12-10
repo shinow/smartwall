@@ -1,6 +1,7 @@
 package link.smartwall.kygj.questionbank.http;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import org.xutils.DbManager;
 import org.xutils.common.Callback;
@@ -28,7 +29,8 @@ public class RemoteDataReader {
 
 
     //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
-    private static final String URL_PREFIX = "http://192.168.3.28:7001/question-bank/v1/";
+//    private static final String URL_PREFIX = "http://192.168.3.28:7001/question-bank/v1/";
+    private static final String URL_PREFIX = "http://192.168.1.3:7001/question-bank/v1/";
 
     /**
      * @return 数据访问对象
@@ -291,8 +293,32 @@ public class RemoteDataReader {
 
         x.http().post(params, new ReadDataCallback<UserInfo>() {
             @Override
-            public void onSuccess(UserInfo result) {
+            public void onSuccess(UserInfo userInfo) {
 
+            }
+        });
+    }
+
+    /**
+     * 注册
+     *
+     * @param mobile     手机号
+     * @param name       名称
+     * @param password   密码
+     * @param verifyCode 注册码
+     */
+    public static void register(String mobile, String name, String password, String verifyCode) {
+        RequestParams params = new RequestParams(URL_PREFIX + "user/register");
+        params.addQueryStringParameter("mobile", mobile);
+        params.addQueryStringParameter("name", name);
+        params.addQueryStringParameter("password", password);
+        params.addQueryStringParameter("verifyCode", verifyCode);
+
+        x.http().post(params, new ReadDataResultCallback<UserInfo>() {
+
+            @Override
+            public void onResultSuccess(UserInfo userInfo) {
+                Toast.makeText(QuestionBankAppplication.getInstance().getApplicationContext(), userInfo.getGuid(), Toast.LENGTH_SHORT).show();
             }
         });
     }

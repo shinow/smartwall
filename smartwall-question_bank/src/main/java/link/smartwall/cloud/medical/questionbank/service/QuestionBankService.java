@@ -18,7 +18,9 @@ import link.smartwall.cloud.medical.questionbank.domain.ChapterQuestion;
 import link.smartwall.cloud.medical.questionbank.domain.Kind;
 import link.smartwall.cloud.medical.questionbank.domain.Subject;
 import link.smartwall.cloud.medical.questionbank.domain.SubjectQuestion;
+import link.smartwall.cloud.medical.questionbank.domain.User;
 import link.smartwall.cloud.medical.questionbank.domain.UserCategory;
+import link.smartwall.cloud.medical.questionbank.exception.ExamException;
 
 @Service
 public class QuestionBankService {
@@ -210,5 +212,22 @@ public class QuestionBankService {
 		}
 
 		return "success";
+	}
+
+	
+	/**
+	 * 用注册
+	 * @param user 用户信息
+	 */
+	public void register(User user) {
+		User u = dao.fetch(User.class, Cnd.where(Exps.eq("mobile", user.getMobile())));
+		if(u != null){
+			throw new ExamException("该手机号已经注册");
+		}
+		
+		user.setModifyTime(new Date());
+		user.setRegTime(new Date());
+		
+		dao.insert(user);
 	}
 }

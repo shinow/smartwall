@@ -9,6 +9,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 /**
  * 注册页面
@@ -16,6 +17,15 @@ import link.smartwall.kygj.R;
 public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.edtMobile)
     EditText edtMobile;
+
+    @BindView(R.id.edtName)
+    EditText edtName;
+
+    @BindView(R.id.edtPassword)
+    EditText edtPassword;
+
+    @BindView(R.id.edtVerifyCode)
+    EditText edtVerifyCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +37,33 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void register(View v) {
         String mobile = edtMobile.getText().toString().trim();
-
-        if(mobile.length() < 10) {
+        if (mobile.length() < 10) {
             Toast.makeText(this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
 
-            return ;
+            return;
         }
 
+        String name = edtName.getText().toString().trim();
+        if (name.length() < 2) {
+            Toast.makeText(this, "请输入登录名称", Toast.LENGTH_SHORT).show();
 
+            return;
+        }
+
+        String password = edtPassword.getText().toString().trim();
+        if (password.length() < 1) {
+            Toast.makeText(this, "请输入登录密码", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        String verifyCode = edtVerifyCode.getText().toString().trim();
+        if (verifyCode.length() < 1) {
+            Toast.makeText(this, "请输入注册码", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        RemoteDataReader.register(mobile, name, password, verifyCode);
     }
 }

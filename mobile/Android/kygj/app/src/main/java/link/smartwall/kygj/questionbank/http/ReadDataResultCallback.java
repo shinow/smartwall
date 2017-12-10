@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.questionbank.domain.Result;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
 
 /**
  * 读取远程数据回调
@@ -27,7 +28,11 @@ public abstract class ReadDataResultCallback<T> implements Callback.CommonCallba
     public abstract void onResultSuccess(T result);
 
     public void onSuccess(Result result) {
+        System.out.println(JSON.toJSONString(result));
         if (result.getCode() == 0) {
+            System.out.println(entityClass);
+            System.out.println(result.getMessage());
+            System.out.println(JSON.parseObject(result.getMessage(), UserInfo.class));
             this.onResultSuccess(JSON.parseObject(result.getMessage(), entityClass));
         } else {
             Toast.makeText(QuestionBankAppplication.getInstance().getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
@@ -35,6 +40,7 @@ public abstract class ReadDataResultCallback<T> implements Callback.CommonCallba
     }
 
     public void onError(Throwable ex, boolean isOnCallback) {
+        ex.printStackTrace();
         Toast.makeText(QuestionBankAppplication.getInstance().getApplicationContext(), "获取服务器数据出错!", Toast.LENGTH_SHORT).show();
     }
 

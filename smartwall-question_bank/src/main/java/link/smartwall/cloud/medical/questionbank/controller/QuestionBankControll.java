@@ -6,8 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itekchina.cloud.common.ajax.Result;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import link.smartwall.cloud.medical.questionbank.domain.User;
+import link.smartwall.cloud.medical.questionbank.exception.ExamException;
 import link.smartwall.cloud.medical.questionbank.service.QuestionBankService;
 
 @Api(value = "/v1", tags = { "医学考试题库" })
@@ -109,7 +113,7 @@ public class QuestionBankControll {
 	public Object getChapterQesution(@RequestParam("chapter_guid") String chapterGuid) {
 		return questionBankService.getChapterQuestion(chapterGuid);
 	}
-	
+
 	@ApiOperation(value = "获取Chapter试卷,完整对象，手机端使用")
 	@RequestMapping(value = "/question/chapter/get2", method = RequestMethod.POST)
 	public Object getChapterQesution2(@RequestParam("chapter_guid") String chapterGuid) {
@@ -131,13 +135,13 @@ public class QuestionBankControll {
 		return questionBankService.getSubjectQuestion(subjectGuid);
 	}
 
-	@ApiOperation(value = "获取用户关注考试")
+	@ApiOperation(value = "获取用户关注考试GUID")
 	@RequestMapping(value = "/user/category/get", method = RequestMethod.POST)
 	public Object getUserCategory(@RequestParam("user_guid") String userGuid) {
 		return questionBankService.getUserCategory(userGuid);
 	}
 
-	@ApiOperation(value = "获取用户关注考试")
+	@ApiOperation(value = "获取用户关注考试内容")
 	@RequestMapping(value = "/user/categoryObject/get", method = RequestMethod.POST)
 	public Object getUserCategoryObject(@RequestParam("user_guid") String userGuid) {
 		return questionBankService.getUserCategoryObject(userGuid);
@@ -148,5 +152,16 @@ public class QuestionBankControll {
 	public Object setUserCategory(@RequestParam("user_guid") String userGuid,
 			@RequestParam("category_guid") String categoryGuid) {
 		return questionBankService.setUserCategory(userGuid, categoryGuid);
+	}
+
+	@ApiOperation(value = "用户注册")
+	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
+	public Result register(User user) {
+		try {
+			questionBankService.register(user);
+			return Result.successResult(user);
+		} catch (ExamException ex) {
+			return Result.failureResult(ex.getMessage());
+		}
 	}
 }
