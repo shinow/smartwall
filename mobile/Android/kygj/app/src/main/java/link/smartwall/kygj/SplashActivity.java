@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.Window;
 import android.view.WindowManager;
 
+import link.smartwall.kygj.questionbank.activity.SelectExamCategoryActivity;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
 
@@ -29,7 +30,7 @@ public class SplashActivity extends Activity {
                         startActivity(intent);
                     } else {
                         QuestionBankAppplication.getInstance().setUserInfo(userInfo);
-                        Intent intent = new Intent(SplashActivity.this, KygjActivity.class);
+                        Intent intent = new Intent(SplashActivity.this, SelectExamCategoryActivity.class);
                         startActivity(intent);
                     }
 

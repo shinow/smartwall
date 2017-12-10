@@ -11,6 +11,7 @@ import org.xutils.x;
 import java.util.List;
 
 import link.smartwall.kygj.QuestionBankAppplication;
+import link.smartwall.kygj.questionbank.domain.Category;
 import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
@@ -37,6 +38,15 @@ public class RemoteDataReader {
     private static DbManager getDb() {
         return x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
     }
+
+    /**
+     * 获取所有分类
+     */
+    public static void readAllCategorys(ReadDataCallback<List<Category>> callback) {
+        RequestParams params = new RequestParams(URL_PREFIX + "list/all_catagory");
+        x.http().post(params, callback);
+    }
+
 
     /**
      * 加载科目

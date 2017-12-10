@@ -4,6 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="link.smartwall.kygj.questionbank.activity.SelectExamCategoryActivity">
+    tools:context="link.smartwall.kygj.questionbank.activity.RegisterActivity">
+
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="选择考试"
+        android:textSize="36sp"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="65dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="23dp"
+        android:layout_weight="1"
+        android:elevation="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLogo">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.10"
+            android:gravity="center_vertical"
+            android:text="考试："
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:id="@+id/tvExam"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.95"
+            android:elevation="1dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:hint="点击选择考试" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="205dp"
+        android:layout_height="49dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="47dp"
+        android:text="保存"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </android.support.constraint.ConstraintLayout>
