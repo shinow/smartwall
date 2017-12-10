@@ -173,8 +173,8 @@
     </LinearLayout>
     <Button
         android:id="@+id/button"
-        android:layout_width="141dp"
-        android:layout_height="35dp"
+        android:layout_width="136dp"
+        android:layout_height="47dp"
         android:text="注册"
         android:onClick="register"
         android:layout_marginTop="28dp"

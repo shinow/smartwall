@@ -1,7 +1,6 @@
 package link.smartwall.kygj.questionbank.http;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import org.xutils.DbManager;
 import org.xutils.common.Callback;
@@ -307,19 +306,13 @@ public class RemoteDataReader {
      * @param password   密码
      * @param verifyCode 注册码
      */
-    public static void register(String mobile, String name, String password, String verifyCode) {
+    public static void register(String mobile, String name, String password, String verifyCode, ReadDataResultCallback<UserInfo> callback) {
         RequestParams params = new RequestParams(URL_PREFIX + "user/register");
         params.addQueryStringParameter("mobile", mobile);
         params.addQueryStringParameter("name", name);
         params.addQueryStringParameter("password", password);
         params.addQueryStringParameter("verifyCode", verifyCode);
 
-        x.http().post(params, new ReadDataResultCallback<UserInfo>() {
-
-            @Override
-            public void onResultSuccess(UserInfo userInfo) {
-                Toast.makeText(QuestionBankAppplication.getInstance().getApplicationContext(), userInfo.getGuid(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        x.http().post(params, callback);
     }
 }

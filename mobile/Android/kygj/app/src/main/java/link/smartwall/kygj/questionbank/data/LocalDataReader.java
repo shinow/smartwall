@@ -29,11 +29,11 @@ public class LocalDataReader {
     public static String EMP_GUID = "5DCA79B30460D1DEE050840A063947A2";
     public static String EMP_NAME = "测试用户";
 
-    private static DbManager getDb() {
+    public static DbManager getDb() {
         return x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
     }
 
-    public static UserInfo getUserInfo(){
+    public static UserInfo getUserInfo() {
         try {
             return getDb().findFirst(UserInfo.class);
         } catch (DbException e) {

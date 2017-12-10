@@ -1,14 +1,21 @@
 package link.smartwall.kygj.questionbank.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.xutils.ex.DbException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import link.smartwall.kygj.LoginActivity;
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
+import link.smartwall.kygj.questionbank.http.ReadDataResultCallback;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 /**
@@ -64,6 +71,18 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        RemoteDataReader.register(mobile, name, password, verifyCode);
+        RemoteDataReader.register(mobile, name, password, verifyCode, new ReadDataResultCallback<UserInfo>() {
+            @Override
+            public void onResultSuccess(UserInfo userInfo) {
+                try {
+                    LocalDataReader.getDb().save(userInfo);
+
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } catch (DbException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 }
