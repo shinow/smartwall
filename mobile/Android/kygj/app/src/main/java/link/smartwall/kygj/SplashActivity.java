@@ -28,6 +28,7 @@ public class SplashActivity extends Activity {
                         Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                         startActivity(intent);
                     } else {
+                        QuestionBankAppplication.getInstance().setUserInfo(userInfo);
                         Intent intent = new Intent(SplashActivity.this, KygjActivity.class);
                         startActivity(intent);
                     }

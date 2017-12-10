@@ -79,7 +79,13 @@ public class QuestionBankFragment extends Fragment {
      */
     private void initSubjects() {
         List<Subject> subjects = LocalDataReader.readSubjects("5DCA16610870507BE050840A06394546");
-
+        System.out.println("-------");
+        System.out.println("-------");
+        System.out.println("-------");
+        System.out.println(subjects);
+        System.out.println("-------");
+        System.out.println("-------");
+        System.out.println("-------");
         itemList.clear();
         if(subjects != null) {
             itemList.addAll(subjects);

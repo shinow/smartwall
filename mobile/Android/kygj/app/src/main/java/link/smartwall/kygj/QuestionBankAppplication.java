@@ -6,11 +6,17 @@ import org.xutils.DbManager;
 import org.xutils.db.table.TableEntity;
 import org.xutils.x;
 
+import link.smartwall.kygj.questionbank.domain.UserInfo;
+
 /**
  * Created by LEXLEK on 2017/12/2.
  */
 public class QuestionBankAppplication extends Application {
     private static QuestionBankAppplication instance;
+
+
+
+    private UserInfo userInfo;
     private DbManager.DaoConfig daoConfig;
 
     public DbManager.DaoConfig getDaoConfig() {
@@ -59,5 +65,13 @@ public class QuestionBankAppplication extends Application {
                     }
                 });
 
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }

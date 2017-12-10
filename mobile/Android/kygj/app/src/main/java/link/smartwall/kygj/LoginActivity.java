@@ -97,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     LocalDataReader.getDb().save(userInfo);
 
+                    QuestionBankAppplication.getInstance().setUserInfo(userInfo);
+
                     Intent intent = new Intent(LoginActivity.this, KygjActivity.class);
                     startActivity(intent);
                 } catch (DbException ex) {
