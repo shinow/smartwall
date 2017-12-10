@@ -75,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResultSuccess(UserInfo userInfo) {
                 try {
+                    LocalDataReader.getDb().dropTable(UserInfo.class);
                     LocalDataReader.getDb().save(userInfo);
 
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import link.smartwall.kygj.questionbank.activity.RegisterActivity;
+import link.smartwall.kygj.questionbank.activity.SelectExamCategoryActivity;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.domain.Result;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
@@ -95,12 +96,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResultSuccess(UserInfo userInfo) {
                 try {
-                    LocalDataReader.getDb().save(userInfo);
+                    LocalDataReader.getDb().update(userInfo, "guid", "exam_kind", "exam_category");
 
                     QuestionBankAppplication.getInstance().setUserInfo(userInfo);
 
-                    Intent intent = new Intent(LoginActivity.this, KygjActivity.class);
-                    startActivity(intent);
+                    if (userInfo.getExamKind() == null || userInfo.getExamKind().length() == 0) {
+                        Intent intent = new Intent(LoginActivity.this, SelectExamCategoryActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, KygjActivity.class);
+                        startActivity(intent);
+                    }
+
+
                 } catch (DbException ex) {
                     ex.printStackTrace();
                 }

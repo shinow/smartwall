@@ -1,5 +1,6 @@
 package link.smartwall.kygj.questionbank.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import link.smartwall.kygj.KygjActivity;
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
@@ -103,9 +105,20 @@ public class SelectExamCategoryActivity extends AppCompatActivity {
         try {
             LocalDataReader.getDb().update(userInfo, "exam_kind", "exam_category");
             RemoteDataReader.saveUserCategory(userInfo);
+
+            loadExamInfo();
+            Intent intent = new Intent(SelectExamCategoryActivity.this, KygjActivity.class);
+            startActivity(intent);
         } catch (DbException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * 加载考试信息
+     */
+    private void loadExamInfo() {
+
     }
 
     private void initPickView() {

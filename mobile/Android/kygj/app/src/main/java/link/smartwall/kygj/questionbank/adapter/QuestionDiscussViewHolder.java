@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
-import link.smartwall.kygj.questionbank.data.LocalDataReader;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class QuestionDiscussViewHolder extends RecyclerView.ViewHolder {
@@ -53,8 +54,10 @@ public class QuestionDiscussViewHolder extends RecyclerView.ViewHolder {
                 String userGuid = questionDiscuss.getUserGuid();
                 String userName = questionDiscuss.getUserName();
                 String comment = questionDiscuss.getComment();
-                String replierGuid = LocalDataReader.EMP_GUID;
-                String replierName = LocalDataReader.EMP_NAME;
+
+                UserInfo userInfo = QuestionBankAppplication.getInstance().getUserInfo();
+                String replierGuid = userInfo.getGuid();
+                String replierName = userInfo.getName();
                 String replierComment = mComment.getText().toString();
 
                 RemoteDataReader.saveReplyComment(questionGuid, userGuid, userName, comment, replierGuid, replierName, replierComment);

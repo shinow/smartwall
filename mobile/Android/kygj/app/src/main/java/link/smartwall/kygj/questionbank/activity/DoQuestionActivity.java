@@ -14,10 +14,12 @@ import com.alibaba.fastjson.JSONObject;
 
 import link.smartwall.controls.fragment.NvWebViewFragment;
 import link.smartwall.controls.view.TitleView;
+import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.control.QuestionsViewPager;
 import link.smartwall.kygj.questionbank.control.QuestionsViewPagerAdapter;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class DoQuestionActivity extends AppCompatActivity {
@@ -81,8 +83,9 @@ public class DoQuestionActivity extends AppCompatActivity {
         view.findViewById(R.id.comment_input_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userGuid = LocalDataReader.EMP_GUID;
-                String userName = LocalDataReader.EMP_NAME;
+                UserInfo userInfo = QuestionBankAppplication.getInstance().getUserInfo();
+                String userGuid = userInfo.getGuid();
+                String userName = userInfo.getName();
                 String comment = mComment.getText().toString();
                 JSONObject question = questions.getJSONObject(viewPager.getCurrentItem());
                 String questionGuid = question.getString("guid");
