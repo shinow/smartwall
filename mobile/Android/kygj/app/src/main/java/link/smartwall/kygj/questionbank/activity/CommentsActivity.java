@@ -46,7 +46,7 @@ public class CommentsActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) this.findViewById(R.id.recycle_view);
         final LinearLayoutManager lm = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(lm);
-        mAdapter = new QuestionDiscussAdapter(this, itemList);
+        mAdapter = new QuestionDiscussAdapter(this, mRecyclerView, itemList);
         mRecyclerView.setAdapter(mAdapter);
 //        //滚动监听
 //        mAdapter.setOnScrollListener(new SubjectChapterAdapter.OnScrollListener() {

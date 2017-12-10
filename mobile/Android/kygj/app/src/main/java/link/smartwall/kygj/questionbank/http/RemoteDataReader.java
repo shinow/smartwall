@@ -176,27 +176,10 @@ public class RemoteDataReader {
         params.addQueryStringParameter("replierName", replierName);
         params.addQueryStringParameter("replierComment", replierComment);
 
-        final DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
+        x.http().post(params, new ReadDataCallback<String>() {
 
-        http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.i("question", result);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-                cex.printStackTrace();
-            }
-
-            @Override
-            public void onFinished() {
-                System.out.println("finished");
             }
         });
     }

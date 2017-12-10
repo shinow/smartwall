@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import link.smartwall.kygj.QuestionBankAppplication;
@@ -18,22 +19,41 @@ import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 public class QuestionDiscussViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private View view;
-    private TextView parentLeftText;
-    private TextView parentRightText;
+    private QuestionDiscussAdapter adapter;
+
+    TextView mainLeftText;
+    TextView mainCommentText;
+    TextView tvReplierName;
+    TextView tvReplierComment;
+    RelativeLayout replierLayout;
+
     private Button btnReply;
 
-    public QuestionDiscussViewHolder(Context context, View itemView) {
+    public QuestionDiscussViewHolder(Context context, View itemView, QuestionDiscussAdapter adapter) {
         super(itemView);
         this.mContext = context;
         this.view = itemView;
+        this.adapter = adapter;
     }
 
     public void bindView(final QuestionDiscuss questionDiscuss, final int pos) {
-        parentLeftText = (TextView) view.findViewById(R.id.parent_left_text);
-        parentRightText = (TextView) view.findViewById(R.id.parent_right_text);
+        mainLeftText = (TextView) view.findViewById(R.id.main_left_text);
+        mainCommentText = (TextView) view.findViewById(R.id.tv_comment);
+        if (questionDiscuss.getReplierGuid() != null) {
+            mainLeftText.setText(questionDiscuss.getReplierName());
+            mainCommentText.setText(questionDiscuss.getReplierComment());
 
-        parentLeftText.setText(questionDiscuss.getUserName());
-        parentRightText.setText(questionDiscuss.getComment());
+            tvReplierName = (TextView) view.findViewById(R.id.tv_replier_name);
+            tvReplierComment = (TextView) view.findViewById(R.id.tv_reply);
+            tvReplierName.setText(questionDiscuss.getUserName());
+            tvReplierComment.setText(questionDiscuss.getComment());
+        } else {
+            mainLeftText.setText(questionDiscuss.getUserName());
+            mainCommentText.setText(questionDiscuss.getComment());
+
+            replierLayout = (RelativeLayout) view.findViewById(R.id.lyt_reply);
+            replierLayout.setVisibility(View.GONE);
+        }
 
         View popView = LayoutInflater.from(this.mContext)
                 .inflate(R.layout.view_comment_input, null);
@@ -61,6 +81,17 @@ public class QuestionDiscussViewHolder extends RecyclerView.ViewHolder {
                 String replierComment = mComment.getText().toString();
 
                 RemoteDataReader.saveReplyComment(questionGuid, userGuid, userName, comment, replierGuid, replierName, replierComment);
+
+                QuestionDiscuss qd = new QuestionDiscuss();
+                qd.setQuestionGuid(questionDiscuss.getQuestionGuid());
+                qd.setUserGuid(questionDiscuss.getUserGuid());
+                qd.setUserName(questionDiscuss.getUserName());
+                qd.setComment(questionDiscuss.getComment());
+                qd.setReplierGuid(userInfo.getGuid());
+                qd.setReplierName(userInfo.getName());
+                qd.setReplierComment(replierComment);
+
+                adapter.add(qd);
 
                 dialog.dismiss();
             }

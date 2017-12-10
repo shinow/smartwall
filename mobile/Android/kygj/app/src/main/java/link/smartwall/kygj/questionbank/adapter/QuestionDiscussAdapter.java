@@ -20,17 +20,19 @@ public class QuestionDiscussAdapter extends RecyclerView.Adapter<QuestionDiscuss
     private List<QuestionDiscuss> itemList;
     private LayoutInflater mInflater;
     private View view;
+    private RecyclerView recyclerView;
 
-    public QuestionDiscussAdapter(Context context, List<QuestionDiscuss> itemList) {
+    public QuestionDiscussAdapter(Context context, RecyclerView recyclerView, List<QuestionDiscuss> itemList) {
         this.context = context;
         this.itemList = itemList;
+        this.recyclerView = recyclerView;
         this.mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public QuestionDiscussViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recycleview_item_comment, parent, false);
-        return new QuestionDiscussViewHolder(context, view);
+        return new QuestionDiscussViewHolder(context, view, this);
     }
 
     /**
@@ -53,5 +55,12 @@ public class QuestionDiscussAdapter extends RecyclerView.Adapter<QuestionDiscuss
         int size = this.itemList.size();
         itemList.addAll(questionDiscuss);
         notifyItemRangeInserted(size, questionDiscuss.size());
+    }
+
+    public void add(QuestionDiscuss questionDiscuss) {
+        itemList.add(0, questionDiscuss);
+        notifyItemInserted(0);
+
+        this.recyclerView.scrollToPosition(0);
     }
 }
