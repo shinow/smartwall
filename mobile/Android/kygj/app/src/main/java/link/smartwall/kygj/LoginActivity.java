@@ -10,11 +10,14 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 
 import org.xutils.common.Callback;
+import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -26,16 +29,28 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import link.smartwall.kygj.questionbank.activity.RegisterActivity;
+import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.domain.Result;
+import link.smartwall.kygj.questionbank.domain.UserInfo;
+import link.smartwall.kygj.questionbank.http.ReadDataResultCallback;
+import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class LoginActivity extends AppCompatActivity {
     ImageView imView;
+    @BindView(R.id.edtMobile)
+    EditText edtMobile;
 
-    Handler handler = new Handler( ) {
+    @BindView(R.id.edtPassword)
+    EditText edtPassword;
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Log.i("HHHHHH", String.valueOf(msg.obj));
 
             final String url = String.valueOf(msg.obj);
             runOnUiThread(new Runnable() {
@@ -52,14 +67,44 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        ButterKnife.bind(this);
 //        imView = (ImageView) findViewById(R.id.imageView);
 //        RemoteDataReader.readSubjects("5DCA16610870507BE050840A06394546");
     }
 
-    public void loginClick(View v) {
+    @OnClick(R.id.btnLogin)
+    void loginClick(View v) {
+        String mobile = edtMobile.getText().toString().trim();
+        if (mobile.length() < 10) {
+            Toast.makeText(this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        String password = edtPassword.getText().toString().trim();
+        if (password.length() < 1) {
+            Toast.makeText(this, "请输入登录密码", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        RemoteDataReader.login(mobile, password, new ReadDataResultCallback<UserInfo>() {
+            @Override
+            public void onResultSuccess(UserInfo userInfo) {
+                try {
+                    LocalDataReader.getDb().save(userInfo);
+
+                    Intent intent = new Intent(LoginActivity.this, KygjActivity.class);
+                    startActivity(intent);
+                } catch (DbException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         //单选
 //        ImageSelectorUtils.openPhoto(LoginActivity.this, 10, true, 0);
 
@@ -73,9 +118,15 @@ public class LoginActivity extends AppCompatActivity {
 
 //单选并剪裁
 //        ImageSelectorUtils.openPhotoAndClip(LoginActivity.this, 10);
-        Intent intent = new Intent();
-        intent.setClass(LoginActivity.this, KygjActivity.class);
+//        Intent intent = new Intent();
+//        intent.setClass(LoginActivity.this, KygjActivity.class);
+//
+//        startActivity(intent);
+    }
 
+    @OnClick(R.id.btnRegister)
+    void register(View v) {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
@@ -86,7 +137,6 @@ public class LoginActivity extends AppCompatActivity {
             //获取选择器返回的数据
             ArrayList<String> images = data.getStringArrayListExtra(
                     ImageSelectorUtils.SELECT_RESULT);
-            Log.i("IMAGE:", String.valueOf(images));
 
 
             for (String img : images) {
@@ -120,11 +170,11 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep( 2000 );
+                            Thread.sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Message message=new Message();
+                        Message message = new Message();
                         message.obj = url;
                         handler.sendMessage(message);
                     }
@@ -159,7 +209,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public Bitmap returnBitMap(String url){
+    public Bitmap returnBitMap(String url) {
         URL myFileUrl = null;
         Bitmap bitmap = null;
         try {

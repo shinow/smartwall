@@ -164,4 +164,15 @@ public class QuestionBankControll {
 			return Result.failureResult(ex.getMessage());
 		}
 	}
+
+	@ApiOperation(value = "用户登录")
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	public Result login(@RequestParam("mobile") String mobile, @RequestParam("password") String password) {
+		try {
+			User user = questionBankService.login(mobile, password);
+			return Result.successResult(user);
+		} catch (ExamException ex) {
+			return Result.failureResult(ex.getMessage());
+		}
+	}
 }

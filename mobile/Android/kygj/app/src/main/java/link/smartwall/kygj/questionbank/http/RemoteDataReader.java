@@ -280,25 +280,6 @@ public class RemoteDataReader {
     }
 
     /**
-     * 登录
-     *
-     * @param mobile   手机号
-     * @param password 密码
-     */
-    public static void login(String mobile, String password) {
-        RequestParams params = new RequestParams(URL_PREFIX + "user/login");
-        params.addQueryStringParameter("mobile", mobile);
-        params.addQueryStringParameter("password", password);
-
-        x.http().post(params, new ReadDataCallback<UserInfo>() {
-            @Override
-            public void onSuccess(UserInfo userInfo) {
-
-            }
-        });
-    }
-
-    /**
      * 注册
      *
      * @param mobile     手机号
@@ -312,6 +293,20 @@ public class RemoteDataReader {
         params.addQueryStringParameter("name", name);
         params.addQueryStringParameter("password", password);
         params.addQueryStringParameter("verifyCode", verifyCode);
+
+        x.http().post(params, callback);
+    }
+
+    /**
+     * 登录
+     *
+     * @param mobile   手机号
+     * @param password 密码
+     */
+    public static void login(String mobile, String password, ReadDataResultCallback<UserInfo> callback) {
+        RequestParams params = new RequestParams(URL_PREFIX + "user/login");
+        params.addQueryStringParameter("mobile", mobile);
+        params.addQueryStringParameter("password", password);
 
         x.http().post(params, callback);
     }

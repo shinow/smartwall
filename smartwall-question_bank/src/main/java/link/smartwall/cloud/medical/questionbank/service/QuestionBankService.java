@@ -142,7 +142,7 @@ public class QuestionBankService {
 	public ChapterQuestion getChapterQuestion2(String chapterGuid) {
 		return dao.fetch(ChapterQuestion.class, Cnd.where(Exps.eq("chapterGuid", chapterGuid)));
 	}
-	
+
 	public void saveSubjectQuestion(String subjectGuid, String data) {
 		SubjectQuestion sq = dao.fetch(SubjectQuestion.class, Cnd.where(Exps.eq("subjectGuid", subjectGuid)));
 
@@ -214,20 +214,39 @@ public class QuestionBankService {
 		return "success";
 	}
 
-	
 	/**
-	 * 用注册
-	 * @param user 用户信息
+	 * 用户注册
+	 * 
+	 * @param user
+	 *            用户信息
 	 */
 	public void register(User user) {
 		User u = dao.fetch(User.class, Cnd.where(Exps.eq("mobile", user.getMobile())));
-		if(u != null){
+		if (u != null) {
 			throw new ExamException("该手机号已经注册");
 		}
-		
+
 		user.setModifyTime(new Date());
 		user.setRegTime(new Date());
-		
+
 		dao.insert(user);
+	}
+
+	/**
+	 * 用户登录
+	 * 
+	 * @param mobile
+	 *            手机号
+	 * @param password
+	 *            密码
+	 */
+	public User login(String mobile, String password) {
+		User u = dao.fetch(User.class, Cnd.where(Exps.eq("mobile", mobile)).and(Exps.eq("password", password)));
+
+		if (u == null) {
+			throw new ExamException("手机号或密码错误");
+		}
+
+		return u;
 	}
 }
