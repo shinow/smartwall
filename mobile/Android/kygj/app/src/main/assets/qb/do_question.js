@@ -1,7 +1,8 @@
 new Vue({
 	el: '#app',
 	data: {
-		question: null
+		question: null,
+		commentCount: 0
 	},
 	computed: {
 		isRight: function() {
@@ -58,6 +59,8 @@ new Vue({
 		data.select = data.select || '';
 
 		this.question = data;
+
+		this.commentCount = __Native__.getCommentCount(this.question.guid);
 	}
 });
 

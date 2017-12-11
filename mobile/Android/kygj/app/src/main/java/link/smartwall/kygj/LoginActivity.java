@@ -36,6 +36,7 @@ import link.smartwall.kygj.questionbank.activity.RegisterActivity;
 import link.smartwall.kygj.questionbank.activity.SelectExamCategoryActivity;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.domain.Result;
+import link.smartwall.kygj.questionbank.domain.Subject;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
 import link.smartwall.kygj.questionbank.http.ReadDataResultCallback;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
@@ -99,8 +100,14 @@ public class LoginActivity extends AppCompatActivity {
                     LocalDataReader.getDb().update(userInfo, "guid", "exam_kind", "exam_category");
 
                     QuestionBankAppplication.getInstance().setUserInfo(userInfo);
-
-                    if (userInfo.getExamKind() == null || userInfo.getExamKind().length() == 0) {
+                    boolean subjectExists = false;
+                    try {
+                        subjectExists = LocalDataReader.getDb().getTable(Subject.class).tableIsExist();
+                        System.out.println("---------------------------" + subjectExists);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    if (!subjectExists || userInfo.getExamKind() == null || userInfo.getExamKind().length() == 0) {
                         Intent intent = new Intent(LoginActivity.this, SelectExamCategoryActivity.class);
                         startActivity(intent);
                     } else {

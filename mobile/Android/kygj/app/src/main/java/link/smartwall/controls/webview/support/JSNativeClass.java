@@ -17,8 +17,8 @@ import link.smartwall.controls.activity.NvWebViewActivity;
 import link.smartwall.controls.webview.NativeWebView;
 import link.smartwall.kygj.questionbank.activity.CommentsActivity;
 import link.smartwall.kygj.questionbank.activity.DoQuestionActivity;
-import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
+import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
 
 import static link.smartwall.kygj.questionbank.activity.DoQuestionActivity.questions;
 
@@ -116,6 +116,7 @@ public class JSNativeClass {
     @JavascriptInterface
     public String saveDoQuestion(String questionGuid, String chapterGuid, String answer, int result) {
         LocalDataReader.saveDoQuestion(questionGuid, chapterGuid, answer, result);
+
         return "SUCCESS";
     }
 
@@ -129,5 +130,10 @@ public class JSNativeClass {
 
         startIntent.putExtras(argBundle);
         context.startActivity(startIntent);
+    }
+
+    @JavascriptInterface
+    public int getCommentCount(String questionGuid) {
+        return 100;
     }
 }
