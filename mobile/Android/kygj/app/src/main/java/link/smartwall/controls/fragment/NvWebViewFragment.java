@@ -50,6 +50,10 @@ public class NvWebViewFragment extends Fragment {
 //        super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void execFunc(String func) {
+        m_webView.loadUrl("javascript:" + func);
+    }
+
     @Override
     public void onDestroy() {
         m_webView.onDestroy();

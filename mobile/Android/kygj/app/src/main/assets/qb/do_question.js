@@ -1,4 +1,4 @@
-new Vue({
+var vue = new Vue({
 	el: '#app',
 	data: {
 		question: null,
@@ -50,6 +50,10 @@ new Vue({
 
 		showComments: function() {
 			__Native__.showComments(this.question.guid);
+		},
+
+		incComments: function() {
+			this.commentCount = '' + (parseInt(this.commentCount) + 1);
 		}
 	},
 	created: function() {

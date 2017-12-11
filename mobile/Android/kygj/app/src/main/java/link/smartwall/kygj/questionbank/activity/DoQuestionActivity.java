@@ -23,11 +23,12 @@ import link.smartwall.kygj.questionbank.domain.UserInfo;
 import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 public class DoQuestionActivity extends AppCompatActivity {
-    private QuestionsViewPager viewPager;
-    private TitleView mTitleView;
-    private EditText mComment;
+    QuestionsViewPager viewPager;
+    TitleView mTitleView;
+    EditText mComment;
     public static JSONArray questions;
-    private String chapterGuid;
+    QuestionsViewPagerAdapter adapter;
+    String chapterGuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,8 @@ public class DoQuestionActivity extends AppCompatActivity {
                 String questionGuid = question.getString("guid");
 
                 RemoteDataReader.saveComment(questionGuid, userGuid, userName, comment);
+                NvWebViewFragment fragment = (NvWebViewFragment)adapter.getItem(viewPager.getCurrentItem());
+                fragment.execFunc("vue.incComments()");
 
                 dialog.dismiss();
             }
@@ -114,7 +117,7 @@ public class DoQuestionActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager, String chapterGuid, int index) {
-        QuestionsViewPagerAdapter adapter = new QuestionsViewPagerAdapter(getSupportFragmentManager());
+         adapter = new QuestionsViewPagerAdapter(getSupportFragmentManager());
 
         questions = LocalDataReader.readQuestions(chapterGuid);
         int length = questions.size();

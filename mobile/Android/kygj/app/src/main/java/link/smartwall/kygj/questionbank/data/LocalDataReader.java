@@ -23,7 +23,7 @@ import link.smartwall.kygj.questionbank.domain.UserInfo;
  */
 
 public class LocalDataReader {
-     public static DbManager getDb() {
+    public static DbManager getDb() {
         return x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
     }
 
