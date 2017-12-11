@@ -30,9 +30,9 @@ public class RemoteDataReader {
         void readData(T data);
     }
 
-    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
+    //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
 //    private static final String URL_PREFIX = "http://192.168.3.28:7001/question-bank/v1/";
-//    private static final String URL_PREFIX = "http://192.168.1.3:7001/question-bank/v1/";
+    private static final String URL_PREFIX = "http://192.168.1.3:7001/question-bank/v1/";
 
     /**
      * @return 数据访问对象
@@ -105,7 +105,7 @@ public class RemoteDataReader {
         params.addQueryStringParameter("chapter_guid", chapterGuid);
 
         try {
-            ChapterQuestions chapterQuestions = http().postSync(params, ChapterQuestions.class);
+            ChapterQuestions chapterQuestions = x.http().postSync(params, ChapterQuestions.class);
 
             if (chapterQuestions != null) {
                 getDb().saveOrUpdate(chapterQuestions);
@@ -265,5 +265,25 @@ public class RemoteDataReader {
 
             }
         });
+    }
+
+    /**
+     * 获取点赞次数
+     *
+     * @param questionGuid 题目Guid
+     * @return
+     */
+    public static String getCommentCount(String questionGuid) {
+        RequestParams params = new RequestParams(URL_PREFIX + "question/comment_count");
+        params.addQueryStringParameter("question_guid", questionGuid);
+
+        try {
+            System.out.println("---->" + http().postSync(params, String.class));
+            return http().postSync(params, String.class);
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+
+        return "0";
     }
 }

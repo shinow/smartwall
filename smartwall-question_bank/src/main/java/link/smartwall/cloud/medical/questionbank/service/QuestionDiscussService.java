@@ -56,4 +56,10 @@ public class QuestionDiscussService {
 
 		this.mongoTemplate.upsert(query, update, QuestionNote.class, getNoteCollectionName(userGuid));
 	}
+
+	public long getQestionCommentCount(String questionGuid) {
+		Query query = Query.query(Criteria.where("questionGuid").is(questionGuid));
+
+		return this.mongoTemplate.count(query, QuestionDiscuss.class, getDiscussCollectionName(questionGuid));
+	}
 }

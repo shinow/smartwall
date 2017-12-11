@@ -19,6 +19,7 @@ import link.smartwall.kygj.questionbank.activity.CommentsActivity;
 import link.smartwall.kygj.questionbank.activity.DoQuestionActivity;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
+import link.smartwall.kygj.questionbank.http.RemoteDataReader;
 
 import static link.smartwall.kygj.questionbank.activity.DoQuestionActivity.questions;
 
@@ -133,7 +134,7 @@ public class JSNativeClass {
     }
 
     @JavascriptInterface
-    public int getCommentCount(String questionGuid) {
-        return 100;
+    public String getCommentCount(String questionGuid) {
+       return RemoteDataReader.getCommentCount(questionGuid);
     }
 }

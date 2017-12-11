@@ -49,4 +49,10 @@ public class QuestionDiscussControll {
 			@RequestParam("page") int page) {
 		return questionDiscussService.getQuestionDiscuss(questionGuid, page);
 	}
+	
+	@ApiOperation(value = "获取试题评论数")
+	@RequestMapping(value = "/question/comment_count", method = RequestMethod.POST)
+	public Object getQestionCommentCount(@RequestParam("question_guid") String questionGuid) {
+		return questionDiscussService.getQestionCommentCount(questionGuid);
+	}
 }
