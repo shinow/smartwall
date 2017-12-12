@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -112,6 +114,23 @@ public class DoQuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.show();
+            }
+        });
+
+        ImageView commentS = (ImageView)this.findViewById(R.id.comment_s);
+        commentS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserInfo userInfo = QuestionBankAppplication.getInstance().getUserInfo();
+                String userGuid = userInfo.getGuid();
+
+                JSONObject question = questions.getJSONObject(viewPager.getCurrentItem());
+                String questionGuid = question.getString("guid");
+
+                RemoteDataReader.saveLikes(userGuid, questionGuid);
+                LocalDataReader.saveLikes(questionGuid);
+
+                Toast.makeText(DoQuestionActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
             }
         });
     }

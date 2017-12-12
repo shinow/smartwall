@@ -302,13 +302,28 @@ public class RemoteDataReader {
         params.addQueryStringParameter("question_guid", questionGuid);
 
         try {
-            System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            System.out.println(http().postSync(params, String.class));
             return http().postSync(params, String.class);
         } catch (Throwable ex) {
             ex.printStackTrace();
         }
 
         return null;
+    }
+
+    public static void saveLikes(String userGuid, String questionGuid) {
+        RequestParams params = new RequestParams(URL_PREFIX + "question/likes/set");
+        params.addQueryStringParameter("user_guid", userGuid);
+        params.addQueryStringParameter("question_guid", questionGuid);
+
+        try {
+            http().post(params, new ReadDataCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+
+                }
+            });
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
     }
 }

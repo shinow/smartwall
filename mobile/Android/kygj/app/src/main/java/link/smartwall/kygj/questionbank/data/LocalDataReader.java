@@ -15,6 +15,7 @@ import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
+import link.smartwall.kygj.questionbank.domain.Likes;
 import link.smartwall.kygj.questionbank.domain.Subject;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
 
@@ -174,4 +175,22 @@ public class LocalDataReader {
         }
     }
 
+    public static void saveLikes(String questionGuid) {
+        Likes likes = new Likes();
+        likes.setQuestionGuid(questionGuid);
+
+        try {
+            getDb().saveOrUpdate(likes);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteLikes(String questionGuid) {
+        try {
+            getDb().deleteById(Likes.class, questionGuid);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 }
