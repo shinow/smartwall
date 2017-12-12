@@ -70,7 +70,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".questionbank.activity.CommentsActivity" />
         <activity android:name=".questionbank.activity.RegisterActivity" />
-        <activity android:name=".questionbank.activity.SelectExamCategoryActivity"></activity>
+        <activity android:name=".questionbank.activity.SelectExamCategoryActivity" />
+        <activity android:name=".questionbank.activity.NotesActivity"></activity>
     </application>
 
 </manifest>

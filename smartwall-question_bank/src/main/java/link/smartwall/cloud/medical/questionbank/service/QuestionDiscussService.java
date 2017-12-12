@@ -154,4 +154,18 @@ public class QuestionDiscussService {
 
         this.mongoTemplate.upsert(query, update, QuestionLikes.class, "question_likes");
     }
+
+    /**
+     * 保存笔记
+     * 
+     * @param userGuid
+     * @param questionGuid
+     * @param notes
+     */
+    public void setQuestionNotes(String userGuid, String questionGuid, String notes) {
+        Query query = Query.query(Criteria.where("userGuid").is(userGuid).and("questionGuid").is(questionGuid));
+        Update update = Update.update("notes", notes);
+
+        this.mongoTemplate.upsert(query, update, QuestionLikes.class, "question_notes");
+    }
 }

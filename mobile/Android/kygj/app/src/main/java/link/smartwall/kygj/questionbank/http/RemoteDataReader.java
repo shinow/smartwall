@@ -326,4 +326,22 @@ public class RemoteDataReader {
             ex.printStackTrace();
         }
     }
+
+    public static void saveNotes(String userGuid, String questionGuid, String notes) {
+        RequestParams params = new RequestParams(URL_PREFIX + "question/notes/set");
+        params.addQueryStringParameter("user_guid", userGuid);
+        params.addQueryStringParameter("question_guid", questionGuid);
+        params.addQueryStringParameter("notes", notes);
+
+        try {
+            http().post(params, new ReadDataCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+
+                }
+            });
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+    }
 }

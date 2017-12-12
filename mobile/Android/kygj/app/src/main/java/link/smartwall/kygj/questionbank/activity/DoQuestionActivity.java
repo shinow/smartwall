@@ -1,5 +1,6 @@
 package link.smartwall.kygj.questionbank.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.view.ViewPager;
@@ -131,6 +132,22 @@ public class DoQuestionActivity extends AppCompatActivity {
                 LocalDataReader.saveLikes(questionGuid);
 
                 Toast.makeText(DoQuestionActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ImageView commentE = (ImageView)this.findViewById(R.id.comment_e);
+        commentE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject question = questions.getJSONObject(viewPager.getCurrentItem());
+                String questionGuid = question.getString("guid");
+
+                Intent intent = new Intent(DoQuestionActivity.this, NotesActivity.class);
+                Bundle argBundle = new Bundle();
+                argBundle.putString("questionGuid", questionGuid);
+
+                intent.putExtras(argBundle);
+                DoQuestionActivity.this.startActivity(intent);
             }
         });
     }

@@ -16,6 +16,7 @@ import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestionDo;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.Likes;
+import link.smartwall.kygj.questionbank.domain.Notes;
 import link.smartwall.kygj.questionbank.domain.Subject;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
 
@@ -189,6 +190,26 @@ public class LocalDataReader {
     public static void deleteLikes(String questionGuid) {
         try {
             getDb().deleteById(Likes.class, questionGuid);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveNotes(String questionGuid, String notes) {
+        Notes o = new Notes();
+        o.setQuestionGuid(questionGuid);
+        o.setNotes(notes);
+
+        try {
+            getDb().saveOrUpdate(o);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteNotes(String questionGuid) {
+        try {
+            getDb().deleteById(Notes.class, questionGuid);
         } catch (DbException e) {
             e.printStackTrace();
         }

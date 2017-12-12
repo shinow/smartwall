@@ -85,7 +85,17 @@ public class QuestionDiscussControll {
     public Object setQuestionLikes(@RequestParam("user_guid") String userGuid,
                                    @RequestParam("question_guid") String questionGuid) {
         questionDiscussService.setQuestionLikes(userGuid, questionGuid);
-        
+
+        return "SUCCESS";
+    }
+
+    @ApiOperation(value = "做笔记")
+    @RequestMapping(value = "/question/notes/set", method = RequestMethod.POST)
+    public Object setQuestionLikes(@RequestParam("user_guid") String userGuid,
+                                   @RequestParam("question_guid") String questionGuid,
+                                   @RequestParam("notes") String notes) {
+        questionDiscussService.setQuestionNotes(userGuid, questionGuid, notes);
+
         return "SUCCESS";
     }
 }
