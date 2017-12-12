@@ -40,7 +40,8 @@
             <span class="rater" :class="{red: question.degree >= 4}">★</span>
             <span class="rater" :class="{red: question.degree >= 5}">★</span>
         </div>
-        <div><span>【统计】</span>{{question.stat}}</div>
+        <div>
+            <span>【统计】</span>本题{{stat.likes}}人收藏，全部考生作答{{stat.total}}次，对{{stat.ur}}次，正确率{{stat.ur * 100/stat.total | fixed2}}%。本人作答<span class="red-text">{{stat.uotal}}</span>次，对<span  class="red-text">{{stat.ur}}</span>次，正确率<span class="red-text">{{stat.ur * 100/stat.uotal | fixed2 }}%</span></div>
         <div><span class="red">【正确答案】</span>{{question.answer}}</div>
         <div><span class="red">【大纲考点】</span>{{question.outline}}</div>
         <div><span class="red">【考点还原】</span>{{question.test}}</div>

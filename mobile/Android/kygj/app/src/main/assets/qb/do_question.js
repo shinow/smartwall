@@ -1,8 +1,12 @@
+Vue.filter('fixed2', function(value) {
+  return value.toFixed(2);
+});
 var vue = new Vue({
 	el: '#app',
 	data: {
 		question: null,
-		commentCount: 0
+		commentCount: 0,
+		stat: {}
 	},
 	computed: {
 		isRight: function() {
@@ -59,12 +63,17 @@ var vue = new Vue({
 	created: function() {
 		this.no = parseInt(getUrlKey('no'));
 		this.chapterGuid = getUrlKey('chapter_guid');
-		var data = JSON.parse(__Native__.getDoQuestion(this.no));
+		
+		let data = JSON.parse(__Native__.getDoQuestion(this.no));
 		data.select = data.select || '';
 
 		this.question = data;
 
 		this.commentCount = __Native__.getCommentCount(this.question.guid);
+
+		if (!this.isNotDo) {
+			this.stat = JSON.parse(__Native__.getDoQuestionInfo(this.question.guid)) || {};
+		}
 	}
 });
 

@@ -121,3 +121,7 @@ body {
 .red {
     color: #f00 !important;
 }
+
+.red-text {
+    color: #f00;
+}

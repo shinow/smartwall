@@ -15,6 +15,7 @@ public abstract class ReadDataCallback<ResultType> implements Callback.CommonCal
     public abstract void onSuccess(ResultType result);
 
     public void onError(Throwable ex, boolean isOnCallback) {
+        ex.printStackTrace();
         Toast.makeText(QuestionBankAppplication.getInstance().getApplicationContext(), "获取服务器数据出错!", Toast.LENGTH_SHORT).show();
     }
 

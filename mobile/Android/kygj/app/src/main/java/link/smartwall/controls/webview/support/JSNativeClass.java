@@ -118,7 +118,14 @@ public class JSNativeClass {
     public String saveDoQuestion(String questionGuid, String chapterGuid, String answer, int result) {
         LocalDataReader.saveDoQuestion(questionGuid, chapterGuid, answer, result);
 
+
+        RemoteDataReader.saveDoQuestion(questionGuid, chapterGuid, answer, result);
         return "SUCCESS";
+    }
+
+    @JavascriptInterface
+    public String getDoQuestionInfo(String questionGuid) {
+        return RemoteDataReader.getDoQuestion(questionGuid);
     }
 
     @JavascriptInterface

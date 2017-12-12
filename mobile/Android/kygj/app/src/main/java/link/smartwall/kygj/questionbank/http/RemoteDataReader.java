@@ -31,7 +31,7 @@ public class RemoteDataReader {
     }
 
     //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
-//    private static final String URL_PREFIX = "http://192.168.3.28:7001/question-bank/v1/";
+//    private static final String URL_PREFIX = "http://192.168.3.20:7001/question-bank/v1/";
     private static final String URL_PREFIX = "http://192.168.1.3:7001/question-bank/v1/";
 
     /**
@@ -269,5 +269,46 @@ public class RemoteDataReader {
         }
 
         return "0";
+    }
+
+    public static void saveDoQuestion(String questionGuid, String chapterGuid, String answer, int result) {
+        UserInfo userInfo = QuestionBankAppplication.getInstance().getUserInfo();
+
+        RequestParams params = new RequestParams(URL_PREFIX + "question/do_info/set");
+        params.addQueryStringParameter("user_guid", userInfo.getGuid());
+        params.addQueryStringParameter("question_guid", questionGuid);
+        params.addQueryStringParameter("chapter_guid", chapterGuid);
+        params.addQueryStringParameter("answer", answer);
+        params.addQueryStringParameter("result", String.valueOf(result));
+
+        try {
+            http().post(params, new ReadDataCallback<String>() {
+
+                @Override
+                public void onSuccess(String result) {
+
+                }
+            });
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static String getDoQuestion(String questionGuid) {
+        UserInfo userInfo = QuestionBankAppplication.getInstance().getUserInfo();
+
+        RequestParams params = new RequestParams(URL_PREFIX + "question/do_info/get");
+        params.addQueryStringParameter("user_guid", userInfo.getGuid());
+        params.addQueryStringParameter("question_guid", questionGuid);
+
+        try {
+            System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+            System.out.println(http().postSync(params, String.class));
+            return http().postSync(params, String.class);
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 }
