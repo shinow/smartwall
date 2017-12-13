@@ -31,8 +31,8 @@ public class RemoteDataReader {
     }
 
     //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
-//    private static final String URL_PREFIX = "http://192.168.3.20:7001/question-bank/v1/";
-    private static final String URL_PREFIX = "http://192.168.1.3:7001/question-bank/v1/";
+    private static final String URL_PREFIX = "http://192.168.3.20:7001/question-bank/v1/";
+//    private static final String URL_PREFIX = "http://192.168.1.3:7001/question-bank/v1/";
 
     /**
      * @return 数据访问对象
