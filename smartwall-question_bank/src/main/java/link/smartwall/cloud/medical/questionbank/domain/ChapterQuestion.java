@@ -2,61 +2,75 @@ package link.smartwall.cloud.medical.questionbank.domain;
 
 import java.util.Date;
 
-import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.EL;
-import org.nutz.dao.entity.annotation.Name;
-import org.nutz.dao.entity.annotation.Prev;
-import org.nutz.dao.entity.annotation.Table;
+import org.springframework.data.annotation.Id;
 
 /**
  * 章节试题
  *
  */
-@Table(value = "exam_medical_chapter_question")
 public class ChapterQuestion {
-	@Column(value = "guid")
-	@Name
-	@Prev(els = @EL("uuid(32)"))
-	private String guid;
+    @Id
+    private String guid;
+    private String index;
+    private String categoryGuid;
+    private String subjectGuid;
+    private String chapterGuid;
+    private String data;
+    private Date modifyTime;
 
-	@Column(value = "chapter_guid")
-	private String chapterGuid;
-	
-	@Column(value = "data")
-	private String data;
+    public String getGuid() {
+        return guid;
+    }
 
-	@Column(value = "modify_time")
-	private Date modifyTime;
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
 
-	public String getGuid() {
-		return guid;
-	}
+    public String getIndex() {
+        return index;
+    }
 
-	public void setGuid(String guid) {
-		this.guid = guid;
-	}
+    public void setIndex(String index) {
+        this.index = index;
+    }
 
-	public String getData() {
-		return data;
-	}
+    public String getCategoryGuid() {
+        return categoryGuid;
+    }
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    public void setCategoryGuid(String categoryGuid) {
+        this.categoryGuid = categoryGuid;
+    }
 
-	public Date getModifyTime() {
-		return modifyTime;
-	}
+    public String getSubjectGuid() {
+        return subjectGuid;
+    }
 
-	public void setModifyTime(Date modifyTime) {
-		this.modifyTime = modifyTime;
-	}
+    public void setSubjectGuid(String subjectGuid) {
+        this.subjectGuid = subjectGuid;
+    }
 
-	public String getChapterGuid() {
-		return chapterGuid;
-	}
+    public String getChapterGuid() {
+        return chapterGuid;
+    }
 
-	public void setChapterGuid(String chapterGuid) {
-		this.chapterGuid = chapterGuid;
-	}
+    public void setChapterGuid(String chapterGuid) {
+        this.chapterGuid = chapterGuid;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
 }
