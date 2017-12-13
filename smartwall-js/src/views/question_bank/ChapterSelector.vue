@@ -66,7 +66,7 @@
                 this.load_chapters(val);
             },
             chapter: function(val, oldVal) {
-                this.$emit('on-select-chapter', val);
+                this.$emit('on-select-chapter', [this.category, this.subject, val]);
             }
         },
         methods: {

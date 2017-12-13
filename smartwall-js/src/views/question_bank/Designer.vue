@@ -20,6 +20,7 @@
 
             td, th {
                 height: 28px;
+                font-size: 12px;
             }
 
             th {
@@ -96,9 +97,13 @@
             }
         }
 
-        #answer {
+        #answer, #degree {
             padding: 10px;
             border-bottom: 1px dashed #dddee1;
+        }
+
+        #analysis, #outline, #test {
+        	border-bottom: 1px dashed #dddee1;
         }
     }
 </style>
@@ -117,7 +122,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in items" :class="{'item-select':item.select}" @click="selectQuestion(item)">
+                        <tr v-for="(item, index) in items" :class="{'item-select':item.select}" @click="selectQuestion(index,item)">
                             <td style="text-align:center">{{index + 1}}</td>
                             <td style="text-align:center">{{item.type}}</td>
                             <td>{{item.text}}</td>
@@ -157,6 +162,16 @@
                         <div><span class="no">D.</span><div class="opt"><input v-model="current.opt_D"></input></div></div>
                         <div><span class="no">E.</span><div class="opt"><input v-model="current.opt_E"></input></div></div>
                     </div>
+                    <div id="degree">
+                    	<span>难度</span>
+                    	<select v-model="current.degree">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
                     <div id="answer">
                         <span>答案:</span>
                         <select v-model="current.answer">
@@ -167,8 +182,18 @@
                             <option value="E">E</option>
                         </select>
                     </div>
+                    <div id="outline">
+                        <span>大纲考点:</span>
+                        <br/>
+                        <textarea v-model="current.outline"></textarea>
+                    </div>
+                    <div id="test">
+                        <span>考点还原:</span>
+                        <br/>
+                        <textarea v-model="current.test"></textarea>
+                    </div>
                     <div id="analysis">
-                        <span>解析:</span>
+                        <span>答案解析:</span>
                         <br/>
                         <textarea v-model="current.analysis"></textarea>
                     </div>
@@ -187,7 +212,10 @@
         data() {
             return {
                 items: [],
+                index: 0,
                 chapterGuid: '',
+                categoryGuid: '',
+                subjectGuid: '',
                 current: {
                     answer: 'A'
                 }
@@ -199,8 +227,10 @@
             ChapterSelector
         },
         methods: {
-            onSelectChapter(guid) {
-                this.loadQuestions(guid);
+            onSelectChapter(select) {
+            	this.categoryGuid = select[0];
+            	this.subjectGuid = select[1];
+                this.loadQuestions(select[2]);
             },
 
             /**
@@ -209,27 +239,29 @@
             loadQuestions(guid) {
                 var that = this;
                 this.chapterGuid = guid;
-                data.getChapterQuestions(guid).then(function(req) {
-                    if (req) {
-                        data.updateSelected(req, false);
-                        that.items = req;
+                data.getChapterQuestions(this.categoryGuid, this.subjectGuid, this.chapterGuid).then(function(req) {
+                    for(let o of req){
+                    	let item = JSON.parse(o.data);
+                    	item.guid = o.guid;
+                    	item.select = false;
 
-                        if (that.items.length > 0) {
-                            that.current = that.items[0];
-                            that.current.select = true;
-                        }
-                    } else {
-                        that.items = [];
-                        that.current = {
-                            opts: {}
-                        }
+                    	that.items.push(item);
                     }
+
+                    if (that.items.length > 0) {
+                        that.current = that.items[0];
+                        that.current.select = true;
+                    }else {
+                        that.items = [];
+                        that.current = {}
+                    }                   
                 });
             },
 
             saveQuestions() {
-                data.saveChapterQuestions(this.chapterGuid, JSON.stringify(this.items)).then(function(req) {
-                    alert("保存完成");
+            	var that = this;
+                data.saveChapterQuestions(this.index, this.current.guid||'0', this.categoryGuid, this.subjectGuid, this.chapterGuid, JSON.stringify(this.current)).then(function(req) {
+                    	that.current.guid = req;
                 });
             },
 
@@ -241,6 +273,8 @@
                 };
 
                 this.items.push(this.current);
+                this.index = this.items.length;
+                this.saveQuestions();
             },
 
             addA1() {
@@ -263,10 +297,11 @@
                 this.addQuestion('A4');
             },
 
-            selectQuestion(item) {
-                if(this.current) {
+            selectQuestion(index, item) {
+                if(this.current != item) {
                     this.current.select = false;
                 }
+                this.index = (index + 1);
                 this.current = item;
                 this.current.select = true;
             }
