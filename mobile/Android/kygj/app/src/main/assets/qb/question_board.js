@@ -10,7 +10,7 @@ new Vue({
 	},
 	methods: {
 		doQuestion: function(index, guid) {
-			__Native__.startDoQuestion(parseInt(index), this.subjectName, this.chapterGuid, this.chapterName);
+			__Native__.startDoQuestion(parseInt(index), this.subjectName, this.chapterGuid, this.chapterName, this.type);
 		}
 	},
 	created: function() {

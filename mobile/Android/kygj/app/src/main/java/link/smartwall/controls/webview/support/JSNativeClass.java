@@ -99,7 +99,7 @@ public class JSNativeClass {
     }
 
     @JavascriptInterface
-    public void startDoQuestion(int index, String subjectName, String chapterGuid, String chapterName) {
+    public void startDoQuestion(int index, String subjectName, String chapterGuid, String chapterName, String type) {
         Context context = this.webView.getContext();
         Intent startIntent = new Intent(context, DoQuestionActivity.class);
         Bundle argBundle = new Bundle();
@@ -107,6 +107,7 @@ public class JSNativeClass {
         argBundle.putString("subjectName", subjectName);
         argBundle.putString("chapterName", chapterName);
         argBundle.putString("chapterGuid", chapterGuid);
+        argBundle.putString("type", type);
         argBundle.putInt("index", index);
 
         startIntent.putExtras(argBundle);

@@ -69,7 +69,9 @@ public class DoQuestionActivity extends AppCompatActivity {
 
         String chapterGuid = bundle.getString("chapterGuid");
         int index = bundle.getInt("index");
-        setupViewPager(viewPager, chapterGuid, index);
+        String type = bundle.getString("type");
+
+        setupViewPager(viewPager, chapterGuid, type, index);
 
         View view = LayoutInflater.from(this)
                 .inflate(R.layout.view_comment_input, null);
@@ -94,7 +96,7 @@ public class DoQuestionActivity extends AppCompatActivity {
                 String questionGuid = question.getString("guid");
 
                 RemoteDataReader.saveComment(questionGuid, userGuid, userName, comment);
-                NvWebViewFragment fragment = (NvWebViewFragment)adapter.getItem(viewPager.getCurrentItem());
+                NvWebViewFragment fragment = (NvWebViewFragment) adapter.getItem(viewPager.getCurrentItem());
                 fragment.execFunc("vue.incComments()");
 
                 dialog.dismiss();
@@ -117,7 +119,7 @@ public class DoQuestionActivity extends AppCompatActivity {
             }
         });
 
-        ImageView commentS = (ImageView)this.findViewById(R.id.comment_s);
+        ImageView commentS = (ImageView) this.findViewById(R.id.comment_s);
         commentS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +136,7 @@ public class DoQuestionActivity extends AppCompatActivity {
             }
         });
 
-        ImageView commentE = (ImageView)this.findViewById(R.id.comment_e);
+        ImageView commentE = (ImageView) this.findViewById(R.id.comment_e);
         commentE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,10 +153,15 @@ public class DoQuestionActivity extends AppCompatActivity {
         });
     }
 
-    private void setupViewPager(ViewPager viewPager, String chapterGuid, int index) {
-         adapter = new QuestionsViewPagerAdapter(getSupportFragmentManager());
+    private void setupViewPager(ViewPager viewPager, String chapterGuid, String type, int index) {
+        adapter = new QuestionsViewPagerAdapter(getSupportFragmentManager());
 
-        questions = LocalDataReader.readQuestions(chapterGuid);
+        if ("null".equals(type)) {
+            questions = LocalDataReader.readQuestions(chapterGuid);
+        } else if ("liked".equals(type)) {
+            questions = LocalDataReader.readLikedQuestions(chapterGuid);
+        }
+
         int length = questions.size();
 
         for (int i = 1; i <= length; i++) {
