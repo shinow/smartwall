@@ -12,7 +12,7 @@ import java.util.List;
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.questionbank.domain.Category;
 import link.smartwall.kygj.questionbank.domain.ChapterList;
-import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
+import link.smartwall.kygj.questionbank.domain.ChapterQuestionsList;
 import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
 import link.smartwall.kygj.questionbank.domain.SubjectList;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
@@ -74,7 +74,7 @@ public class RemoteDataReader {
      */
 
     public static void readChapters(String categoryGuid) {
-        RequestParams params = new RequestParams(URL_PREFIX + "list/chapter");
+        RequestParams params = new RequestParams(URL_PREFIX + "list/category_chapter");
         params.addQueryStringParameter("category_guid", categoryGuid);
 
         try {
@@ -88,16 +88,16 @@ public class RemoteDataReader {
     }
 
     /**
-     * 加载章节试题
+     * 加载分类所有试题
      *
-     * @param chapterGuid 章节
+     * @param categoryGuid 章节
      */
-    public static void readQuestions(String chapterGuid) {
-        RequestParams params = new RequestParams(URL_PREFIX + "question/chapter/get");
-        params.addQueryStringParameter("chapter_guid", chapterGuid);
+    public static void readQuestions(String categoryGuid) {
+        RequestParams params = new RequestParams(URL_PREFIX + "question/category/get");
+        params.addQueryStringParameter("category_guid", categoryGuid);
 
         try {
-            ChapterQuestions chapterQuestions = x.http().postSync(params, ChapterQuestions.class);
+            ChapterQuestionsList chapterQuestions = x.http().postSync(params, ChapterQuestionsList.class);
 
             if (chapterQuestions != null) {
                 System.out.println("chapterQuestions");

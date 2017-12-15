@@ -1,7 +1,7 @@
 package link.smartwall.kygj.questionbank.data;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -82,15 +82,22 @@ public class LocalDataReader {
      * @param chapterGuid 章节
      */
     public static JSONArray readQuestions(String chapterGuid) {
-        DbManager db = x.getDb(QuestionBankAppplication.getInstance().getDaoConfig());
-
         try {
-            ChapterQuestions questions = db.selector(ChapterQuestions.class)
-                    .where("chapterGuid", "=", chapterGuid).findFirst();
+            List<ChapterQuestions> questions = getDb().selector(ChapterQuestions.class)
+                    .where("chapterGuid", "=", chapterGuid).orderBy("index").findAll();
 
             if (questions != null) {
-                JSONArray arr = JSON.parseArray(questions.getData());
+                JSONArray arr = new JSONArray();
 
+                for (ChapterQuestions c : questions) {
+                    JSONObject item = new JSONObject();
+                    item.put("index", c.getIndex());
+                    item.put("guid", c.getGuid());
+
+                    arr.add(item);
+                }
+
+                System.out.println(arr);
                 return arr;
             }
         } catch (DbException e) {
