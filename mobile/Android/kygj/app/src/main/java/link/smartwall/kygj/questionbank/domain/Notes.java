@@ -6,12 +6,12 @@ import org.xutils.db.annotation.Table;
 /**
  * 收藏
  */
-@Table(name = "exam_likes")
+@Table(name = "exam_notes")
 public class Notes {
     @Column(name = "questionGuid", isId = true)
     private String questionGuid;
 
-    @Column(name = "notes", isId = true)
+    @Column(name = "notes")
     private String notes;
 
     public String getQuestionGuid() {

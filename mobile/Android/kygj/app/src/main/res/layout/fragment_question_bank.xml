@@ -18,14 +18,43 @@
         title:title_name="题库"
         title:title_text_color="@android:color/white"
         title:title_text_size="20sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_error_do"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="错题" />
+
+        <Button
+            android:id="@+id/btn_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="收藏" />
+
+        <Button
+            android:id="@+id/btn_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="笔记" />
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
         android:background="@color/white"
         android:paddingTop="5dp"
+        android:scrollbars="vertical"
         app:recyclerviewClipToPadding="true"
-        app:recyclerviewScrollbars="vertical"/>
+        app:recyclerviewScrollbars="vertical" />
 
 </LinearLayout>

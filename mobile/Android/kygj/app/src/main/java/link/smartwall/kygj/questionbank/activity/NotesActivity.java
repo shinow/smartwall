@@ -24,7 +24,10 @@ public class NotesActivity extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         final String questionGuid = bundle.getString("questionGuid");
 
+        String notes = LocalDataReader.getNotes(questionGuid);
         etNotes = (EditText) this.findViewById(R.id.tvNotes);
+        etNotes.setText(notes);
+
         mTitleView = (TitleView) this.findViewById(R.id.question_bank_titleview);
         mTitleView.getLeftBackTextTv().setOnClickListener(new View.OnClickListener() {
             @Override

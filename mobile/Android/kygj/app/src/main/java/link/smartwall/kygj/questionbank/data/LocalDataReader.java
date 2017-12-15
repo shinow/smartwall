@@ -209,6 +209,21 @@ public class LocalDataReader {
         }
     }
 
+    public static String getNotes(String questionGuid) {
+        try {
+            Notes notes = getDb().findById(Notes.class, questionGuid);
+            System.out.println("==========================================");
+            System.out.println(notes);
+            if (notes != null) {
+                return notes.getNotes();
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
     public static void deleteNotes(String questionGuid) {
         try {
             getDb().deleteById(Notes.class, questionGuid);
