@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:title="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="link.smartwall.kygj.questionbank.activity.ShowLikesActivity">
+
+    <link.smartwall.controls.view.TitleView
+        android:id="@+id/question_bank_titleview"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#0093fe"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        title:left_text_drawable_left="@mipmap/back_normal"
+        title:left_text="返回"
+        title:small_text_size="15sp"
+        title:title_name="笔记"
+        title:title_text_color="@android:color/white"
+        title:title_text_size="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/white"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question_bank_titleview"
+        app:recyclerviewClipToPadding="true"
+        app:recyclerviewScrollbars="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintVertical_bias="0.0">
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>

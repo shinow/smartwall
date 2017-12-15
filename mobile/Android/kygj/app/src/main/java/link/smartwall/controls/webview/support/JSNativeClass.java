@@ -93,6 +93,18 @@ public class JSNativeClass {
 
                 data.add(item);
             }
+        } else if ("notes".equals(type)) {
+            JSONArray questions = LocalDataReader.readNotesQuestions(chapterGuid);
+            for (int i = 0, size = questions.size(); i < size; i++) {
+                JSONObject jo = questions.getJSONObject(i);
+
+                JSONObject item = new JSONObject();
+                item.put("no", jo.getString("index"));
+                item.put("guid", jo.getString("guid"));
+                item.put("status", rs.get(jo.getString("guid")));
+
+                data.add(item);
+            }
         }
 
         return data.toJSONString();

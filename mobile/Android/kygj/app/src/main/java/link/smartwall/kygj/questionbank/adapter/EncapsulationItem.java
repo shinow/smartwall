@@ -7,4 +7,5 @@ package link.smartwall.kygj.questionbank.adapter;
 public class EncapsulationItem {
     public static ItemData itemData;
     public static ItemData likedItemData;
+    public static ItemData notesItemData;
 }

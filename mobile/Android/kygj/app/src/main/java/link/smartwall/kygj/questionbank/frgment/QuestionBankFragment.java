@@ -20,6 +20,7 @@ import link.smartwall.controls.view.TitleView;
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
 import link.smartwall.kygj.questionbank.activity.ShowLikesActivity;
+import link.smartwall.kygj.questionbank.activity.ShowNotesActivity;
 import link.smartwall.kygj.questionbank.adapter.EndlessRecyclerOnScrollListener;
 import link.smartwall.kygj.questionbank.adapter.SubjectChapterAdapter;
 import link.smartwall.kygj.questionbank.data.LocalDataReader;
@@ -61,6 +62,7 @@ public class QuestionBankFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
         titleView = (TitleView) view.findViewById(R.id.question_bank_titleview);
         btnLikes = (Button)view.findViewById(R.id.btn_likes);
+        btnNotes = (Button)view.findViewById(R.id.btn_notes);
 
         initEvents();
 
@@ -87,6 +89,14 @@ public class QuestionBankFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QuestionBankFragment.this.getActivity(), ShowLikesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuestionBankFragment.this.getActivity(), ShowNotesActivity.class);
                 startActivity(intent);
             }
         });

@@ -73,6 +73,7 @@
         <activity android:name=".questionbank.activity.SelectExamCategoryActivity" />
         <activity android:name=".questionbank.activity.NotesActivity" />
         <activity android:name=".questionbank.activity.ShowLikesActivity"></activity>
+        <activity android:name=".questionbank.activity.ShowNotesActivity"></activity>
     </application>
 
 </manifest>
