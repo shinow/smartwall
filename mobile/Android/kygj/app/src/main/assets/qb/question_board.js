@@ -10,14 +10,16 @@ new Vue({
 	},
 	methods: {
 		doQuestion: function(index, guid) {
-			__Native__.startDoQuestion(index, this.subjectName, this.chapterGuid, this.chapterName);
+			__Native__.startDoQuestion(parseInt(index), this.subjectName, this.chapterGuid, this.chapterName);
 		}
 	},
 	created: function() {
 		this.chapterGuid = getUrlKey('chapterGuid');
 		this.chapterName = getUrlKey('chapterName');
 		this.subjectName = getUrlKey('subjectName');
-		this.questions = JSON.parse(__Native__.getChapterQuestion(this.chapterGuid));
+		this.type = getUrlKey('type');
+
+		this.questions = JSON.parse(__Native__.getChapterQuestion(this.chapterGuid, this.type));
 	}
 });
 

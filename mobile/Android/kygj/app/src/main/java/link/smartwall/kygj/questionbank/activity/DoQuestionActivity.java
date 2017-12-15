@@ -69,7 +69,6 @@ public class DoQuestionActivity extends AppCompatActivity {
 
         String chapterGuid = bundle.getString("chapterGuid");
         int index = bundle.getInt("index");
-
         setupViewPager(viewPager, chapterGuid, index);
 
         View view = LayoutInflater.from(this)

@@ -37,6 +37,8 @@ public class SelectQuestionActivity extends AppCompatActivity {
         final String chapterName = bundle.getString("chapterName");
         final String chapterGuid = bundle.getString("chapterGuid");
         final String subjectName = bundle.getString("subjectName");
+        final String type = bundle.getString("type");
+
         mTitleView.getRightTextTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +48,7 @@ public class SelectQuestionActivity extends AppCompatActivity {
         });
 
         mWebView = (NativeWebView) this.findViewById(R.id.web_view);
-        mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapterName=" + chapterName + "&chapterGuid=" + chapterGuid + "&subjectName=" + subjectName);
+        mWebView.loadUrl("file:///android_asset/qb/question_board.html?chapterName=" + chapterName + "&chapterGuid=" + chapterGuid + "&subjectName=" + subjectName + "&type=" + type);
     }
 
     @Override

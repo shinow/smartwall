@@ -61,7 +61,7 @@ public class JSNativeClass {
     }
 
     @JavascriptInterface
-    public String getChapterQuestion(String chapterGuid) {
+    public String getChapterQuestion(String chapterGuid, String type) {
         JSONArray data = new JSONArray();
         Map<String, Integer> rs = new HashMap<String, Integer>();
         List<ChapterQuestionDo> rd = LocalDataReader.readChapterQuestionDo(chapterGuid);
@@ -69,16 +69,30 @@ public class JSNativeClass {
             rs.put(chapterQuestionDo.getQuestionGuid(), chapterQuestionDo.getResult());
         }
 
-        JSONArray questions = LocalDataReader.readQuestions(chapterGuid);
-        for (int i = 0, size = questions.size(); i < size; i++) {
-            JSONObject jo = questions.getJSONObject(i);
+        if ("null".equals(type)) {
+            JSONArray questions = LocalDataReader.readQuestions(chapterGuid);
+            for (int i = 0, size = questions.size(); i < size; i++) {
+                JSONObject jo = questions.getJSONObject(i);
 
-            JSONObject item = new JSONObject();
-            item.put("no", i + 1);
-            item.put("guid", jo.getString("guid"));
-            item.put("status", rs.get(jo.getString("guid")));
+                JSONObject item = new JSONObject();
+                item.put("no", jo.getString("index"));
+                item.put("guid", jo.getString("guid"));
+                item.put("status", rs.get(jo.getString("guid")));
 
-            data.add(item);
+                data.add(item);
+            }
+        } else if ("liked".equals(type)) {
+            JSONArray questions = LocalDataReader.readLikedQuestions(chapterGuid);
+            for (int i = 0, size = questions.size(); i < size; i++) {
+                JSONObject jo = questions.getJSONObject(i);
+
+                JSONObject item = new JSONObject();
+                item.put("no", jo.getString("index"));
+                item.put("guid", jo.getString("guid"));
+                item.put("status", rs.get(jo.getString("guid")));
+
+                data.add(item);
+            }
         }
 
         return data.toJSONString();
@@ -142,6 +156,6 @@ public class JSNativeClass {
 
     @JavascriptInterface
     public String getCommentCount(String questionGuid) {
-       return RemoteDataReader.getCommentCount(questionGuid);
+        return RemoteDataReader.getCommentCount(questionGuid);
     }
 }
