@@ -104,11 +104,11 @@ public class QuestionBankControll {
     @ApiOperation(value = "保存Chapter试卷")
     @RequestMapping(value = "/question/chapter/save", method = RequestMethod.POST)
     public String saveChapterQesution(@RequestParam("index") int index,
-                                   @RequestParam("guid") String guid,
-                                   @RequestParam("category_guid") String categoryGuid,
-                                   @RequestParam("subject_guid") String subjectGuid,
-                                   @RequestParam("chapter_guid") String chapterGuid,
-                                   @RequestParam("data") String data) {
+                                      @RequestParam("guid") String guid,
+                                      @RequestParam("category_guid") String categoryGuid,
+                                      @RequestParam("subject_guid") String subjectGuid,
+                                      @RequestParam("chapter_guid") String chapterGuid,
+                                      @RequestParam("data") String data) {
         String oid = guid;
         if ("0".equals(oid)) {
             oid = UUID.randomUUID().toString().replace("-", "");
@@ -122,12 +122,6 @@ public class QuestionBankControll {
     @RequestMapping(value = "/question/chapter/get", method = RequestMethod.POST)
     public Object getChapterQesution(@RequestParam("chapter_guid") String chapterGuid) {
         return questionBankService.getChapterQuestion(chapterGuid);
-    }
-
-    @ApiOperation(value = "获取Chapter试卷,完整对象，手机端使用")
-    @RequestMapping(value = "/question/chapter/get2", method = RequestMethod.POST)
-    public Object getChapterQesution2(@RequestParam("chapter_guid") String chapterGuid) {
-        return questionBankService.getChapterQuestion2(chapterGuid);
     }
 
     @ApiOperation(value = "保存Subject试卷")

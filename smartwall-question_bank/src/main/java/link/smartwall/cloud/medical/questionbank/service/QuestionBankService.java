@@ -145,10 +145,6 @@ public class QuestionBankService {
         return li;
     }
 
-    public ChapterQuestion getChapterQuestion2(String chapterGuid) {
-        return dao.fetch(ChapterQuestion.class, Cnd.where(Exps.eq("chapterGuid", chapterGuid)));
-    }
-
     public void saveSubjectQuestion(String subjectGuid, String data) {
         SubjectQuestion sq = dao.fetch(SubjectQuestion.class, Cnd.where(Exps.eq("subjectGuid", subjectGuid)));
 
