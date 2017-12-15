@@ -162,6 +162,8 @@ public class DoQuestionActivity extends AppCompatActivity {
             questions = LocalDataReader.readLikedQuestions(chapterGuid);
         } else if ("notes".equals(type)) {
             questions = LocalDataReader.readNotesQuestions(chapterGuid);
+        } else if ("error".equals(type)) {
+            questions = LocalDataReader.readErrorQuestions(chapterGuid);
         }
 
         int length = questions.size();

@@ -19,6 +19,7 @@ import java.util.List;
 import link.smartwall.controls.view.TitleView;
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.R;
+import link.smartwall.kygj.questionbank.activity.ShowErrorActivity;
 import link.smartwall.kygj.questionbank.activity.ShowLikesActivity;
 import link.smartwall.kygj.questionbank.activity.ShowNotesActivity;
 import link.smartwall.kygj.questionbank.adapter.EndlessRecyclerOnScrollListener;
@@ -63,7 +64,7 @@ public class QuestionBankFragment extends Fragment {
         titleView = (TitleView) view.findViewById(R.id.question_bank_titleview);
         btnLikes = (Button)view.findViewById(R.id.btn_likes);
         btnNotes = (Button)view.findViewById(R.id.btn_notes);
-
+        btnErrors = (Button)view.findViewById(R.id.btn_error_do);
         initEvents();
 
         initSubjects();
@@ -97,6 +98,13 @@ public class QuestionBankFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QuestionBankFragment.this.getActivity(), ShowNotesActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnErrors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuestionBankFragment.this.getActivity(), ShowErrorActivity.class);
                 startActivity(intent);
             }
         });

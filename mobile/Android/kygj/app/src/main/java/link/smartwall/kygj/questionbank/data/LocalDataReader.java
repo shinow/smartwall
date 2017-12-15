@@ -105,6 +105,29 @@ public class LocalDataReader {
     }
 
     /**
+     * 获取有错题的科目
+     */
+    public static List<Subject> readErrorSubjects() {
+        try {
+            String sql = "select distinct t1.guid, t1.name from exam_subject t1 inner join exam_chapter_questions t2 on t1.guid = t2.subjectGuid inner join exam_chapter_question_do t3 on t2.guid = t3.question_guid and t3.result = 2";
+            List<DbModel> ss = getDb().findDbModelAll(new SqlInfo(sql));
+            List<Subject> rs = new ArrayList<Subject>();
+            for (DbModel s : ss) {
+                Subject subject = new Subject();
+
+                subject.setGuid(s.getString("guid"));
+                subject.setName(s.getString("name"));
+                rs.add(subject);
+            }
+            return rs;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.EMPTY_LIST;
+    }
+
+    /**
      * 获取章节
      *
      * @param subject 科目
@@ -162,6 +185,34 @@ public class LocalDataReader {
     public static List<Chapter> readNotesChapters(Subject subject) {
         try {
             String sql = "select distinct t1.guid, t1.name from exam_chapter t1 inner join exam_chapter_questions t2 on t1.guid = t2.chapterGuid inner join exam_notes t3 on t2.guid = t3.questionGuid where t1.subjectGuid = '" + subject.getGuid() + "'";
+            List<DbModel> ss = getDb().findDbModelAll(new SqlInfo(sql));
+
+            List<Chapter> chapters = new ArrayList<>();
+            for (DbModel c : ss) {
+                Chapter chapter = new Chapter();
+                chapter.setGuid(c.getString("guid"));
+                chapter.setName(c.getString("name"));
+                chapter.setSubjectName(subject.getName());
+
+                chapters.add(chapter);
+            }
+
+            return chapters;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.EMPTY_LIST;
+    }
+
+    /**
+     * 获取章节
+     *
+     * @param subject 科目
+     */
+    public static List<Chapter> readErrosChapters(Subject subject) {
+        try {
+            String sql = "select distinct t1.guid, t1.name from exam_chapter t1 inner join exam_chapter_questions t2 on t1.guid = t2.chapterGuid inner join exam_chapter_question_do t3 on t2.guid = t3.question_guid and t3.result = 2 where t1.subjectGuid = '" + subject.getGuid() + "'";
             List<DbModel> ss = getDb().findDbModelAll(new SqlInfo(sql));
 
             List<Chapter> chapters = new ArrayList<>();
@@ -247,6 +298,32 @@ public class LocalDataReader {
         try {
             String sql = "select t1.guid, t1.'index', t1.data from exam_chapter_questions t1 " +
                     "inner join exam_notes t2 on t1.guid = t2.questionGuid " +
+                    "where t1.chapterGuid = '" + chapterGuid + "'";
+            List<DbModel> ss = getDb().findDbModelAll(new SqlInfo(sql));
+            for (DbModel m : ss) {
+                JSONObject q = JSON.parseObject(m.getString("data"));
+                q.put("index", m.getString("index"));
+
+                arr.add(q);
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        return arr;
+    }
+
+    /**
+     * 获取章节笔记的试题
+     *
+     * @param chapterGuid 章节
+     */
+    public static JSONArray readErrorQuestions(String chapterGuid) {
+        JSONArray arr = new JSONArray();
+
+        try {
+            String sql = "select t1.guid, t1.'index', t1.data from exam_chapter_questions t1 " +
+                    "inner join exam_chapter_question_do t2 on t1.guid = t2.question_guid and t2.result = 2 " +
                     "where t1.chapterGuid = '" + chapterGuid + "'";
             List<DbModel> ss = getDb().findDbModelAll(new SqlInfo(sql));
             for (DbModel m : ss) {
