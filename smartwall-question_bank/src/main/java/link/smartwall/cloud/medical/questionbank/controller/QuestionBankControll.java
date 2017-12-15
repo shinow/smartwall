@@ -53,6 +53,12 @@ public class QuestionBankControll {
         return questionBankService.getChapters(subjectGuid);
     }
 
+    @ApiOperation(value = "根据种类获取章节")
+    @RequestMapping(value = "/list/category_chapter", method = RequestMethod.POST)
+    public Object categoryChapter(@RequestParam("category_guid") String categoryGuid) {
+        return questionBankService.getCategoryChapters(categoryGuid);
+    }
+    
     @ApiOperation(value = "新增分类")
     @RequestMapping(value = "/add/kind", method = RequestMethod.POST)
     public String saveKind(@RequestParam("name") String name) {
@@ -123,6 +129,14 @@ public class QuestionBankControll {
     public Object getChapterQesution(@RequestParam("chapter_guid") String chapterGuid) {
         return questionBankService.getChapterQuestion(chapterGuid);
     }
+   
+    @ApiOperation(value = "获取category试卷")
+    @RequestMapping(value = "/question/category/get", method = RequestMethod.POST)
+    public Object getCatetoryQesution(@RequestParam("category_guid") String categoryGuid) {
+        return questionBankService.getCategoryQuestion(categoryGuid);
+    }
+    
+    
 
     @ApiOperation(value = "保存Subject试卷")
     @RequestMapping(value = "/question/subject/save", method = RequestMethod.POST)

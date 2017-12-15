@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.nutz.dao.Chain;
 import org.nutz.dao.Cnd;
+import org.nutz.dao.Sqls;
+import org.nutz.dao.sql.Sql;
 import org.nutz.dao.util.cri.Exps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -55,6 +57,22 @@ public class QuestionBankService {
 
     public List<Chapter> getChapters(String subjectGuid) {
         return dao.query(Chapter.class, Cnd.where(Exps.eq("subjectGuid", subjectGuid)));
+    }
+
+    public Object getCategoryChapters(String categoryGuid) {
+        String strSql = "select t1.guid, t1.subject_guid, t1.name "
+                        + "from exam_medical_chapter t1 "
+                        + "inner join exam_medical_subject t2 on t1.subject_guid = t2.guid "
+                        + "where t2.category_guid = @categoryGuid";
+
+        Sql sql = Sqls.create(strSql);
+        sql.setParam("categoryGuid", categoryGuid);
+        sql.setEntity(dao.getEntity(Chapter.class));
+        sql.setCallback(Sqls.callback.entities());
+
+        dao.execute(sql);
+
+        return sql.getResult();
     }
 
     public String saveKind(String name) {
@@ -142,6 +160,16 @@ public class QuestionBankService {
 
         List<ChapterQuestion> li = this.mongoTemplate.find(query, ChapterQuestion.class, "exam_questions");
 
+        return li;
+    }
+
+    public List<ChapterQuestion> getCategoryQuestion(String categoryGuid) {
+        Query query = Query.query(Criteria.where("categoryGuid").is(categoryGuid))
+                           .with(new Sort(Direction.ASC, "chapterGuid").and(new Sort(Direction.ASC, "index")));
+
+        List<ChapterQuestion> li = this.mongoTemplate.find(query, ChapterQuestion.class, "exam_questions");
+
+        System.out.println(li);
         return li;
     }
 

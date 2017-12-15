@@ -239,6 +239,7 @@
             loadQuestions(guid) {
                 var that = this;
                 this.chapterGuid = guid;
+                this.items = [];
                 data.getChapterQuestions(this.categoryGuid, this.subjectGuid, this.chapterGuid).then(function(req) {
                     for(let o of req){
                     	let item = JSON.parse(o.data);
@@ -252,7 +253,6 @@
                         that.current = that.items[0];
                         that.current.select = true;
                     }else {
-                        that.items = [];
                         that.current = {}
                     }                   
                 });
