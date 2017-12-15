@@ -115,73 +115,82 @@ define(function(require) {
         };
 
         var menus = [{
+            name: '基础信息',
+            children: [{
+                name: '基础信息',
+                func: '/question-bank/base_info'
+            }, {
+                name: '题库',
+                func: '/question-bank/designer'
+            }]
+        },{
             name: '注册用户管理',
             children: [{
                 name: '注册信息管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '注册用户统计',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }]
         }, {
             name: '购书会员管理',
             children: [{
                 name: '会员特权码生成管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '特权码设置',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '会员特权码生成统计',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '会员特权码使用管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '会员特权码使用统计',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }]
         }, {
             name: '全局参数设置',
             children: [{
                 name: '全屏图片管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '倒计时设置',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '励志语句管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '行政区划管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '会员等级管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }]
         }, {
             name: '论坛管理',
             children: [{
                 name: '论坛设置',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '帖子管理',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '发帖',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '违规行为处罚',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }]
         }, {
             name: '最新资讯管理',
             children: [{
                 name: '推送',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }, {
                 name: '测试推送',
-                func: ''
+                func: 'grid/show/60CD9199B915462085E16846A0EB1F41.mvc'
             }]
         }, {
             name: '题库管理',
@@ -203,15 +212,6 @@ define(function(require) {
             }, {
                 name: '数学三题库',
                 func: 'grid/show/91A4B54A90AF4848A6648C3493EE13BE.mvc'
-            }]
-        }, {
-            name: '基础信息',
-            children: [{
-                name: '基础信息',
-                func: '/question-bank/base_info'
-            }, {
-                name: '题库',
-                func: '/question-bank/designer'
             }]
         }];
 
