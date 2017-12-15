@@ -11,11 +11,9 @@ import java.util.List;
 
 import link.smartwall.kygj.QuestionBankAppplication;
 import link.smartwall.kygj.questionbank.domain.Category;
-import link.smartwall.kygj.questionbank.domain.Chapter;
 import link.smartwall.kygj.questionbank.domain.ChapterList;
 import link.smartwall.kygj.questionbank.domain.ChapterQuestions;
 import link.smartwall.kygj.questionbank.domain.QuestionDiscuss;
-import link.smartwall.kygj.questionbank.domain.Subject;
 import link.smartwall.kygj.questionbank.domain.SubjectList;
 import link.smartwall.kygj.questionbank.domain.UserInfo;
 
@@ -31,8 +29,8 @@ public class RemoteDataReader {
     }
 
     //    private static final String URL_PREFIX = "http://121.43.96.235:7001/question-bank/v1/";
-    private static final String URL_PREFIX = "http://192.168.3.20:7001/question-bank/v1/";
-//    private static final String URL_PREFIX = "http://192.168.1.3:7001/question-bank/v1/";
+//    private static final String URL_PREFIX = "http://192.168.3.20:7001/question-bank/v1/";
+    private static final String URL_PREFIX = "http://192.168.1.6:7001/question-bank/v1/";
 
     /**
      * @return 数据访问对象
@@ -61,12 +59,9 @@ public class RemoteDataReader {
 
         try {
             SubjectList subjects = http().postSync(params, SubjectList.class);
-
-            for (Subject s : subjects) {
-                getDb().saveOrUpdate(s);
-
-                RemoteDataReader.readChapters(s.getGuid());
-            }
+            System.out.println("subjects");
+            System.out.println(subjects);
+            getDb().saveOrUpdate(subjects);
         } catch (Throwable ex) {
             ex.printStackTrace();
         }
@@ -75,21 +70,18 @@ public class RemoteDataReader {
     /**
      * 加载科目下所有章节
      *
-     * @param subjectGuid 科目
+     * @param categoryGuid 分类Guid
      */
 
-    public static void readChapters(String subjectGuid) {
+    public static void readChapters(String categoryGuid) {
         RequestParams params = new RequestParams(URL_PREFIX + "list/chapter");
-        params.addQueryStringParameter("subject_guid", subjectGuid);
+        params.addQueryStringParameter("category_guid", categoryGuid);
 
         try {
             ChapterList chapters = x.http().postSync(params, ChapterList.class);
-
-            for (Chapter c : chapters) {
-                getDb().saveOrUpdate(c);
-
-                readQuestions(c.getGuid());
-            }
+            System.out.println("chapters");
+            System.out.println(chapters);
+            getDb().saveOrUpdate(chapters);
         } catch (Throwable ex) {
             ex.printStackTrace();
         }
@@ -101,13 +93,15 @@ public class RemoteDataReader {
      * @param chapterGuid 章节
      */
     public static void readQuestions(String chapterGuid) {
-        RequestParams params = new RequestParams(URL_PREFIX + "question/chapter/get2");
+        RequestParams params = new RequestParams(URL_PREFIX + "question/chapter/get");
         params.addQueryStringParameter("chapter_guid", chapterGuid);
 
         try {
             ChapterQuestions chapterQuestions = x.http().postSync(params, ChapterQuestions.class);
 
             if (chapterQuestions != null) {
+                System.out.println("chapterQuestions");
+                System.out.println(chapterQuestions);
                 getDb().saveOrUpdate(chapterQuestions);
             }
         } catch (Throwable ex) {

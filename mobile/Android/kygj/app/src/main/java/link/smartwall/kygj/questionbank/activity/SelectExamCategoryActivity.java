@@ -131,6 +131,9 @@ public class SelectExamCategoryActivity extends AppCompatActivity {
             db.dropTable(ChapterQuestions.class);
 
             RemoteDataReader.readSubjects(this.categoryGuid);
+            RemoteDataReader.readChapters(this.categoryGuid);
+            RemoteDataReader.readQuestions(this.categoryGuid);
+
         } catch (DbException ex) {
 
         }
@@ -149,8 +152,7 @@ public class SelectExamCategoryActivity extends AppCompatActivity {
 
                 tvKind.setText(tx);
             }
-        })
-                .setTitleText("选择考试")
+        }).setTitleText("选择考试")
                 .setCyclic(false, false, false)
                 .setSelectOptions(0, 0, 1)
                 .setOutSideCancelable(false)
