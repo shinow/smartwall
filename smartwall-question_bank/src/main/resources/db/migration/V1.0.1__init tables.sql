@@ -24,7 +24,8 @@ create table EXAM_MEDICAL_KIND
   GUID        VARCHAR2(32) not null,
   NAME        VARCHAR2(50) not null,
   MODIFY_TIME DATE,
-  MODIFY_FLAG NUMBER(1);
+  MODIFY_FLAG NUMBER(1)
+ );
  
 comment on table EXAM_MEDICAL_KIND is '医学分类';
 alter table EXAM_MEDICAL_KIND
