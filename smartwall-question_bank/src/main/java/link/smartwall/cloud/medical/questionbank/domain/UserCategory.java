@@ -11,7 +11,7 @@ import org.nutz.dao.entity.annotation.Table;
  * 用户关注考试种类
  *
  */
-@Table(value = "exam_medical_user_category")
+@Table(value = "exam_user_category")
 public class UserCategory {
 	@Name
 	@Column(value = "user_guid")
