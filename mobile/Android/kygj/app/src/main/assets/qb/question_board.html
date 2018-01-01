@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../libs/vue.min.js"></script>
 </head>
 <body>
-<div id ="app">
+<div id ="app" v-cloak>
     <div class="title">{{title}}</div>
     <div class="items">
     	<span v-for="q in questions" class="item" :class="{'right': q.status==1, 'error': q.status==2}" @click="doQuestion(q.no, q.guid)">{{q.no}}</span>

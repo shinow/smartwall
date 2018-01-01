@@ -22,6 +22,10 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+[v-cloak] {
+  display: none;
+}
+
 .title {
     padding-left: 20px;
     line-height: 24px;
