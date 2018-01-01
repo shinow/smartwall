@@ -64,8 +64,8 @@ public class SelectExamCategoryActivity extends AppCompatActivity {
         kindGuid = userInfo.getExamKind();
         categoryGuid = userInfo.getExamCategory();
 
-        kinds.add(new Kind("5DC9AF0B4078E3F8E050840A063944CD", "医师资格"));
-        kinds.add(new Kind("5DC9AF0B4079E3F8E050840A063944CD", "卫生资格"));
+        kinds.add(new Kind("61AEAB78A7CD3671E050840A063959A8", "医师资格"));
+        kinds.add(new Kind("61AEAB78A7CE3671E050840A063959A8", "卫生资格"));
 
         final List<Category> category1 = new ArrayList<>();
         final List<Category> category2 = new ArrayList<>();
@@ -76,7 +76,7 @@ public class SelectExamCategoryActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Category> result) {
                 for (Category c : result) {
-                    if ("5DC9AF0B4078E3F8E050840A063944CD".equals(c.getKindGuid())) {
+                    if ("61AEAB78A7CD3671E050840A063959A8".equals(c.getKindGuid())) {
                         category1.add(c);
                     } else {
                         category2.add(c);
