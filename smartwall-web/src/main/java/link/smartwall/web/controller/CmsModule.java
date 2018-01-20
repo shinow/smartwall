@@ -7,7 +7,7 @@ import org.nutz.mvc.annotation.Views;
 import org.nutz.mvc.ioc.provider.ComboIocProvider;
 
 import link.smartwall.freemarker.FreemarkerViewMaker;
-import link.smartwall.oss.mvc.OssViewMaker;
+// import link.smartwall.oss.mvc.OssViewMaker;
 
 /**
  * 系统MVC加载界面
@@ -29,6 +29,6 @@ import link.smartwall.oss.mvc.OssViewMaker;
                                               "link.smartwall.web.controller",
                                               "link.smartwall.service"})
 @Modules(packages = {"link.smartwall.web.controller"}, scanPackage = true)
-@Views({OssViewMaker.class, FreemarkerViewMaker.class})
+@Views({FreemarkerViewMaker.class})
 @Encoding(input = "UTF-8", output = "UTF-8")
 public class CmsModule {}

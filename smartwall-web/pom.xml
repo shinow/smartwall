@@ -15,6 +15,11 @@
 	<dependencies>
 		<dependency>
     		<groupId>link.smartwall</groupId>
+    		<artifactId>smartwall-oss</artifactId>
+    		<version>1.0.0</version>
+		</dependency>
+		<dependency>
+    		<groupId>link.smartwall</groupId>
     		<artifactId>smartwall-grid</artifactId>
     		<version>1.0.0</version>
 		</dependency>
