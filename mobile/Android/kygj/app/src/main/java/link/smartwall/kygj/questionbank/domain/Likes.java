@@ -13,7 +13,7 @@ public class Likes {
 
     @Column(name = "value")
     private String value;
-
+`
     public String getQuestionGuid() {
         return questionGuid;
     }
