@@ -187,6 +187,8 @@ public class QuestionBankControll {
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public Result login(@RequestParam("mobile") String mobile, @RequestParam("password") String password) {
         try {
+        	System.out.println(mobile);
+        	System.out.println(password);
             User user = questionBankService.login(mobile, password);
             return Result.successResult(user);
         } catch (ExamException ex) {
